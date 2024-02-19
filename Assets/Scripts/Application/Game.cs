@@ -31,7 +31,7 @@ namespace BearRun
 
 
             // 初始化
-            // 注册 E_StartUp 事件，利用 StartUpController 完成 View 和 其他 Controller 的注册
+            // 注册 E_StartUp 事件，利用 StartUpController 完成 View 和 其他 Controller 的注
             RegisterController(Consts.E_StartUp, typeof(StartUpController));
 
             // 跳转场景
@@ -41,9 +41,11 @@ namespace BearRun
         public void LoadLevel(int level)
         {
             // 发送退出场景事件
-            SceneArgs eSceneArgs = new SceneArgs();
-            // 获取当前场景索引值
-            eSceneArgs.SceneIndex = SceneManager.GetActiveScene().buildIndex;
+            SceneArgs eSceneArgs = new()
+            {
+                // 获取当前场景索引值
+                SceneIndex = SceneManager.GetActiveScene().buildIndex
+            };
             SendEvent(Consts.E_ExitScene, eSceneArgs);
             Debug.Log("已发送 " + Consts.E_ExitScene + " 事件");
 
@@ -55,9 +57,11 @@ namespace BearRun
         private void OnLevelWasLoaded(int level)
         {
             // 发送加载新场景事件
-            SceneArgs eSceneArgs = new SceneArgs();
-            // 获取当前场景索引值
-            eSceneArgs.SceneIndex = level;
+            SceneArgs eSceneArgs = new()
+            {
+                // 获取当前场景索引值
+                SceneIndex = level
+            };
 
             SendEvent(Consts.E_EnterScene, level);
             Debug.Log("已发送 " + Consts.E_EnterScene + " 事件，当前场景为：" + level);

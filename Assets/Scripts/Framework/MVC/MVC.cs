@@ -17,6 +17,10 @@ namespace BearRun
         // 注册 View
         public static void RegisterView(View view)
         {
+            // 防止重复注册
+            if (Views.ContainsKey(view.Name))
+                Views.Remove(view.Name);
+
             view.RegisterAttentionEvent();
             Views[view.Name] = view;
         }
