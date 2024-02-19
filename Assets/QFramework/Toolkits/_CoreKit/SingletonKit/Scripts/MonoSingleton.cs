@@ -12,7 +12,7 @@ namespace QFramework
 {
 #if UNITY_EDITOR
     // v1 No.163
-    [ClassAPI("03.SingletonKit", "MonoSingleton<T>", 0,"MonoSingleton<T>")]
+    [ClassAPI("03.SingletonKit", "MonoSingleton<T>", 0, "MonoSingleton<T>")]
     [APIDescriptionCN("MonoBehaviour 单例类")]
     [APIDescriptionEN("MonoBehavior Singleton Class")]
     [APIExampleCode(@"

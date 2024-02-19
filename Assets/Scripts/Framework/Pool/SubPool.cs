@@ -62,7 +62,7 @@ namespace BearRun
         /// <param name="obj"></param>
         public void UnSpawn(GameObject obj)
         {
-            if (mObjects.Contains(obj))
+            if (Contain(obj))
             {
                 obj.SendMessage("OnUnSpawn", SendMessageOptions.DontRequireReceiver);
                 obj.SetActive(false);
@@ -81,6 +81,16 @@ namespace BearRun
                     UnSpawn(obj);
                 }
             }
+        }
+
+        /// <summary>
+        /// 判断是否包含物体
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public bool Contain(GameObject obj)
+        {
+            return mObjects.Contains(obj);
         }
     }
 }
