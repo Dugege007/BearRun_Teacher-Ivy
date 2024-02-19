@@ -21,6 +21,11 @@ namespace BearRun
         // 父物体位置信息
         private Transform mParentTrans;
 
+        /// <summary>
+        /// 构造方法
+        /// </summary>
+        /// <param name="parentTrans">父物体位置信息</param>
+        /// <param name="obj">预制体</param>
         public SubPool(Transform parentTrans, GameObject obj)
         {
             mPrefab = obj;

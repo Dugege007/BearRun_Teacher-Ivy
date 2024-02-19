@@ -24,7 +24,10 @@ namespace BearRun
             mSFX.loop = false;
         }
 
-        // ≤•∑≈±≥æ∞“Ù¿÷
+        /// <summary>
+        /// ≤•∑≈±≥æ∞“Ù¿÷
+        /// </summary>
+        /// <param name="audioName"></param>
         public void PlayBGM(string audioName)
         {
             string oldName;
@@ -47,7 +50,10 @@ namespace BearRun
             }
         }
 
-        // ≤•∑≈“Ù–ß
+        /// <summary>
+        /// ≤•∑≈“Ù–ß
+        /// </summary>
+        /// <param name="audioName"></param>
         public void PlaySFX(string audioName)
         {
             string path = ResourcesDir + "/" + audioName;

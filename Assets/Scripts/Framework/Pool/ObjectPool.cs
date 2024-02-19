@@ -11,7 +11,12 @@ namespace BearRun
         // 管理所有的池子
         private Dictionary<string, SubPool> mPoolsDir = new Dictionary<string, SubPool>();
 
-        // 取物体
+        /// <summary>
+        /// 取物体
+        /// </summary>
+        /// <param name="name">物体名称</param>
+        /// <param name="parentTrans">父物体位置信息</param>
+        /// <returns></returns>
         public GameObject Spawn(string name, Transform parentTrans)
         {
             SubPool pool = null;
@@ -23,7 +28,10 @@ namespace BearRun
             return pool.Spawn();
         }
 
-        // 回收物体
+        /// <summary>
+        /// 回收物体
+        /// </summary>
+        /// <param name="obj"></param>
         public void UnSpawn(GameObject obj)
         {
             SubPool pool = null;
@@ -41,7 +49,9 @@ namespace BearRun
                 pool.UnSpawn(obj);
         }
 
-        // 回收所有物体
+        /// <summary>
+        /// 回收所有物体
+        /// </summary>
         public void UnSpawnAll()
         {
             foreach (SubPool p in mPoolsDir.Values)
