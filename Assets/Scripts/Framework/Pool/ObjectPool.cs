@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace BearRun
 {
-    public class ObjectPool : MonoBehaviour
+    public class ObjectPool : MonoSingleton<ObjectPool>
     {
         // ×ÊÔ´Ä¿Â¼
         public string ResourceDir = "";
