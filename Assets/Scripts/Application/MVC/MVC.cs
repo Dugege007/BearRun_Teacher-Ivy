@@ -17,6 +17,7 @@ namespace BearRun
         // 注册 View
         public static void RegisterView(View view)
         {
+            view.RegisterAttentionEvent();
             Views[view.Name] = view;
         }
 
@@ -35,7 +36,7 @@ namespace BearRun
         // 获取 Model
         public static T GetModel<T>() where T : Model
         {
-            foreach (var model in Models)
+            foreach (var model in Models.Values)
                 if (model is T)
                     return model as T;
 
@@ -45,7 +46,7 @@ namespace BearRun
         // 获取 View
         public static T GetView<T>() where T : View
         {
-            foreach (var view in Views)
+            foreach (var view in Views.Values)
                 if (view is T)
                     return view as T;
 
