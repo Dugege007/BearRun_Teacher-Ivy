@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace BearRun
+﻿namespace BearRun
 {
     public abstract class Model
     {
@@ -12,5 +6,11 @@ namespace BearRun
         /// 名字标识
         /// </summary>
         public abstract string Name { get; }
+
+        // 发送事件
+        protected void SendEvent(string eventName, object data = null)
+        {
+            MVC.SendEvent(eventName, data);
+        }
     }
 }
