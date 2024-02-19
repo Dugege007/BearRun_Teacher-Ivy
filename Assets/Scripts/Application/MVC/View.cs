@@ -10,5 +10,10 @@ namespace BearRun
         /// Ãû×Ö±êÊ¶
         /// </summary>
         public abstract string Name { get; }
+
+        [HideInInspector]
+        public List<string> AttentionList = new List<string>();
+
+        public abstract void HandleEvent(string eventName, object data);
     }
 }

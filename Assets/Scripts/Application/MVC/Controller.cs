@@ -8,6 +8,6 @@ namespace BearRun
 {
     public abstract class Controller
     {
-        
+        public abstract void Execute(object data);
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Tracing;
 
 namespace BearRun
 {
@@ -50,5 +51,30 @@ namespace BearRun
 
             return null;
         }
+
+        // 发送事件
+        public static void SendEvent(string eventName, object data = null)
+        {
+            // Controller 去执行
+            if (CommandMap.ContainsKey(eventName))
+            {
+                Type t = CommandMap[eventName];
+                // 控制器生成
+                // 通过反射类 Activator 创建 Controller 实例
+                Controller c = Activator.CreateInstance(t) as Controller;
+                c.Execute(data);
+            }
+
+            // View 处理
+            foreach (var v in Views.Values)
+            {
+                if (v.AttentionList.Contains(eventName))
+                {
+                    // 执行
+                    v.HandleEvent(eventName, data);
+                }
+            }
+        }
+
     }
 }
