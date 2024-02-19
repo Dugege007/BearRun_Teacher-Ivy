@@ -8,7 +8,8 @@ namespace BearRun
     public class Consts : MonoBehaviour
     {
         // ÊÂ¼şÃû³Æ
-        public const string EventExitScene = "EventExitScene";
-        public const string EventEnterScene = "EventEnterScene";
+        public const string E_ExitScene = "E_ExitScene";
+        public const string E_EnterScene = "E_EnterScene";
+        public const string E_StartUp = "E_StartUp";
     }
 }
