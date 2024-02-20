@@ -17,7 +17,7 @@ namespace BearRun
         /// <param name="name">物体名称</param>
         /// <param name="parentTrans">父物体位置信息</param>
         /// <returns></returns>
-        public GameObject Spawn(string name, Transform parentTrans)
+        public GameObject Allocate(string name, Transform parentTrans)
         {
             SubPool pool = null;
 
@@ -25,14 +25,14 @@ namespace BearRun
                 RegisterNewPool(name, parentTrans);
 
             pool = mPoolsDir[name];
-            return pool.Spawn();
+            return pool.Allocate();
         }
 
         /// <summary>
         /// 回收物体
         /// </summary>
         /// <param name="obj"></param>
-        public void UnSpawn(GameObject obj)
+        public void Recycle(GameObject obj)
         {
             SubPool pool = null;
 
@@ -46,16 +46,16 @@ namespace BearRun
             }
 
             if (pool != null)
-                pool.UnSpawn(obj);
+                pool.Recycle(obj);
         }
 
         /// <summary>
         /// 回收所有物体
         /// </summary>
-        public void UnSpawnAll()
+        public void Clear()
         {
             foreach (SubPool p in mPoolsDir.Values)
-                p.UnSpawnAll();
+                p.Clear();
         }
 
         // 新建一个池子

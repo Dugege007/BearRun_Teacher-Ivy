@@ -9,6 +9,7 @@ TagManager:
   - FxTemporaire
   - Goalkeeper
   - Goal
+  - Road
   layers:
   - Default
   - TransparentFX

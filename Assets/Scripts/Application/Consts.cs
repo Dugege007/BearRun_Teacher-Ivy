@@ -5,7 +5,7 @@ using UnityEngine;
 namespace BearRun
 {
     // 这里存储一些静态字段
-    public class Consts : MonoBehaviour
+    public static class Consts
     {
         // Event 名称
         public const string E_ExitScene = "E_ExitScene";
@@ -15,6 +15,6 @@ namespace BearRun
         // Model 名称
 
         // View 名称
-
+        public const string V_PlayerMove = "V_PlayerMove";
     }
 }

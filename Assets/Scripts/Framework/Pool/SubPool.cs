@@ -36,7 +36,7 @@ namespace BearRun
         /// 取出物体
         /// </summary>
         /// <returns></returns>
-        public GameObject Spawn()
+        public GameObject Allocate()
         {
             GameObject obj = null;
 
@@ -65,7 +65,7 @@ namespace BearRun
         /// 回收物体
         /// </summary>
         /// <param name="obj"></param>
-        public void UnSpawn(GameObject obj)
+        public void Recycle(GameObject obj)
         {
             if (Contain(obj))
             {
@@ -77,13 +77,13 @@ namespace BearRun
         /// <summary>
         /// 回收所有物体
         /// </summary>
-        public void UnSpawnAll()
+        public void Clear()
         {
             foreach (var obj in mObjects)
             {
                 if (obj.activeSelf)
                 {
-                    UnSpawn(obj);
+                    Recycle(obj);
                 }
             }
         }

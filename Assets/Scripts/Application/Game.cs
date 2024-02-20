@@ -35,7 +35,7 @@ namespace BearRun
             RegisterController(Consts.E_StartUp, typeof(StartUpController));
 
             // Ìø×ª³¡¾°
-            Game.Instance.LoadLevel(1);
+            Game.Instance.LoadLevel(4);
         }
 
         public void LoadLevel(int level)
