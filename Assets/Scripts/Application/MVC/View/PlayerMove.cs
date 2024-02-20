@@ -25,10 +25,7 @@ namespace BearRun
         private int mNowIndex = 1;
         private int mTargetIndex = 1;
         private float mXDistance;
-        private float mMoveSpeed = 15f;
-
-        private float mVelocityX = 0; // 用于SmoothDamp函数的当前速度，初始为0
-        private float mSmoothTime = 0.5f; // 平滑时间，值越小，速度变化越快
+        private float mMoveSpeed = 12f;
         #endregion
 
         #region 属性
@@ -61,6 +58,7 @@ namespace BearRun
         #endregion
 
         #region 方法
+        // 用 Update() 代替
         //private IEnumerator UpdateAction()
         //{
         //    while (true)
@@ -179,6 +177,8 @@ namespace BearRun
                         if (dir.y < 0) // 朝下
                             mInputDir = InputDirection.Down;
                     }
+
+                    SendMessage("AnimManager", mInputDir);
                     mActiveInput = false;
                 }
             }
