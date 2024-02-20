@@ -39,11 +39,12 @@ namespace BearRun
         private float mSlideTime = 0;
 
         private float mSpeedAddCount;
+
+        private GameModel mGameModel;
         #endregion
 
         #region ÊôÐÔ
         public override string Name => Consts.V_PlayerMove;
-
         public float Speed { get => mSpeed; set => mSpeed = Mathf.Min(value, mMaxSpeed); }
         #endregion
 
@@ -51,6 +52,7 @@ namespace BearRun
         private void Awake()
         {
             mCC = GetComponent<CharacterController>();
+            mGameModel = GetModel<GameModel>();
         }
 
         private void Start()
@@ -60,11 +62,14 @@ namespace BearRun
 
         private void Update()
         {
-            mYDistance -= mGravity * Time.deltaTime;
-            mCC.Move(Speed * Time.deltaTime * (transform.forward + new Vector3(0, mYDistance, 0)));
-            MoveControl();
-            UpdatePosition();
-            UpdateSpeed();
+            if (mGameModel.IsPause == false && mGameModel.IsPlaying)
+            {
+                mYDistance -= mGravity * Time.deltaTime;
+                mCC.Move(Speed * Time.deltaTime * (transform.forward + new Vector3(0, mYDistance, 0)));
+                MoveControl();
+                UpdatePosition();
+                UpdateSpeed();
+            }
         }
         #endregion
 

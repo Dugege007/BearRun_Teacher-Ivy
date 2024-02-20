@@ -11,6 +11,7 @@ namespace BearRun
             // 注册其他事件
 
             // 注册 Model
+            RegisterModel(new GameModel());
 
             // 初始化
 
