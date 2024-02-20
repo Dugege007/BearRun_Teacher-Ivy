@@ -1,3 +1,4 @@
+using GraphProcessor;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -60,6 +61,7 @@ namespace BearRun
 
         private void GetInputDirection()
         {
+            // 手势识别
             mInputDir = InputDirection.Null;
 
             if (Input.GetMouseButtonDown(0))
@@ -94,6 +96,19 @@ namespace BearRun
 
                 Debug.Log(mInputDir);
             }
+
+            if (Input.GetMouseButtonUp(0))
+                mActiveInput = false;
+
+            // 键盘识别
+            if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.Space))
+                mInputDir = InputDirection.Up;
+            if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.LeftControl))
+                mInputDir = InputDirection.Down;
+            if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
+                mInputDir = InputDirection.Left;
+            if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.RightArrow))
+                mInputDir = InputDirection.Right;
         }
         #endregion
 
