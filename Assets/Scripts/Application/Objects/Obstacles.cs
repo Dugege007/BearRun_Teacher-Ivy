@@ -35,8 +35,6 @@ namespace BearRun
                 .Position(pos + Vector3.up * 0.5f)
                 .Show();
 
-            // …˘“Ù
-            Game.Instance.Sound.PlaySFX("Se_UI_Hit");
             // ªÿ ’
             //Game.Instance.ObjectPool.Recycle(gameObject);
             Destroy(gameObject);

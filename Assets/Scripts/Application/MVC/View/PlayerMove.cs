@@ -83,7 +83,8 @@ namespace BearRun
             if (other.gameObject.CompareTag(Tags.SmallFence))
             {
                 other.gameObject.SendMessage("HitPlayer", transform.position, SendMessageOptions.RequireReceiver);
-                HitObstacle();
+                HitObstacle(); // ×²»÷¼õËÙ
+                Game.Instance.Sound.PlaySFX("Se_UI_Hit"); // ÉùÒô
             }
 
             if (other.gameObject.CompareTag(Tags.BigFence))
@@ -91,6 +92,17 @@ namespace BearRun
                 if (mIsSlide) return;
                 other.gameObject.SendMessage("HitPlayer", transform.position, SendMessageOptions.RequireReceiver);
                 HitObstacle();
+                Game.Instance.Sound.PlaySFX("Se_UI_Hit");
+            }
+
+            if (other.gameObject.CompareTag(Tags.Block))
+            {
+                // ÓÎÏ·½áÊø
+                if (mIsSlide) return;
+                other.gameObject.SendMessage("HitPlayer", transform.position, SendMessageOptions.RequireReceiver);
+                Game.Instance.Sound.PlaySFX("Se_UI_Hit");
+
+                SendEvent(Consts.E_EndGame);
             }
         }
         #endregion

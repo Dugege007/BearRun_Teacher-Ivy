@@ -10,6 +10,7 @@ namespace BearRun
         {
             // ×¢²áÆäËû Controller
             RegisterController(Consts.E_EnterScene, typeof(EnterSceneController));
+            RegisterController(Consts.E_EndGame, typeof(EndGameController));
 
             // ×¢²á Model
             RegisterModel(new GameModel());

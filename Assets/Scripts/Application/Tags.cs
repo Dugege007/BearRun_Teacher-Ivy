@@ -11,5 +11,6 @@ namespace BearRun
         public const string Road = "Road";
         public const string SmallFence = "SmallFence";
         public const string BigFence = "BigFence";
+        public const string Block = "Block";
     }
 }
