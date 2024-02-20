@@ -11,7 +11,7 @@ namespace BearRun
     {
         private Transform mParentTrans;
 
-        private void Start()
+        protected virtual void Awake()
         {
             mParentTrans = GameObject.Find("Effects").transform;
         }
@@ -26,7 +26,7 @@ namespace BearRun
 
         }
 
-        public void HitPlayer(Vector3 pos)
+        public virtual void HitPlayer(Vector3 pos)
         {
             // 生成特效
             //GameObject effectObj = Game.Instance.ObjectPool.Allocate("FX_ZhuangJi", mParentTrans);

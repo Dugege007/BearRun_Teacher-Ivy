@@ -98,7 +98,6 @@ namespace BearRun
             if (other.gameObject.CompareTag(Tags.Block))
             {
                 // 游戏结束
-                if (mIsSlide) return;
                 other.gameObject.SendMessage("HitPlayer", transform.position, SendMessageOptions.RequireReceiver);
                 Game.Instance.Sound.PlaySFX("Se_UI_End");
 
@@ -108,11 +107,17 @@ namespace BearRun
             if (other.gameObject.CompareTag(Tags.BlockChild))
             {
                 // 游戏结束
-                if (mIsSlide) return;
                 other.transform.parent.parent.gameObject.SendMessage("HitPlayer", transform.position, SendMessageOptions.RequireReceiver);
                 Game.Instance.Sound.PlaySFX("Se_UI_End");
 
                 SendEvent(Consts.E_EndGame);
+            }
+
+            if (other.gameObject.CompareTag(Tags.BeforeTrigger)) // 汽车触发器
+            {
+                other.transform.parent.gameObject.SendMessage("HitTrigger", SendMessageOptions.RequireReceiver);
+
+                // 汽车行走
             }
         }
         #endregion
