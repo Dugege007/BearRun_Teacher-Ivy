@@ -7,8 +7,8 @@ namespace BearRun
 {
     public class RoadChange : MonoBehaviour
     {
-        public GameObject mRoadNow;
-        public GameObject mRoadNext;
+        private GameObject mRoadNow;
+        private GameObject mRoadNext;
         private GameObject mParent;
 
         private void Start()
@@ -39,9 +39,11 @@ namespace BearRun
 
         private void AllocateNewRoad()
         {
+            int randomIndex = Random.Range(1, 5);
+
             // 更新对象
             mRoadNow = mRoadNext;
-            mRoadNext = Game.Instance.ObjectPool.Allocate("Pattern_2", mParent.transform);
+            mRoadNext = Game.Instance.ObjectPool.Allocate("Pattern_" + randomIndex, mParent.transform);
             mRoadNext.transform.position = mRoadNow.transform.position + new Vector3(0, 0, 160f);
             // 生成新的游戏对象
 
