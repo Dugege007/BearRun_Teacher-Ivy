@@ -27,12 +27,12 @@ namespace BearRun
 
             DontDestroyOnLoad(gameObject);
 
-            // 游戏启动
-
-
             // 初始化
             // 注册 E_StartUp 事件，利用 StartUpController 完成 View 和 其他 Controller 的注
             RegisterController(Consts.E_StartUp, typeof(StartUpController));
+
+            // 游戏启动
+            SendEvent(Consts.E_StartUp);
 
             // 跳转场景
             Game.Instance.LoadLevel(4);

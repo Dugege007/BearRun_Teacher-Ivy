@@ -26,5 +26,6 @@ namespace BearRun
 
         // View Ãû³Æ
         public const string V_PlayerMove = "V_PlayerMove";
+        public const string V_PlayerAnim = "V_PlayerAnim";
     }
 }

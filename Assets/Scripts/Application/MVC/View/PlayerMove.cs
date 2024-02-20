@@ -1,7 +1,3 @@
-using QFramework;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 namespace BearRun
@@ -11,7 +7,7 @@ namespace BearRun
         #region ³£Á¿
         private const float mMoveHorizontalSpeed = 12f;
         private const float mGravity = 9.8f;
-        private const float mJumpHeight = 5f;
+        private const float mJumpHeight = 3f;
 
         private const float mSpeedAddDistance = 300f;
         private const float mSpeedAddRate = 0.5f;
@@ -69,6 +65,11 @@ namespace BearRun
                 MoveControl();
                 UpdatePosition();
                 UpdateSpeed();
+            }
+
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                mGameModel.IsPause = !mGameModel.IsPause;
             }
         }
         #endregion
@@ -158,6 +159,7 @@ namespace BearRun
                         mTargetIndex--;
                         mXDistance = -2f;
                         SendMessage("AnimManager", mInputDir);
+                        Game.Instance.Sound.PlaySFX("Se_UI_HuaDong");
                     }
                     break;
                 case InputDirection.Right:
@@ -166,6 +168,7 @@ namespace BearRun
                         mTargetIndex++;
                         mXDistance = 2f;
                         SendMessage("AnimManager", mInputDir);
+                        Game.Instance.Sound.PlaySFX("Se_UI_HuaDong");
                     }
                     break;
                 case InputDirection.Up:
@@ -173,6 +176,7 @@ namespace BearRun
                     {
                         mYDistance = mJumpHeight;
                         SendMessage("AnimManager", mInputDir);
+                        Game.Instance.Sound.PlaySFX("Se_UI_Jump");
                     }
                     break;
                 case InputDirection.Down:
@@ -181,6 +185,7 @@ namespace BearRun
                         mIsSlide = true;
                         mSlideTime = 0.733f;
                         SendMessage("AnimManager", mInputDir);
+                        Game.Instance.Sound.PlaySFX("Se_UI_Slide");
                     }
                     break;
                 default:

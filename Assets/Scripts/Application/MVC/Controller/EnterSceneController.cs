@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace BearRun
 {
@@ -11,20 +6,25 @@ namespace BearRun
     {
         public override void Execute(object data)
         {
-            SceneArgs e = data as SceneArgs;
-            switch (e.SceneIndex)
+            SceneArgs eSceneArgs = data as SceneArgs;
+
+            if (eSceneArgs != null)
             {
-                case 1:
-                    break;
-                case 2:
-                    break;
-                case 3:
-                    break;
-                case 4:
-                    RegisterView(GameObject.FindWithTag(Tags.Player).GetComponent<PlayerMove>());
-                    break;
-                default:
-                    break;
+                switch (eSceneArgs.SceneIndex)
+                {
+                    case 1:
+                        break;
+                    case 2:
+                        break;
+                    case 3:
+                        break;
+                    case 4:
+                        RegisterView(GameObject.FindWithTag(Tags.Player).GetComponent<PlayerMove>());
+                        RegisterView(GameObject.FindWithTag(Tags.Player).GetComponent<PlayerAnim>());
+                        break;
+                    default:
+                        break;
+                }
             }
         }
     }

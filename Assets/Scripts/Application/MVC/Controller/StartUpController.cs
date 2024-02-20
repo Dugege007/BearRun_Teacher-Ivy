@@ -8,7 +8,8 @@ namespace BearRun
     {
         public override void Execute(object data)
         {
-            // 注册其他事件
+            // 注册其他 Controller
+            RegisterController(Consts.E_EnterScene, typeof(EnterSceneController));
 
             // 注册 Model
             RegisterModel(new GameModel());

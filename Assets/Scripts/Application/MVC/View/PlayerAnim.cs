@@ -5,23 +5,30 @@ using UnityEngine;
 
 namespace BearRun
 {
-    public class PlayerAnim : MonoBehaviour
+    public class PlayerAnim : View
     {
         private Animation anim;
-
         private Action PlayAnim;
+        private GameModel mGameModel;
+
+        public override string Name => Consts.V_PlayerAnim;
+
 
         private void Awake()
         {
             anim = GetComponent<Animation>();
             PlayAnim = PlayRun;
+            mGameModel = GetModel<GameModel>();
         }
 
         private void Update()
         {
             if (PlayAnim != null)
             {
-                PlayAnim();
+                if (mGameModel.IsPause == false && mGameModel.IsPlaying)
+                    PlayAnim();
+                else
+                    anim.Stop();
             }
         }
 
@@ -79,6 +86,11 @@ namespace BearRun
             anim.Play("jump");
             if (anim["jump"].normalizedTime > 0.95f)
                 PlayAnim = PlayRun;
+        }
+
+        public override void HandleEvent(string eventName, object data)
+        {
+            throw new NotImplementedException();
         }
     }
 }
