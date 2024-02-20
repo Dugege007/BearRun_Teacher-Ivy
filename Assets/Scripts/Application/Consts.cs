@@ -4,6 +4,15 @@ using UnityEngine;
 
 namespace BearRun
 {
+    public enum InputDirection
+    {
+        Null,
+        Right,
+        Left,
+        Up,
+        Down,
+    }
+
     // 这里存储一些静态字段
     public static class Consts
     {
