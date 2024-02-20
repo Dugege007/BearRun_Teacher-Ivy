@@ -100,7 +100,17 @@ namespace BearRun
                 // 游戏结束
                 if (mIsSlide) return;
                 other.gameObject.SendMessage("HitPlayer", transform.position, SendMessageOptions.RequireReceiver);
-                Game.Instance.Sound.PlaySFX("Se_UI_Hit");
+                Game.Instance.Sound.PlaySFX("Se_UI_End");
+
+                SendEvent(Consts.E_EndGame);
+            }
+
+            if (other.gameObject.CompareTag(Tags.BlockChild))
+            {
+                // 游戏结束
+                if (mIsSlide) return;
+                other.transform.parent.parent.gameObject.SendMessage("HitPlayer", transform.position, SendMessageOptions.RequireReceiver);
+                Game.Instance.Sound.PlaySFX("Se_UI_End");
 
                 SendEvent(Consts.E_EndGame);
             }
