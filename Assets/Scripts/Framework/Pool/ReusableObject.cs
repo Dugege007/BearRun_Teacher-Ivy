@@ -4,8 +4,8 @@ namespace BearRun
 {
     public abstract class ReusableObject : MonoBehaviour, IReusable
     {
-        public abstract void OnSpawn();
+        public abstract void OnAllocate();
 
-        public abstract void OnUnSpawn();
+        public abstract void OnRecycle();
     }
 }

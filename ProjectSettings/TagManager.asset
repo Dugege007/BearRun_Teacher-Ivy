@@ -10,6 +10,8 @@ TagManager:
   - Goalkeeper
   - Goal
   - Road
+  - SmallFence
+  - BigFence
   layers:
   - Default
   - TransparentFX

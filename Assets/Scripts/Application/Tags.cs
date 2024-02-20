@@ -9,5 +9,7 @@ namespace BearRun
         // ±êÇ©Ãû³Æ
         public const string Player = "Player";
         public const string Road = "Road";
+        public const string SmallFence = "SmallFence";
+        public const string BigFence = "BigFence";
     }
 }

@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 namespace BearRun
@@ -37,6 +38,10 @@ namespace BearRun
         private float mSpeedAddCount;
 
         private GameModel mGameModel;
+
+        private float mMaskSpeed;
+        private float mAddRate = 5f;
+        private bool mIsHit = false;
         #endregion
 
         #region 属性
@@ -72,6 +77,22 @@ namespace BearRun
                 mGameModel.IsPause = !mGameModel.IsPause;
             }
         }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.gameObject.CompareTag(Tags.SmallFence))
+            {
+                other.gameObject.SendMessage("HitPlayer", transform.position, SendMessageOptions.RequireReceiver);
+                HitObstacle();
+            }
+
+            if (other.gameObject.CompareTag(Tags.BigFence))
+            {
+                if (mIsSlide) return;
+                other.gameObject.SendMessage("HitPlayer", transform.position, SendMessageOptions.RequireReceiver);
+                HitObstacle();
+            }
+        }
         #endregion
 
         #region 事件回调
@@ -93,6 +114,7 @@ namespace BearRun
         //    }
         //}
 
+        #region 移动
         // 移动
         private void MoveControl()
         {
@@ -253,6 +275,30 @@ namespace BearRun
                 Speed += mSpeedAddRate;
                 Debug.Log("当前速度：" + Speed);
             }
+        }
+        #endregion
+
+        // 撞击减速
+        public void HitObstacle()
+        {
+            if (mIsHit) return;
+
+            mMaskSpeed = Speed;
+            mIsHit = true;
+            Speed = 0;
+            StartCoroutine(SlowAccelerate());
+        }
+
+        // 缓慢加速
+        private IEnumerator SlowAccelerate()
+        {
+            while (Speed < mMaskSpeed)
+            {
+                Speed += Time.deltaTime * mAddRate;
+                yield return null;
+            }
+
+            mIsHit = false;
         }
         #endregion
 

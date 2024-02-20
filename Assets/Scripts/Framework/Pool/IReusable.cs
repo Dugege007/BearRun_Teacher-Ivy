@@ -3,8 +3,8 @@ namespace BearRun
     public interface IReusable
     {
         // 取出时调用
-        void OnSpawn();
+        void OnAllocate();
         // 回收时调用
-        void OnUnSpawn();
+        void OnRecycle();
     }
 }
