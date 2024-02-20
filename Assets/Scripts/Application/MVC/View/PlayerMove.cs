@@ -1,6 +1,7 @@
 using QFramework;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace BearRun
@@ -26,6 +27,10 @@ namespace BearRun
         private int mTargetIndex = 1;
         private float mXDistance;
         private float mMoveSpeed = 12f;
+
+        private float mYDistance;
+        private float gravity = 9.8f;
+        private float mJumpHeight = 5f;
         #endregion
 
         #region  Ù–‘
@@ -45,7 +50,8 @@ namespace BearRun
 
         private void Update()
         {
-            mCC.Move(Speed * Time.deltaTime * transform.forward);
+            mYDistance -= gravity * Time.deltaTime;
+            mCC.Move(Speed * Time.deltaTime * (transform.forward + new Vector3(0, mYDistance, 0)));
             MoveControl();
             UpdatePosition();
         }
@@ -126,6 +132,7 @@ namespace BearRun
                     {
                         mTargetIndex--;
                         mXDistance = -2f;
+                        SendMessage("AnimManager", mInputDir);
                     }
                     break;
                 case InputDirection.Right:
@@ -133,9 +140,15 @@ namespace BearRun
                     {
                         mTargetIndex++;
                         mXDistance = 2f;
+                        SendMessage("AnimManager", mInputDir);
                     }
                     break;
                 case InputDirection.Up:
+                    if (mCC.isGrounded)
+                    {
+                        mYDistance = mJumpHeight;
+                        SendMessage("AnimManager", mInputDir);
+                    }
                     break;
                 case InputDirection.Down:
                     break;
@@ -178,7 +191,6 @@ namespace BearRun
                             mInputDir = InputDirection.Down;
                     }
 
-                    SendMessage("AnimManager", mInputDir);
                     mActiveInput = false;
                 }
             }
