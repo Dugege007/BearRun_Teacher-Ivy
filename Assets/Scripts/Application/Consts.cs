@@ -22,6 +22,7 @@ namespace BearRun
         public const string E_StartUp = "E_StartUp";
 
         // Model Ãû³Æ
+        public const string M_GameModel = "M_GameModel";
 
         // View Ãû³Æ
         public const string V_PlayerMove = "V_PlayerMove";

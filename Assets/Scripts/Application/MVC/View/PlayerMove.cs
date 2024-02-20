@@ -9,13 +9,20 @@ namespace BearRun
     public class PlayerMove : View
     {
         #region 常量
+        private const float mMoveHorizontalSpeed = 12f;
+        private const float mGravity = 9.8f;
+        private const float mJumpHeight = 5f;
+
+        private const float mSpeedAddDistance = 300f;
+        private const float mSpeedAddRate = 0.5f;
+        private const float mMaxSpeed = 40f;
         #endregion
 
         #region 事件
         #endregion
 
         #region 字段
-        public float Speed = 10f;
+        private float mSpeed = 10f;
 
         private CharacterController mCC;
         private InputDirection mInputDir = InputDirection.Null;
@@ -26,15 +33,18 @@ namespace BearRun
         private int mNowIndex = 1;
         private int mTargetIndex = 1;
         private float mXDistance;
-        private float mMoveSpeed = 12f;
-
         private float mYDistance;
-        private float gravity = 9.8f;
-        private float mJumpHeight = 5f;
+
+        private bool mIsSlide = false;
+        private float mSlideTime = 0;
+
+        private float mSpeedAddCount;
         #endregion
 
         #region 属性
         public override string Name => Consts.V_PlayerMove;
+
+        public float Speed { get => mSpeed; set => mSpeed = Mathf.Min(value, mMaxSpeed); }
         #endregion
 
         #region Unity回调
@@ -50,10 +60,11 @@ namespace BearRun
 
         private void Update()
         {
-            mYDistance -= gravity * Time.deltaTime;
+            mYDistance -= mGravity * Time.deltaTime;
             mCC.Move(Speed * Time.deltaTime * (transform.forward + new Vector3(0, mYDistance, 0)));
             MoveControl();
             UpdatePosition();
+            UpdateSpeed();
         }
         #endregion
 
@@ -79,9 +90,10 @@ namespace BearRun
         // 移动
         private void MoveControl()
         {
+            // 左右移动
             if (mTargetIndex != mNowIndex)
             {
-                float newX = Mathf.Lerp(0, mXDistance, mMoveSpeed * Time.deltaTime);
+                float newX = Mathf.Lerp(0, mXDistance, mMoveHorizontalSpeed * Time.deltaTime);
                 // 计算本帧应该移动的距离
                 Vector3 move = new Vector3(newX, 0, 0);
 
@@ -115,6 +127,14 @@ namespace BearRun
                             break;
                     }
                 }
+            }
+
+            // 上下移动
+            if (mIsSlide)
+            {
+                mSlideTime -= Time.deltaTime;
+                if (mSlideTime <= 0)
+                    mIsSlide = false;
             }
         }
 
@@ -151,6 +171,12 @@ namespace BearRun
                     }
                     break;
                 case InputDirection.Down:
+                    if (mIsSlide == false)
+                    {
+                        mIsSlide = true;
+                        mSlideTime = 0.733f;
+                        SendMessage("AnimManager", mInputDir);
+                    }
                     break;
                 default:
                     break;
@@ -204,6 +230,19 @@ namespace BearRun
                 mInputDir = InputDirection.Left;
             if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
                 mInputDir = InputDirection.Right;
+        }
+
+        // 更新速度
+        private void UpdateSpeed()
+        {
+            // 计算距离
+            mSpeedAddCount += Speed * Time.deltaTime;
+            if (mSpeedAddCount > mSpeedAddDistance)
+            {
+                mSpeedAddCount = 0;
+                Speed += mSpeedAddRate;
+                Debug.Log("当前速度：" + Speed);
+            }
         }
         #endregion
 
