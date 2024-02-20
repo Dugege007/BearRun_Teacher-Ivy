@@ -7,8 +7,8 @@ namespace BearRun
     public enum InputDirection
     {
         Null,
-        Right,
         Left,
+        Right,
         Up,
         Down,
     }

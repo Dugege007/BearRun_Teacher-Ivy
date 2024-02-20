@@ -1,4 +1,4 @@
-using GraphProcessor;
+using QFramework;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,10 +15,20 @@ namespace BearRun
 
         #region 字段
         public float Speed = 10f;
+
         private CharacterController mCC;
         private InputDirection mInputDir = InputDirection.Null;
         private bool mActiveInput = false;
         private Vector3 mMousePos;
+
+        // X 轴位置信息：0左边；1中间；2右边
+        private int mNowIndex = 1;
+        private int mTargetIndex = 1;
+        private float mXDistance;
+        private float mMoveSpeed = 15f;
+
+        private float mVelocityX = 0; // 用于SmoothDamp函数的当前速度，初始为0
+        private float mSmoothTime = 0.5f; // 平滑时间，值越小，速度变化越快
         #endregion
 
         #region 属性
@@ -33,11 +43,14 @@ namespace BearRun
 
         private void Start()
         {
-            StartCoroutine(UpdateAction());
+            //StartCoroutine(UpdateAction());
         }
 
         private void Update()
         {
+            mCC.Move(Speed * Time.deltaTime * transform.forward);
+            MoveControl();
+            UpdatePosition();
         }
         #endregion
 
@@ -48,14 +61,88 @@ namespace BearRun
         #endregion
 
         #region 方法
-        private IEnumerator UpdateAction()
-        {
-            while (true)
-            {
-                mCC.Move(transform.forward * Speed * Time.deltaTime);
-                GetInputDirection();
+        //private IEnumerator UpdateAction()
+        //{
+        //    while (true)
+        //    {
+        //        mCC.Move(Speed * Time.deltaTime * transform.forward);
+        //        MoveControl();
+        //        UpdatePosition();
+        //        yield return null;
+        //    }
+        //}
 
-                yield return 0;
+        // 移动
+        private void MoveControl()
+        {
+            if (mTargetIndex != mNowIndex)
+            {
+                float newX = Mathf.Lerp(0, mXDistance, mMoveSpeed * Time.deltaTime);
+                // 计算本帧应该移动的距离
+                Vector3 move = new Vector3(newX, 0, 0);
+
+                // 使用 CharacterController 移动角色
+                mCC.Move(move);
+
+                mXDistance -= newX;
+                //Debug.Log("move: " + move + "\n"
+                //    + "transform.position: " + transform.position + "\n"
+                //    + "mXDistance: " + mXDistance);
+
+                if (Mathf.Abs(mXDistance) < 0.01f)
+                {
+                    mXDistance = 0;
+                    mNowIndex = mTargetIndex;
+                    switch (mNowIndex)
+                    {
+                        case 0:
+                            transform.position = new Vector3(-2, transform.position.y, transform.position.z);
+                            Debug.Log("移动到 左");
+                            break;
+                        case 1:
+                            transform.position = new Vector3(0, transform.position.y, transform.position.z);
+                            Debug.Log("移动到 中");
+                            break;
+                        case 2:
+                            transform.position = new Vector3(2, transform.position.y, transform.position.z);
+                            Debug.Log("移动到 右");
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+        }
+
+        // 更新位置
+        private void UpdatePosition()
+        {
+            GetInputDirection();
+
+            switch (mInputDir)
+            {
+                case InputDirection.Null:
+                    break;
+                case InputDirection.Left:
+                    if (mTargetIndex > 0)
+                    {
+                        mTargetIndex--;
+                        mXDistance = -2f;
+                    }
+                    break;
+                case InputDirection.Right:
+                    if (mTargetIndex < 2)
+                    {
+                        mTargetIndex++;
+                        mXDistance = 2f;
+                    }
+                    break;
+                case InputDirection.Up:
+                    break;
+                case InputDirection.Down:
+                    break;
+                default:
+                    break;
             }
         }
 
@@ -79,10 +166,10 @@ namespace BearRun
                     // 水平方向
                     if (Mathf.Abs(dir.x) > Mathf.Abs(dir.y))
                     {
-                        if (dir.x > 0) // 朝右
-                            mInputDir = InputDirection.Right;
                         if (dir.x < 0) // 朝左
                             mInputDir = InputDirection.Left;
+                        if (dir.x > 0) // 朝右
+                            mInputDir = InputDirection.Right;
                     }
                     // 竖直方向
                     if (Mathf.Abs(dir.x) < Mathf.Abs(dir.y))
@@ -92,13 +179,9 @@ namespace BearRun
                         if (dir.y < 0) // 朝下
                             mInputDir = InputDirection.Down;
                     }
+                    mActiveInput = false;
                 }
-
-                Debug.Log(mInputDir);
             }
-
-            if (Input.GetMouseButtonUp(0))
-                mActiveInput = false;
 
             // 键盘识别
             if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.Space))
@@ -107,16 +190,12 @@ namespace BearRun
                 mInputDir = InputDirection.Down;
             if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
                 mInputDir = InputDirection.Left;
-            if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.RightArrow))
+            if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
                 mInputDir = InputDirection.Right;
         }
         #endregion
 
         #region 帮助方法
         #endregion
-
-
-
-
     }
 }
