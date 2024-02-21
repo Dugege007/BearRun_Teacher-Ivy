@@ -4,14 +4,14 @@ using UnityEngine.SceneManagement;
 
 namespace BearRun
 {
-    [RequireComponent(typeof(ObjectPool))]
+    [RequireComponent(typeof(PoolManager))]
     [RequireComponent(typeof(Sound))]
     [RequireComponent(typeof(StaticData))]
     public class Game : MonoSingleton<Game>
     {
         // È«¾Ö·ÃÎÊ
         [HideInInspector]
-        public ObjectPool ObjectPool;
+        public PoolManager ObjectPool;
 
         [HideInInspector]
         public Sound Sound;
@@ -21,7 +21,7 @@ namespace BearRun
 
         private void Start()
         {
-            ObjectPool = ObjectPool.Instance;
+            ObjectPool = PoolManager.Instance;
             Sound = Sound.Instance;
             StaticData = StaticData.Instance;
 

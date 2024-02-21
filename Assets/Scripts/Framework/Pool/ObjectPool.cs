@@ -1,73 +1,101 @@
-using System.Collections.Generic;
+ï»¿using System.Collections.Generic;
 using UnityEngine;
 
 namespace BearRun
 {
-    public class ObjectPool : MonoSingleton<ObjectPool>
+    public class ObjectPool
     {
-        // ×ÊÔ´Ä¿Â¼
-        public string ResourceDir = "";
+        // é›†åˆ
+        private List<GameObject> mObjects = new List<GameObject>();
 
-        // ¹ÜÀíËùÓĞµÄ³Ø×Ó
-        private Dictionary<string, SubPool> mPoolsDir = new Dictionary<string, SubPool>();
+        // é¢„è®¾
+        private GameObject mPrefab;
+
+        // åå­—
+        //private string mName;
+        public string Name
+        {
+            get { return mPrefab.name; }
+        }
+
+        // çˆ¶ç‰©ä½“ä½ç½®ä¿¡æ¯
+        private Transform mParentTrans;
 
         /// <summary>
-        /// È¡ÎïÌå
+        /// æ„é€ æ–¹æ³•
         /// </summary>
-        /// <param name="name">ÎïÌåÃû³Æ</param>
-        /// <param name="parentTrans">¸¸ÎïÌåÎ»ÖÃĞÅÏ¢</param>
-        /// <returns></returns>
-        public GameObject Allocate(string name, Transform parentTrans)
+        /// <param name="parentTrans">çˆ¶ç‰©ä½“ä½ç½®ä¿¡æ¯</param>
+        /// <param name="obj">é¢„åˆ¶ä½“</param>
+        public ObjectPool(Transform parentTrans, GameObject obj)
         {
-            SubPool pool = null;
-
-            if (mPoolsDir.ContainsKey(name) == false)
-                RegisterNewPool(name, parentTrans);
-
-            pool = mPoolsDir[name];
-            return pool.Allocate();
+            mPrefab = obj;
+            mParentTrans = parentTrans;
         }
 
         /// <summary>
-        /// »ØÊÕÎïÌå
+        /// å–å‡ºç‰©ä½“
+        /// </summary>
+        /// <returns></returns>
+        public GameObject Allocate()
+        {
+            GameObject obj = null;
+
+            foreach (var o in mObjects)
+            {
+                if (o.activeSelf == false)
+                {
+                    obj = o; break;
+                }
+            }
+
+            if (obj == null)
+            {
+                obj = Object.Instantiate(mPrefab);
+                obj.transform.parent = mParentTrans;
+                mObjects.Add(obj);
+            }
+
+            obj.SetActive(true);
+            obj.SendMessage("OnAllocate", SendMessageOptions.DontRequireReceiver);
+
+            return obj;
+        }
+
+        /// <summary>
+        /// å›æ”¶ç‰©ä½“
         /// </summary>
         /// <param name="obj"></param>
         public void Recycle(GameObject obj)
         {
-            SubPool pool = null;
-
-            foreach (SubPool p in mPoolsDir.Values)
+            if (Contain(obj))
             {
-                if (p.Contain(obj))
-                {
-                    pool = p;
-                    break;
-                }
+                obj.SendMessage("OnRecycle", SendMessageOptions.DontRequireReceiver);
+                obj.SetActive(false);
             }
-
-            if (pool != null)
-                pool.Recycle(obj);
         }
 
         /// <summary>
-        /// »ØÊÕËùÓĞÎïÌå
+        /// å›æ”¶æ‰€æœ‰ç‰©ä½“
         /// </summary>
         public void Clear()
         {
-            foreach (SubPool p in mPoolsDir.Values)
-                p.Clear();
+            foreach (var obj in mObjects)
+            {
+                if (obj.activeSelf)
+                {
+                    Recycle(obj);
+                }
+            }
         }
 
-        // ĞÂ½¨Ò»¸ö³Ø×Ó
-        private void RegisterNewPool(string prefabName, Transform parentTrans)
+        /// <summary>
+        /// åˆ¤æ–­æ˜¯å¦åŒ…å«ç‰©ä½“
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public bool Contain(GameObject obj)
         {
-            // ×ÊÔ´Ä¿Â¼
-            string path = ResourceDir + "/" + prefabName;
-            // ¼ÓÔØÔ¤ÖÆÌå×ÊÔ´
-            GameObject obj = Resources.Load<GameObject>(path);
-            // ĞÂ½¨Ò»¸ö³Ø×Ó
-            SubPool pool = new SubPool(parentTrans, obj);
-            mPoolsDir.Add(pool.Name, pool);
+            return mObjects.Contains(obj);
         }
     }
 }

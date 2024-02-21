@@ -318,6 +318,7 @@ namespace BearRun
         }
         #endregion
 
+        #region 减速
         // 撞击减速
         public void HitObstacle()
         {
@@ -340,6 +341,14 @@ namespace BearRun
 
             mIsHit = false;
         }
+        #endregion
+
+        #region 吃金币
+        public void HitCoin()
+        {
+            Debug.Log("吃到金币");
+        }
+        #endregion
         #endregion
 
         #region 帮助方法

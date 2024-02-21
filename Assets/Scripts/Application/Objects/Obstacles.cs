@@ -7,11 +7,11 @@ namespace BearRun
     // 比 ObjectPool 有更多功能
     public class Obstacles : ReusableObject
     {
-        protected Transform mParentTrans;
+        protected Transform mEffectParentTrans;
 
         protected virtual void Awake()
         {
-            mParentTrans = GameObject.Find("Effects").transform;
+            mEffectParentTrans = GameObject.Find("Effects").transform;
         }
 
         public override void OnAllocate()
@@ -21,7 +21,8 @@ namespace BearRun
 
         public override void OnRecycle()
         {
-
+            // 关闭协程
+            StopAllCoroutines();
         }
 
         public virtual void HitPlayer(Vector3 pos)
@@ -29,7 +30,7 @@ namespace BearRun
             // 生成特效
             //GameObject effectObj = Game.Instance.ObjectPool.Allocate("FX_ZhuangJi", mParentTrans);
             //effectObj.transform.position = pos;
-            Game.Instance.ObjectPool.Allocate("FX_ZhuangJi", mParentTrans)
+            Game.Instance.ObjectPool.Allocate("FX_ZhuangJi", mEffectParentTrans)
                 .Position(pos + Vector3.up * 0.5f)
                 .Show();
 

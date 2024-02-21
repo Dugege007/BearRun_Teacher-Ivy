@@ -10,7 +10,6 @@ namespace BearRun
         public bool IsFly = false;
         //private float mFlyForce = 100f;
         private bool mIsBlock = false;
-
         //private Rigidbody mRigidbody;
 
         private Animation mAnim;
@@ -56,7 +55,7 @@ namespace BearRun
         public override void HitPlayer(Vector3 pos)
         {
             // 生成特效
-            Game.Instance.ObjectPool.Allocate("FX_ZhuangJi", mParentTrans)
+            Game.Instance.ObjectPool.Allocate("FX_ZhuangJi", mEffectParentTrans)
                 .Position(pos + Vector3.up * 0.5f)
                 .Show();
 
