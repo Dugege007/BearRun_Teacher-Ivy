@@ -33,7 +33,7 @@ namespace BearRun
             mIsBlock = false;
         }
 
-        // 碰撞到触发区域
+        // 碰撞到玩家
         public virtual void HitPlayer(Vector3 pos)
         {
             mIsBlock = true;

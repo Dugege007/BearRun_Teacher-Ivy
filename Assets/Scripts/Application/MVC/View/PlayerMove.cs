@@ -381,6 +381,7 @@ namespace BearRun
             mMultiplyCor = null;
         }
 
+        // 吸铁石
         private void HitMagnet()
         {
             // 确保该协程单一性
@@ -397,6 +398,13 @@ namespace BearRun
             yield return new WaitForSeconds(mSkillTime);
             mMagnetCollider.enabled = false;
             mMagnetCor = null;
+        }
+
+        // 加时
+        private void HitAddTime()
+        {
+            //TODO 加时
+            Debug.Log("加时");
         }
         #endregion
         #endregion
