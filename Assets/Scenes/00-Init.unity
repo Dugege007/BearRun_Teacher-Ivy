@@ -170,7 +170,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4abdb56915ac6c24685a3aaabf1ecac0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ObjectPool: {fileID: 0}
+  PoolManager: {fileID: 0}
   Sound: {fileID: 0}
   StaticData: {fileID: 0}
 --- !u!114 &222634915

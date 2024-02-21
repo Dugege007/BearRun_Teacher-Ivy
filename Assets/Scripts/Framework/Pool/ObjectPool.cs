@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace BearRun
 {
-    public class ObjectPool : Pool<GameObject>
+    public class ObjectPool
     {
         // 集合
         private List<GameObject> mObjects = new List<GameObject>();
@@ -22,7 +22,6 @@ namespace BearRun
         /// <summary>
         /// 构造方法
         /// </summary>
-        /// <param name="parentTrans">父物体位置信息</param>
         /// <param name="obj">预制体</param>
         public ObjectPool(GameObject obj)
         {
@@ -33,7 +32,7 @@ namespace BearRun
         /// 取出物体
         /// </summary>
         /// <returns></returns>
-        public override GameObject Allocate()
+        public GameObject Allocate()
         {
             GameObject obj = null;
 
@@ -51,8 +50,8 @@ namespace BearRun
                 mObjects.Add(obj);
             }
 
-            obj.SetActive(true);
             obj.SendMessage("OnAllocate", SendMessageOptions.DontRequireReceiver);
+            obj.SetActive(true);
 
             return obj;
         }
@@ -61,12 +60,13 @@ namespace BearRun
         /// 回收物体
         /// </summary>
         /// <param name="obj"></param>
-        public override bool Recycle(GameObject obj)
+        public bool Recycle(GameObject obj)
         {
             if (Contain(obj))
             {
                 obj.SendMessage("OnRecycle", SendMessageOptions.DontRequireReceiver);
                 obj.SetActive(false);
+
                 return true;
             }
 
@@ -76,7 +76,7 @@ namespace BearRun
         /// <summary>
         /// 回收所有物体
         /// </summary>
-        public void Clear()
+        public void RecycleAll()
         {
             foreach (var obj in mObjects)
             {

@@ -4,7 +4,6 @@ using UnityEngine;
 namespace BearRun
 {
     // ReusableObject 需要实现 OnAllocate 和 OnRecycle
-    // 比 ObjectPool 有更多功能
     public class Obstacles : ReusableObject
     {
         protected Transform mEffectParentTrans;
@@ -16,11 +15,13 @@ namespace BearRun
 
         public override void OnAllocate()
         {
-
+            gameObject.Show();
         }
 
         public override void OnRecycle()
         {
+            gameObject.Hide();
+
             // 关闭协程
             StopAllCoroutines();
         }
@@ -30,13 +31,12 @@ namespace BearRun
             // 生成特效
             //GameObject effectObj = Game.Instance.ObjectPool.Allocate("FX_ZhuangJi", mParentTrans);
             //effectObj.transform.position = pos;
-            Game.Instance.PoolManager.Allocate("FX_ZhuangJi")
+            Game.Instance.PoolManager.Allocate<Effect>("FX_ZhuangJi")
                 .Parent(mEffectParentTrans)
-                .Position(pos + Vector3.up * 0.5f)
-                .Show();
+                .Position(pos + Vector3.up * 0.5f);
 
             // 回收
-            //Game.Instance.ObjectPool.Recycle(gameObject);
+            //Game.Instance.PoolManager.Recycle(gameObject);
             Destroy(gameObject);
         }
     }

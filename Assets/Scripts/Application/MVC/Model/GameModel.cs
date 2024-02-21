@@ -15,12 +15,15 @@ namespace BearRun
         #region ×Ö¶Î
         private bool mIsPlaying = true;
         private bool mIsPause = false;
+        private float mSkillTime = 5;
         #endregion
 
         #region ÊôÐÔ
         public override string Name => Consts.M_GameModel;
+
         public bool IsPlaying { get => mIsPlaying; set => mIsPlaying = value; }
         public bool IsPause { get => mIsPause; set => mIsPause = value; }
+        public float SkillTime { get => mSkillTime; set => mSkillTime = value; }
         #endregion
 
         #region Unity»Øµ÷

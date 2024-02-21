@@ -20,32 +20,38 @@ namespace BearRun
         #endregion
 
         #region 字段
-        private float mSpeed = 10f;
-
+        private GameModel mGameModel;
         private CharacterController mCC;
+
+        // 前进速度
+        private float mSpeed = 10f;
+        // 输入
         private InputDirection mInputDir = InputDirection.Null;
         private bool mActiveInput = false;
         private Vector3 mMousePos;
-
         // X 轴位置信息：0左边；1中间；2右边
         private int mNowIndex = 1;
         private int mTargetIndex = 1;
         private float mXDistance;
+        // 跳跃
         private float mYDistance;
-
+        // 滑铲
         private bool mIsSlide = false;
         private float mSlideTime = 0;
-
+        // 加速
         private float mSpeedAddCount;
-
-        private GameModel mGameModel;
-
         private float mMaskSpeed;
         private float mAddRate = 5f;
+        // 撞击
         private bool mIsHit = false;
 
         // 行人测试
         //public Transform mPeopleGenTrans;
+
+        // 吃道具
+        private int mDoubleCoin = 1;
+        private float mSkillTime;
+        private IEnumerator mMultiplyCor;
         #endregion
 
         #region 属性
@@ -58,6 +64,8 @@ namespace BearRun
         {
             mCC = GetComponent<CharacterController>();
             mGameModel = GetModel<GameModel>();
+
+            mSkillTime = mGameModel.SkillTime;
         }
 
         private void Start()
@@ -343,10 +351,30 @@ namespace BearRun
         }
         #endregion
 
-        #region 吃金币
+        #region 吃道具
+        // 金币
         public void HitCoin()
         {
-            Debug.Log("吃到金币");
+            Debug.Log("当前金币：");
+        }
+
+        // 双倍金币时间
+        public void HitMutiply()
+        {
+            // 确保该协程单一性
+            if (mMultiplyCor != null)
+                StopCoroutine(mMultiplyCor);
+
+            mMultiplyCor = MutiplyCoroutine();
+            mDoubleCoin = 2;
+            StartCoroutine(mMultiplyCor);
+        }
+
+        private IEnumerator MutiplyCoroutine()
+        {
+            yield return new WaitForSeconds(mSkillTime);
+            mDoubleCoin = 1;
+            mMultiplyCor = null;
         }
         #endregion
         #endregion

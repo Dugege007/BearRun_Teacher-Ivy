@@ -1,9 +1,9 @@
-using QFramework;
 using UnityEngine;
+using QFramework;
 
 namespace BearRun
 {
-    public class Coin : Item
+    public class Multiply : Item
     {
         private Transform mEffectParentTrans;
 
@@ -31,7 +31,7 @@ namespace BearRun
                 .Parent(mEffectParentTrans);
 
             // …˘“Ù
-            Game.Instance.Sound.PlaySFX("Se_UI_JinBi");
+            Game.Instance.Sound.PlaySFX("Se_UI_Stars");
 
             //TODO ªÿ ’
             //Game.Instance.ObjectPool.Recycle(gameObject);
@@ -43,7 +43,7 @@ namespace BearRun
             if (other.gameObject.CompareTag(Tags.Player))
             {
                 HitTrigger(other.transform.position);
-                other.SendMessage("HitCoin", SendMessageOptions.RequireReceiver);
+                other.SendMessage("HitMutiply", SendMessageOptions.RequireReceiver);
             }
         }
     }

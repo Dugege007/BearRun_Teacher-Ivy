@@ -25,7 +25,7 @@ namespace BearRun
             // µ» 1s
             yield return new WaitForSeconds(RecycleTime);
             // ªÿ ’
-            Game.Instance.PoolManager.Recycle(gameObject);
+            Game.Instance.PoolManager.Recycle<Effect>(gameObject);
         }
     }
 }

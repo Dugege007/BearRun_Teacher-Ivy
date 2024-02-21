@@ -19,7 +19,7 @@ namespace QFramework
         private void Start()
         {
             #region SimpleObjectPool
-            var pool = new SimpleObjectPool<Fish>(() => new Fish(),initCount:50);
+            var pool = new SimpleObjectPool<Fish>(() => new Fish());
 
             Debug.Log(pool.CurCount);
 

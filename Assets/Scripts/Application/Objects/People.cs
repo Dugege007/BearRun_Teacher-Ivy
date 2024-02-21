@@ -23,14 +23,10 @@ namespace BearRun
         private void Update()
         {
             if (mIsBlock)
-            {
                 transform.position -= new Vector3(Speed, 0, 0) * Time.deltaTime;
-            }
 
             if (IsFly)
-            {
                 transform.position += 2f * Time.deltaTime * new Vector3(0, Speed, Speed);
-            }
         }
 
         public override void OnAllocate()
@@ -54,14 +50,15 @@ namespace BearRun
         public override void HitPlayer(Vector3 pos)
         {
             // 生成特效
-            Game.Instance.PoolManager.Allocate("FX_ZhuangJi")
+            Game.Instance.PoolManager.Allocate<Effect>("FX_ZhuangJi")
                 .Position(pos + Vector3.up * 0.5f)
-                .Parent(mEffectParentTrans)
-                .Show();
+                .Parent(mEffectParentTrans);
+
+            // 动画
+            mAnim.Play("fly");
 
             mIsBlock = false;
             IsFly = true;
-            mAnim.Play("fly");
         }
 
         // 碰撞到触发区域

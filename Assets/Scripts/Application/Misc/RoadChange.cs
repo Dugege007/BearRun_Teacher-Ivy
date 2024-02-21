@@ -45,8 +45,9 @@ namespace BearRun
             // 更新对象
             mRoadNow = mRoadNext;
             mRoadNext = Game.Instance.PoolManager.Allocate("Pattern_" + randomIndex)
-                .Parent(mParent.transform);
-            mRoadNext.transform.position = mRoadNow.transform.position + new Vector3(0, 0, 160f);
+                .Parent(mParent.transform)
+                .Position(mRoadNow.transform.position + new Vector3(0, 0, 160f));
+
             // 生成新的游戏对象
 
         }
