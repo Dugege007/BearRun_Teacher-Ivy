@@ -11,7 +11,7 @@ namespace BearRun
     {
         // È«¾Ö·ÃÎÊ
         [HideInInspector]
-        public PoolManager ObjectPool;
+        public PoolManager PoolManager;
 
         [HideInInspector]
         public Sound Sound;
@@ -21,7 +21,7 @@ namespace BearRun
 
         private void Start()
         {
-            ObjectPool = PoolManager.Instance;
+            PoolManager = PoolManager.Instance;
             Sound = Sound.Instance;
             StaticData = StaticData.Instance;
 

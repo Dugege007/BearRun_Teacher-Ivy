@@ -30,7 +30,8 @@ namespace BearRun
             // 生成特效
             //GameObject effectObj = Game.Instance.ObjectPool.Allocate("FX_ZhuangJi", mParentTrans);
             //effectObj.transform.position = pos;
-            Game.Instance.ObjectPool.Allocate("FX_ZhuangJi", mEffectParentTrans)
+            Game.Instance.PoolManager.Allocate("FX_ZhuangJi")
+                .Parent(mEffectParentTrans)
                 .Position(pos + Vector3.up * 0.5f)
                 .Show();
 

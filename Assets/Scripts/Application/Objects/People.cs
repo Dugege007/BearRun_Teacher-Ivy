@@ -1,5 +1,4 @@
 using QFramework;
-using System.Collections;
 using UnityEngine;
 
 namespace BearRun
@@ -55,8 +54,9 @@ namespace BearRun
         public override void HitPlayer(Vector3 pos)
         {
             // 生成特效
-            Game.Instance.ObjectPool.Allocate("FX_ZhuangJi", mEffectParentTrans)
+            Game.Instance.PoolManager.Allocate("FX_ZhuangJi")
                 .Position(pos + Vector3.up * 0.5f)
+                .Parent(mEffectParentTrans)
                 .Show();
 
             mIsBlock = false;

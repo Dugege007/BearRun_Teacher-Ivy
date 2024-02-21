@@ -17,12 +17,12 @@ namespace BearRun
         /// <param name="name">物体名称</param>
         /// <param name="parentTrans">父物体位置信息</param>
         /// <returns></returns>
-        public GameObject Allocate(string name, Transform parentTrans)
+        public GameObject Allocate(string name)
         {
             ObjectPool pool = null;
 
             if (mPoolsDir.ContainsKey(name) == false)
-                RegisterNewPool(name, parentTrans);
+                RegisterNewPool(name);
 
             pool = mPoolsDir[name];
             return pool.Allocate();
@@ -45,8 +45,7 @@ namespace BearRun
                 }
             }
 
-            if (pool != null)
-                pool.Recycle(obj);
+            pool?.Recycle(obj);
         }
 
         /// <summary>
@@ -59,14 +58,14 @@ namespace BearRun
         }
 
         // 新建一个池子
-        private void RegisterNewPool(string prefabName, Transform parentTrans)
+        private void RegisterNewPool(string prefabName)
         {
             // 资源目录
             string path = ResourceDir + "/" + prefabName;
             // 加载预制体资源
             GameObject obj = Resources.Load<GameObject>(path);
             // 新建一个池子
-            ObjectPool pool = new ObjectPool(parentTrans, obj);
+            ObjectPool pool = new ObjectPool(obj);
             mPoolsDir.Add(pool.Name, pool);
         }
     }

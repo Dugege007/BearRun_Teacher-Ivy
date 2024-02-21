@@ -1,6 +1,4 @@
 using QFramework;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace BearRun
@@ -28,8 +26,9 @@ namespace BearRun
         {
             base.HitTrigger(pos);
             // Ãÿ–ß
-            Game.Instance.ObjectPool.Allocate("FX_JinBi", mEffectParentTrans)
-                .Position(pos)
+            Game.Instance.PoolManager.Allocate("FX_JinBi")
+                .Position(pos + Vector3.up * 0.5f)
+                .Parent(mEffectParentTrans)
                 .Show();
 
             // …˘“Ù

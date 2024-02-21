@@ -1,9 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using QFramework;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace BearRun
 {
-    public class ObjectPool
+    public class ObjectPool : Pool<GameObject>
     {
         // 集合
         private List<GameObject> mObjects = new List<GameObject>();
@@ -18,25 +19,21 @@ namespace BearRun
             get { return mPrefab.name; }
         }
 
-        // 父物体位置信息
-        private Transform mParentTrans;
-
         /// <summary>
         /// 构造方法
         /// </summary>
         /// <param name="parentTrans">父物体位置信息</param>
         /// <param name="obj">预制体</param>
-        public ObjectPool(Transform parentTrans, GameObject obj)
+        public ObjectPool(GameObject obj)
         {
             mPrefab = obj;
-            mParentTrans = parentTrans;
         }
 
         /// <summary>
         /// 取出物体
         /// </summary>
         /// <returns></returns>
-        public GameObject Allocate()
+        public override GameObject Allocate()
         {
             GameObject obj = null;
 
@@ -51,7 +48,6 @@ namespace BearRun
             if (obj == null)
             {
                 obj = Object.Instantiate(mPrefab);
-                obj.transform.parent = mParentTrans;
                 mObjects.Add(obj);
             }
 
@@ -65,13 +61,16 @@ namespace BearRun
         /// 回收物体
         /// </summary>
         /// <param name="obj"></param>
-        public void Recycle(GameObject obj)
+        public override bool Recycle(GameObject obj)
         {
             if (Contain(obj))
             {
                 obj.SendMessage("OnRecycle", SendMessageOptions.DontRequireReceiver);
                 obj.SetActive(false);
+                return true;
             }
+
+            return false;
         }
 
         /// <summary>
