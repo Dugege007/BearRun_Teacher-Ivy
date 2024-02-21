@@ -22,7 +22,6 @@ namespace BearRun
         public MyPool(Func<T> factoryMethod, Action<T> resetMethod = null, int initCount = 0)
         {
             mFactory = new CustomObjectFactory<T>(factoryMethod);
-            mCacheStack.Push(mFactory.Create());
             mResetMethod = resetMethod;
 
             for (var i = 0; i < initCount; i++)

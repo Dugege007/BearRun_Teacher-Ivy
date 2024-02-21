@@ -15,15 +15,12 @@ namespace BearRun
 
         public override void OnAllocate()
         {
-            gameObject.Show();
+
         }
 
         public override void OnRecycle()
         {
-            gameObject.Hide();
 
-            // ¹Ø±ÕÐ­³Ì
-            StopAllCoroutines();
         }
 
         public virtual void HitPlayer(Vector3 pos)

@@ -1,3 +1,4 @@
+using QFramework;
 using System.Collections;
 using UnityEngine;
 
@@ -7,9 +8,10 @@ namespace BearRun
     {
         public float RecycleTime = 1f;
 
-        // 相当于 OnEnable()
         public override void OnAllocate()
         {
+            // 开始协程之前需保证先激活
+            gameObject.Show();
             StartCoroutine(RecycleCoroutine());
         }
 
