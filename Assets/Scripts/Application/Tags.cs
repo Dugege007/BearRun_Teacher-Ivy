@@ -11,5 +11,6 @@ namespace BearRun
         public const string Block = "Block";
         public const string BlockChild = "BlockChild";
         public const string BeforeTrigger = "BeforeTrigger";
+        public const string MagnetCollider = "MagnetCollider";
     }
 }

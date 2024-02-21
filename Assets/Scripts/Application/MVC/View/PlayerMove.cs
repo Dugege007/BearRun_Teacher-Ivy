@@ -22,6 +22,7 @@ namespace BearRun
         #region 字段
         private GameModel mGameModel;
         private CharacterController mCC;
+        private SphereCollider mMagnetCollider;
 
         // 前进速度
         private float mSpeed = 10f;
@@ -52,6 +53,7 @@ namespace BearRun
         private int mDoubleCoin = 1;
         private float mSkillTime;
         private IEnumerator mMultiplyCor;
+        private IEnumerator mMagnetCor;
         #endregion
 
         #region 属性
@@ -64,6 +66,8 @@ namespace BearRun
         {
             mCC = GetComponent<CharacterController>();
             mGameModel = GetModel<GameModel>();
+            mMagnetCollider = GetComponentInChildren<SphereCollider>();
+            mMagnetCollider.enabled = false;
 
             mSkillTime = mGameModel.SkillTime;
         }
@@ -375,6 +379,24 @@ namespace BearRun
             yield return new WaitForSeconds(mSkillTime);
             mDoubleCoin = 1;
             mMultiplyCor = null;
+        }
+
+        private void HitMagnet()
+        {
+            // 确保该协程单一性
+            if (mMagnetCor != null)
+                StopCoroutine(mMagnetCor);
+
+            mMagnetCor = MutiplyCoroutine();
+            mMagnetCollider.enabled = true;
+            StartCoroutine(mMagnetCor);
+        }
+
+        private IEnumerator mMagnetCoroutine()
+        {
+            yield return new WaitForSeconds(mSkillTime);
+            mMagnetCollider.enabled = false;
+            mMagnetCor = null;
         }
         #endregion
         #endregion

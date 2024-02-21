@@ -1,16 +1,14 @@
 using QFramework;
+using System.Collections;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 namespace BearRun
 {
     public class Coin : Item
     {
-        private Transform mEffectParentTrans;
-
-        private void Awake()
-        {
-            mEffectParentTrans = GameObject.Find("Effects").transform;
-        }
+        private float mFlySpeed = 20f;
+        private bool mIsLoop = false;
 
         public override void OnAllocate()
         {
@@ -22,9 +20,9 @@ namespace BearRun
             base.OnRecycle();
         }
 
-        public override void HitTrigger(Vector3 pos)
+        public override void HitPlayer(Vector3 pos)
         {
-            base.HitTrigger(pos);
+            base.HitPlayer(pos);
             // 特效
             Game.Instance.PoolManager.Allocate<Effect>("FX_JinBi")
                 .Position(pos + Vector3.up * 0.5f)
@@ -32,18 +30,30 @@ namespace BearRun
 
             // 声音
             Game.Instance.Sound.PlaySFX("Se_UI_JinBi");
-
-            //TODO 回收
-            //Game.Instance.ObjectPool.Recycle(gameObject);
-            Destroy(gameObject);
         }
 
         private void OnTriggerEnter(Collider other)
         {
             if (other.gameObject.CompareTag(Tags.Player))
             {
-                HitTrigger(other.transform.position);
+                HitPlayer(other.transform.position);
                 other.SendMessage("HitCoin", SendMessageOptions.RequireReceiver);
+                mIsLoop = false;
+            }
+            if (other.gameObject.CompareTag(Tags.MagnetCollider))
+            {
+                // 飞向玩家
+                StartCoroutine(FlyToPlayer(other.transform.position));
+            }
+        }
+
+        private IEnumerator FlyToPlayer(Vector3 playerPos)
+        {
+            mIsLoop = true;
+            while (mIsLoop)
+            {
+                transform.position = Vector3.Lerp(transform.position, playerPos, mFlySpeed * Time.deltaTime);
+                yield return null;
             }
         }
     }

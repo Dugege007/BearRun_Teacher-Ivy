@@ -15,6 +15,7 @@ TagManager:
   - Block
   - BlockChild
   - BeforeTrigger
+  - MagnetCollider
   layers:
   - Default
   - TransparentFX

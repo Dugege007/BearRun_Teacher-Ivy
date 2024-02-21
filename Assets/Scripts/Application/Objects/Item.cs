@@ -9,6 +9,12 @@ namespace BearRun
     {
         public float RotateSpeed = 60f;
         private bool mIsBlock = false;
+        protected Transform mEffectParentTrans;
+
+        private void Awake()
+        {
+            mEffectParentTrans = GameObject.Find("Effects").transform;
+        }
 
         private void Update()
         {
@@ -28,9 +34,13 @@ namespace BearRun
         }
 
         // 碰撞到触发区域
-        public virtual void HitTrigger(Vector3 pos)
+        public virtual void HitPlayer(Vector3 pos)
         {
             mIsBlock = true;
+
+            //TODO 回收
+            //Game.Instance.ObjectPool.Recycle(gameObject);
+            Destroy(gameObject);
         }
     }
 }

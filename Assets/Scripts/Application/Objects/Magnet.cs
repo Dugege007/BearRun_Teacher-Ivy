@@ -1,9 +1,11 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using QFramework;
 
 namespace BearRun
 {
-    public class Multiply : Item
+    public class Magnet : Item
     {
         public override void OnAllocate()
         {
@@ -24,7 +26,7 @@ namespace BearRun
                 .Parent(mEffectParentTrans);
 
             // …˘“Ù
-            Game.Instance.Sound.PlaySFX("Se_UI_Stars");
+            Game.Instance.Sound.PlaySFX("Se_UI_Magnet");
         }
 
         private void OnTriggerEnter(Collider other)
@@ -32,7 +34,7 @@ namespace BearRun
             if (other.gameObject.CompareTag(Tags.Player))
             {
                 HitPlayer(other.transform.position);
-                other.SendMessage("HitMutiply", SendMessageOptions.RequireReceiver);
+                other.SendMessage("HitMagnet", SendMessageOptions.RequireReceiver);
             }
         }
     }
