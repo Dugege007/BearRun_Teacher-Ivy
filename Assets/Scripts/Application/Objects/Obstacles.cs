@@ -1,6 +1,4 @@
 using QFramework;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace BearRun
@@ -9,7 +7,7 @@ namespace BearRun
     // 比 ObjectPool 有更多功能
     public class Obstacles : ReusableObject
     {
-        private Transform mParentTrans;
+        protected Transform mParentTrans;
 
         protected virtual void Awake()
         {

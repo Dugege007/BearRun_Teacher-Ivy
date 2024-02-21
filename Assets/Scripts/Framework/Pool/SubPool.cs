@@ -56,7 +56,7 @@ namespace BearRun
             }
 
             obj.SetActive(true);
-            obj.SendMessage("OnSpawn", SendMessageOptions.DontRequireReceiver);
+            obj.SendMessage("OnAllocate", SendMessageOptions.DontRequireReceiver);
 
             return obj;
         }
@@ -69,7 +69,7 @@ namespace BearRun
         {
             if (Contain(obj))
             {
-                obj.SendMessage("OnUnSpawn", SendMessageOptions.DontRequireReceiver);
+                obj.SendMessage("OnRecycle", SendMessageOptions.DontRequireReceiver);
                 obj.SetActive(false);
             }
         }

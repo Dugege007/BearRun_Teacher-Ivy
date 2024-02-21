@@ -1,3 +1,4 @@
+using QFramework;
 using System.Collections;
 using UnityEngine;
 
@@ -42,6 +43,9 @@ namespace BearRun
         private float mMaskSpeed;
         private float mAddRate = 5f;
         private bool mIsHit = false;
+
+        // 行人测试
+        //public Transform mPeopleGenTrans;
         #endregion
 
         #region 属性
@@ -72,10 +76,19 @@ namespace BearRun
                 UpdateSpeed();
             }
 
+            // 暂停
             if (Input.GetKeyDown(KeyCode.Escape))
             {
                 mGameModel.IsPause = !mGameModel.IsPause;
             }
+
+            // 行人测试
+            //if (Input.GetKeyDown(KeyCode.P))
+            //{
+            //    Game.Instance.ObjectPool.Allocate("Block_RandomModelLateralRun", mPeopleGenTrans)
+            //        .Position(transform.position + new Vector3(2.5f, 0, 15f))
+            //        .Show();
+            //}
         }
 
         private void OnTriggerEnter(Collider other)

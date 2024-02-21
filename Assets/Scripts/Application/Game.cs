@@ -47,7 +47,7 @@ namespace BearRun
                 SceneIndex = SceneManager.GetActiveScene().buildIndex
             };
             SendEvent(Consts.E_ExitScene, eSceneArgs);
-            Debug.Log("已发送 " + Consts.E_ExitScene + " 事件");
+            Debug.Log("已发送 " + Consts.E_ExitScene + " 事件，离开场景：" + eSceneArgs.SceneIndex);
 
             // 加载新场景
             SceneManager.LoadScene(level, LoadSceneMode.Single);
