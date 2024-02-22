@@ -1,5 +1,5 @@
 ﻿/****************************************************************************
- * Copyright (c) 2015 ~ 2023 liangxiegame MIT License
+ * Copyright (c) 2015 ~ 2024 liangxiegame MIT License
  *
  * QFramework v1.0
  *
@@ -15,15 +15,17 @@
  *  TastSong        https://github.com/TastSong
  *  京产肠饭         https://gitee.com/JingChanChangFan/hk_-unity-tools
  *  猫叔(一只皮皮虾)  https://space.bilibili.com/656352/
+ *  New一天
+ *  幽飞冷凝雪～冷
  *
  * Community
  *  QQ Group: 623597263
- * Latest Update: 2023.8.30 17:55 IEasyEvent add Register Method & Add Or Event
+ * Latest Update: 2024.1.4 14:56 remove BindablePropertyUnRegister
  ****************************************************************************/
 
 using System;
 using System.Collections.Generic;
-using UnityEngine;
+using System.Linq;
 
 namespace QFramework
 {
@@ -54,29 +56,24 @@ namespace QFramework
 
         IUnRegister RegisterEvent<T>(Action<T> onEvent);
         void UnRegisterEvent<T>(Action<T> onEvent);
+        
+        void Deinit();
     }
 
     public abstract class Architecture<T> : IArchitecture where T : Architecture<T>, new()
     {
         private bool mInited = false;
-
-        private HashSet<ISystem> mSystems = new HashSet<ISystem>();
-
-        private HashSet<IModel> mModels = new HashSet<IModel>();
+        
 
         public static Action<T> OnRegisterPatch = architecture => { };
 
-        private static T mArchitecture;
+        protected static T mArchitecture;
 
         public static IArchitecture Interface
         {
             get
             {
-                if (mArchitecture == null)
-                {
-                    MakeSureArchitecture();
-                }
-
+                if (mArchitecture == null) MakeSureArchitecture();
                 return mArchitecture;
             }
         }
@@ -91,25 +88,34 @@ namespace QFramework
 
                 OnRegisterPatch?.Invoke(mArchitecture);
 
-                foreach (var architectureModel in mArchitecture.mModels)
+                foreach (var model in mArchitecture.mContainer.GetInstancesByType<IModel>().Where(m=>!m.Initialized))
                 {
-                    architectureModel.Init();
+                    model.Init();
+                    model.Initialized = true;
                 }
-
-                mArchitecture.mModels.Clear();
-
-                foreach (var architectureSystem in mArchitecture.mSystems)
+                
+                foreach (var system in mArchitecture.mContainer.GetInstancesByType<ISystem>().Where(m=>!m.Initialized))
                 {
-                    architectureSystem.Init();
+                    system.Init();
+                    system.Initialized = true;
                 }
-
-                mArchitecture.mSystems.Clear();
 
                 mArchitecture.mInited = true;
             }
         }
 
         protected abstract void Init();
+
+        public void Deinit()
+        {
+            OnDeinit();
+            foreach (var system in mContainer.GetInstancesByType<ISystem>().Where(s=>s.Initialized)) system.Deinit();
+            foreach (var model in mContainer.GetInstancesByType<IModel>().Where(m=>m.Initialized)) model.Deinit();
+            mContainer.Clear();
+            mArchitecture = null;
+        }
+
+        protected virtual void OnDeinit() { }
 
         private IOCContainer mContainer = new IOCContainer();
 
@@ -118,13 +124,10 @@ namespace QFramework
             system.SetArchitecture(this);
             mContainer.Register<TSystem>(system);
 
-            if (!mInited)
-            {
-                mSystems.Add(system);
-            }
-            else
+            if (mInited)
             {
                 system.Init();
+                system.Initialized = true;
             }
         }
 
@@ -133,13 +136,10 @@ namespace QFramework
             model.SetArchitecture(this);
             mContainer.Register<TModel>(model);
 
-            if (!mInited)
-            {
-                mModels.Add(model);
-            }
-            else
+            if (mInited)
             {
                 model.Init();
+                model.Initialized = true;
             }
         }
 
@@ -185,6 +185,7 @@ namespace QFramework
         public IUnRegister RegisterEvent<TEvent>(Action<TEvent> onEvent) => mTypeEventSystem.Register<TEvent>(onEvent);
 
         public void UnRegisterEvent<TEvent>(Action<TEvent> onEvent) => mTypeEventSystem.UnRegister<TEvent>(onEvent);
+
     }
 
     public interface IOnEvent<T>
@@ -215,9 +216,8 @@ namespace QFramework
     #region System
 
     public interface ISystem : IBelongToArchitecture, ICanSetArchitecture, ICanGetModel, ICanGetUtility,
-        ICanRegisterEvent, ICanSendEvent, ICanGetSystem
+        ICanRegisterEvent, ICanSendEvent, ICanGetSystem,ICanInit
     {
-        void Init();
     }
 
     public abstract class AbstractSystem : ISystem
@@ -228,8 +228,12 @@ namespace QFramework
 
         void ICanSetArchitecture.SetArchitecture(IArchitecture architecture) => mArchitecture = architecture;
 
-        void ISystem.Init() => OnInit();
+        public bool Initialized { get; set; }
+        void ICanInit.Init() => OnInit();
 
+        public void Deinit() => OnDeinit();
+
+        protected virtual void OnDeinit(){}
         protected abstract void OnInit();
     }
 
@@ -237,9 +241,8 @@ namespace QFramework
 
     #region Model
 
-    public interface IModel : IBelongToArchitecture, ICanSetArchitecture, ICanGetUtility, ICanSendEvent
+    public interface IModel : IBelongToArchitecture, ICanSetArchitecture, ICanGetUtility, ICanSendEvent,ICanInit
     {
-        void Init();
     }
 
     public abstract class AbstractModel : IModel
@@ -250,7 +253,11 @@ namespace QFramework
 
         void ICanSetArchitecture.SetArchitecture(IArchitecture architecture) => mArchitecturel = architecture;
 
-        void IModel.Init() => OnInit();
+        public bool Initialized { get; set; }
+        void ICanInit.Init() => OnInit();
+        public void Deinit() => OnDeinit();
+
+        protected virtual void OnDeinit(){}
 
         protected abstract void OnInit();
     }
@@ -424,6 +431,13 @@ namespace QFramework
         public static TResult SendQuery<TResult>(this ICanSendQuery self, IQuery<TResult> query) =>
             self.GetArchitecture().SendQuery(query);
     }
+    
+    public interface ICanInit
+    {
+        bool Initialized { get; set; }
+        void Init();
+        void Deinit();
+    }
 
     #endregion
 
@@ -467,7 +481,8 @@ namespace QFramework
         }
     }
 
-    public class UnRegisterOnDestroyTrigger : MonoBehaviour
+#if UNITY_5_6_OR_NEWER
+    public abstract class UnRegisterTrigger : UnityEngine.MonoBehaviour
     {
         private readonly HashSet<IUnRegister> mUnRegisters = new HashSet<IUnRegister>();
 
@@ -475,7 +490,7 @@ namespace QFramework
 
         public void RemoveUnRegister(IUnRegister unRegister) => mUnRegisters.Remove(unRegister);
 
-        private void OnDestroy()
+        public void UnRegister()
         {
             foreach (var unRegister in mUnRegisters)
             {
@@ -486,9 +501,28 @@ namespace QFramework
         }
     }
 
+    public class UnRegisterOnDestroyTrigger : UnRegisterTrigger
+    {
+        private void OnDestroy()
+        {
+            UnRegister();
+        }
+    }
+
+    public class UnRegisterOnDisableTrigger : UnRegisterTrigger
+    {
+        private void OnDisable()
+        {
+            UnRegister();
+        }
+    }
+#endif
+
     public static class UnRegisterExtension
     {
-        public static IUnRegister UnRegisterWhenGameObjectDestroyed(this IUnRegister unRegister, GameObject gameObject)
+#if UNITY_5_6_OR_NEWER
+        public static IUnRegister UnRegisterWhenGameObjectDestroyed(this IUnRegister unRegister,
+            UnityEngine.GameObject gameObject)
         {
             var trigger = gameObject.GetComponent<UnRegisterOnDestroyTrigger>();
 
@@ -503,8 +537,39 @@ namespace QFramework
         }
 
         public static IUnRegister UnRegisterWhenGameObjectDestroyed<T>(this IUnRegister self, T component)
-            where T : Component =>
+            where T : UnityEngine.Component =>
             self.UnRegisterWhenGameObjectDestroyed(component.gameObject);
+
+        public static IUnRegister UnRegisterWhenDisabled<T>(this IUnRegister self, T component)
+            where T : UnityEngine.Component =>
+            self.UnRegisterWhenDisabled(component.gameObject);
+
+        public static IUnRegister UnRegisterWhenDisabled(this IUnRegister unRegister,
+            UnityEngine.GameObject gameObject)
+        {
+            var trigger = gameObject.GetComponent<UnRegisterOnDisableTrigger>();
+
+            if (!trigger)
+            {
+                trigger = gameObject.AddComponent<UnRegisterOnDisableTrigger>();
+            }
+
+            trigger.AddUnRegister(unRegister);
+
+            return unRegister;
+        }
+
+
+#endif
+
+
+#if GODOT
+		public static IUnRegister UnRegisterWhenNodeExitTree(this IUnRegister unRegister, Godot.Node node)
+		{
+			node.TreeExiting += unRegister.UnRegister;
+			return unRegister;
+		}
+#endif
     }
 
     public class TypeEventSystem
@@ -522,10 +587,7 @@ namespace QFramework
         public void UnRegister<T>(Action<T> onEvent)
         {
             var e = mEvents.GetEvent<EasyEvent<T>>();
-            if (e != null)
-            {
-                e.UnRegister(onEvent);
-            }
+            e?.UnRegister(onEvent);
         }
     }
 
@@ -562,6 +624,14 @@ namespace QFramework
 
             return null;
         }
+
+        public IEnumerable<T> GetInstancesByType<T>()
+        {
+            var type = typeof(T);
+            return mInstances.Values.Where(instance => type.IsInstanceOfType(instance)).Cast<T>();
+        }
+
+        public void Clear() => mInstances.Clear();
     }
 
     #endregion
@@ -583,11 +653,19 @@ namespace QFramework
         IUnRegister Register(Action<T> onValueChanged);
     }
 
-    public class BindableProperty<T> : IBindableProperty<T> 
+    public class BindableProperty<T> : IBindableProperty<T>
     {
         public BindableProperty(T defaultValue = default) => mValue = defaultValue;
 
         protected T mValue;
+
+        public static Func<T, T, bool> Comparer { get; set; } = (a, b) => a.Equals(b);
+
+        public BindableProperty<T> WithComparer(Func<T, T, bool> comparer)
+        {
+            Comparer = comparer;
+            return this;
+        }
 
         public T Value
         {
@@ -595,10 +673,10 @@ namespace QFramework
             set
             {
                 if (value == null && mValue == null) return;
-                if (value != null && value.Equals(mValue)) return;
+                if (value != null && Comparer(value, mValue)) return;
 
                 SetValue(value);
-                mOnValueChanged?.Invoke(value);
+                mOnValueChanged.Trigger(value);
             }
         }
 
@@ -608,12 +686,11 @@ namespace QFramework
 
         public void SetValueWithoutEvent(T newValue) => mValue = newValue;
 
-        private Action<T> mOnValueChanged = (v) => { };
+        private EasyEvent<T> mOnValueChanged = new EasyEvent<T>();
 
         public IUnRegister Register(Action<T> onValueChanged)
         {
-            mOnValueChanged += onValueChanged;
-            return new BindablePropertyUnRegister<T>(this, onValueChanged);
+            return mOnValueChanged.Register(onValueChanged);
         }
 
         public IUnRegister RegisterWithInitValue(Action<T> onValueChanged)
@@ -621,36 +698,47 @@ namespace QFramework
             onValueChanged(mValue);
             return Register(onValueChanged);
         }
-        
-        public void UnRegister(Action<T> onValueChanged) => mOnValueChanged -= onValueChanged;
-        
+
+        public void UnRegister(Action<T> onValueChanged) => mOnValueChanged.UnRegister(onValueChanged);
+
         IUnRegister IEasyEvent.Register(Action onEvent)
         {
             return Register(Action);
             void Action(T _) => onEvent();
         }
+
+        public override string ToString() => Value.ToString();
     }
 
-    public class BindablePropertyUnRegister<T> : IUnRegister
+    internal class ComparerAutoRegister
     {
-        public BindablePropertyUnRegister(BindableProperty<T> bindableProperty, Action<T> onValueChanged)
+#if UNITY_5_6_OR_NEWER
+        [UnityEngine.RuntimeInitializeOnLoadMethod(UnityEngine.RuntimeInitializeLoadType.BeforeSceneLoad)]
+        public static void AutoRegister()
         {
-            BindableProperty = bindableProperty;
-            OnValueChanged = onValueChanged;
+            BindableProperty<int>.Comparer = (a, b) => a == b;
+            BindableProperty<float>.Comparer = (a, b) => a == b;
+            BindableProperty<double>.Comparer = (a, b) => a == b;
+            BindableProperty<string>.Comparer = (a, b) => a == b;
+            BindableProperty<long>.Comparer = (a, b) => a == b;
+            BindableProperty<UnityEngine.Vector2>.Comparer = (a, b) => a == b;
+            BindableProperty<UnityEngine.Vector3>.Comparer = (a, b) => a == b;
+            BindableProperty<UnityEngine.Vector4>.Comparer = (a, b) => a == b;
+            BindableProperty<UnityEngine.Color>.Comparer = (a, b) => a == b;
+            BindableProperty<UnityEngine.Color32>.Comparer =
+                (a, b) => a.r == b.r && a.g == b.g && a.b == b.b && a.a == b.a;
+            BindableProperty<UnityEngine.Bounds>.Comparer = (a, b) => a == b;
+            BindableProperty<UnityEngine.Rect>.Comparer = (a, b) => a == b;
+            BindableProperty<UnityEngine.Quaternion>.Comparer = (a, b) => a == b;
+            BindableProperty<UnityEngine.Vector2Int>.Comparer = (a, b) => a == b;
+            BindableProperty<UnityEngine.Vector3Int>.Comparer = (a, b) => a == b;
+            BindableProperty<UnityEngine.BoundsInt>.Comparer = (a, b) => a == b;
+            BindableProperty<UnityEngine.RangeInt>.Comparer = (a, b) => a.start == b.start && a.length == b.length;
+            BindableProperty<UnityEngine.RectInt>.Comparer = (a, b) => a.Equals(b);
         }
-
-        public BindableProperty<T> BindableProperty { get; set; }
-
-        public Action<T> OnValueChanged { get; set; }
-
-        public void UnRegister()
-        {
-            BindableProperty.UnRegister(OnValueChanged);
-            BindableProperty = null;
-            OnValueChanged = null;
-        }
+#endif
     }
-
+    
     #endregion
 
     #region EasyEvent
@@ -770,9 +858,10 @@ namespace QFramework
     }
 
     #endregion
-    
-    
+
+
     #region Event Extension
+
     public class OrEvent : IUnRegisterList
     {
         public OrEvent Or(IEasyEvent easyEvent)
@@ -780,7 +869,7 @@ namespace QFramework
             easyEvent.Register(Trigger).AddToUnregisterList(this);
             return this;
         }
-        
+
         private Action mOnEvent = () => { };
 
         public IUnRegister Register(Action onEvent)
@@ -802,16 +891,16 @@ namespace QFramework
 
     public static class OrEventExtensions
     {
-        public static OrEvent Or(this IEasyEvent self,IEasyEvent e) => new OrEvent().Or(self).Or(e);
+        public static OrEvent Or(this IEasyEvent self, IEasyEvent e) => new OrEvent().Or(self).Or(e);
     }
-    
+
     #endregion
 
 #if UNITY_EDITOR
     internal class EditorMenus
     {
         [UnityEditor.MenuItem("QFramework/Install QFrameworkWithToolKits")]
-        public static void InstallPackageKit() => Application.OpenURL("https://qframework.cn/qf");
+        public static void InstallPackageKit() => UnityEngine.Application.OpenURL("https://qframework.cn/qf");
     }
 #endif
 }

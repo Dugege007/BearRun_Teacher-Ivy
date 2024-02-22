@@ -12,7 +12,7 @@ namespace QFramework
 {
 #if UNITY_EDITOR
     // v1 No.163
-    [ClassAPI("03.SingletonKit", "MonoSingleton<T>", 0, "MonoSingleton<T>")]
+    [ClassAPI("03.SingletonKit", "MonoSingleton<T>", 0,"MonoSingleton<T>")]
     [APIDescriptionCN("MonoBehaviour 单例类")]
     [APIDescriptionEN("MonoBehavior Singleton Class")]
     [APIExampleCode(@"
@@ -63,7 +63,7 @@ var gameManager = GameManager.Instance;
         {
             get
             {
-                if (mInstance == null && !mOnApplicationQuit)
+                if (mInstance == null)
                 {
                     mInstance = SingletonCreator.CreateMonoSingleton<T>();
                 }
@@ -101,18 +101,13 @@ var gameManager = GameManager.Instance;
                 Destroy(gameObject);
             }
         }
-
-        /// <summary>
-        /// 当前应用程序是否结束 标签
-        /// </summary>
-        protected static bool mOnApplicationQuit = false;
+        
 
         /// <summary>
         /// 应用程序退出：释放当前对象并销毁相关GameObject
         /// </summary>
         protected virtual void OnApplicationQuit()
         {
-            mOnApplicationQuit = true;
             if (mInstance == null) return;
             Destroy(mInstance.gameObject);
             mInstance = null;
@@ -124,14 +119,6 @@ var gameManager = GameManager.Instance;
         protected virtual void OnDestroy()
         {
             mInstance = null;
-        }
-
-        /// <summary>
-        /// 判断当前应用程序是否退出
-        /// </summary>
-        public static bool IsApplicationQuit
-        {
-            get { return mOnApplicationQuit; }
         }
     }
 }

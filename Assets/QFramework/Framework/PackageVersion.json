@@ -1,6 +1,6 @@
 {
     "Id": "",
-    "Version": "v1.0.86",
+    "Version": "v1.0.120",
     "Type": 0,
     "AccessRight": 0,
     "DownloadUrl": "",
@@ -11,10 +11,10 @@
     ],
     "DocUrl": "https://liangxiegame.com",
     "Readme": {
-        "version": "v1.0.86",
-        "content": "GraphKit 重命名",
+        "version": "v1.0.120",
+        "content": "LocaleKit: LocaleText 预览失效修复",
         "author": "liangxie",
-        "date": "2023 年 09 月 01 日 18:58",
+        "date": "2024 年 01 月 12 日 14:50",
         "PackageId": ""
     }
 }

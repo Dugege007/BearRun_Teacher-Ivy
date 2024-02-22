@@ -10,7 +10,7 @@ namespace QFramework
 {
 #if UNITY_EDITOR
     // v1 No.166
-    [ClassAPI("03.SingletonKit", "SingletonProperty<T>", 3, "SingletonProperty<T>")]
+    [ClassAPI("03.SingletonKit", "SingletonProperty<T>", 3,"SingletonProperty<T>")]
     [APIDescriptionCN("通过属性实现的 Singleton")]
     [APIDescriptionEN("Singleton implemented through properties")]
     [APIExampleCode(@"
