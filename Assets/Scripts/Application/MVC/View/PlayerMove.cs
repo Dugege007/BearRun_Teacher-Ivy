@@ -54,6 +54,8 @@ namespace BearRun
         private float mSkillTime;
         private IEnumerator mMultiplyCor;
         private IEnumerator mMagnetCor;
+        private bool mIsInvincible = false;
+        private IEnumerator mInvincibleCor;
         #endregion
 
         #region 属性
@@ -107,6 +109,8 @@ namespace BearRun
         {
             if (other.gameObject.CompareTag(Tags.SmallFence))
             {
+                if (mIsInvincible) return;
+
                 other.gameObject.SendMessage("HitPlayer", transform.position, SendMessageOptions.RequireReceiver);
                 HitObstacle(); // 撞击减速
                 Game.Instance.Sound.PlaySFX("Se_UI_Hit"); // 声音
@@ -114,6 +118,8 @@ namespace BearRun
 
             if (other.gameObject.CompareTag(Tags.BigFence))
             {
+                if (mIsInvincible) return;
+
                 if (mIsSlide) return;
                 other.gameObject.SendMessage("HitPlayer", transform.position, SendMessageOptions.RequireReceiver);
                 HitObstacle();
@@ -405,6 +411,25 @@ namespace BearRun
         {
             //TODO 加时
             Debug.Log("加时");
+        }
+
+        // 无敌
+        private void HitInvincible()
+        {
+            // 确保该协程单一性
+            if (mInvincibleCor != null)
+                StopCoroutine(mInvincibleCor);
+
+            mInvincibleCor = InvincibleCoroutine();
+            StartCoroutine(mInvincibleCor);
+        }
+
+        private IEnumerator InvincibleCoroutine()
+        {
+            mIsInvincible = true;
+            yield return new WaitForSeconds(mSkillTime);
+            mIsInvincible = false;
+            mInvincibleCor = null;
         }
         #endregion
         #endregion
