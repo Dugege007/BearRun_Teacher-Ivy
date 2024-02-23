@@ -416,8 +416,7 @@ namespace BearRun
         // 加时
         private void HitAddTime()
         {
-            //TODO 加时
-            Debug.Log("加时");
+            mGameModel.GameTime.Value += mGameModel.AddTime.Value;
         }
 
         // 无敌
