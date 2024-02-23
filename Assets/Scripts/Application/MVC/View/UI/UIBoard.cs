@@ -6,14 +6,8 @@ namespace BearRun
 {
     public partial class UIBoard : View
     {
-        #region 常量
         private const float mStartTime = 50f;
-        #endregion
 
-        #region 事件
-        #endregion
-
-        #region 字段
         private GameModel mGameModel;
 
         public BoardTimer BoardTimer;
@@ -28,13 +22,9 @@ namespace BearRun
         public Button BtnPause;
 
         private float mMaxTime;
-        #endregion
 
-        #region 属性
         public override string Name => Consts.V_UIBoard;
-        #endregion
 
-        #region Unity回调
         private void Awake()
         {
             mGameModel = GetModel<GameModel>();
@@ -42,6 +32,7 @@ namespace BearRun
             mGameModel.GameTime.Value = mStartTime;
             mMaxTime = mStartTime;
 
+            #region 信息
             // 金币
             mGameModel.Coin.RegisterWithInitValue(coin =>
             {
@@ -66,6 +57,15 @@ namespace BearRun
                 BoardTimer.TimeText.text = gameTime.ToString("0.00") + "s";
 
             }).UnRegisterWhenGameObjectDestroyed(gameObject);
+            #endregion
+
+            #region 按钮
+            // 暂停按钮
+            BtnPause.onClick.AddListener(() =>
+            {
+                SendEvent(Consts.E_PauseGame);
+            });
+            #endregion
         }
 
         private void Update()
@@ -79,18 +79,9 @@ namespace BearRun
                 SendEvent(Consts.E_EndGame);
             }
         }
-        #endregion
 
-        #region 事件回调
         public override void HandleEvent(string eventName, object data)
         {
         }
-        #endregion
-
-        #region 方法
-        #endregion
-
-        #region 帮助方法
-        #endregion
     }
 }

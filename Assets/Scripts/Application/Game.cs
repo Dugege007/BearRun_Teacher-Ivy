@@ -63,7 +63,7 @@ namespace BearRun
                 SceneIndex = level
             };
 
-            SendEvent(Consts.E_EnterScene, level);
+            SendEvent(Consts.E_EnterScene, eSceneArgs);
             Debug.Log("已发送 " + Consts.E_EnterScene + " 事件，当前场景为：" + level);
         }
 

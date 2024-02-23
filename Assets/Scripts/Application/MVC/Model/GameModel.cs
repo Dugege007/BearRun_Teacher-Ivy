@@ -15,6 +15,7 @@ namespace BearRun
         public BindableProperty<bool> IsPause = new(false);
         public BindableProperty<float> SkillTime = new(5f);
 
+        public BindableProperty<int> Score = new(0);
         public BindableProperty<int> Coin = new(0);
         public BindableProperty<int> Distance = new(0);
         public BindableProperty<float> GameTime = new(50f);
