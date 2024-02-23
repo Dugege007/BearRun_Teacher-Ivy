@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEngine.UI;
 using QFramework;
+using UnityEngine.SocialPlatforms.Impl;
+using Unity.VisualScripting;
 
 namespace BearRun
 {
@@ -23,22 +25,16 @@ namespace BearRun
             // 分数
             mGameModel.Score.RegisterWithInitValue(score =>
             {
-                ScoreText.text = "分数：" + score;
-
             }).UnRegisterWhenGameObjectDestroyed(gameObject);
 
             // 金币
             mGameModel.Coin.RegisterWithInitValue(coin =>
             {
-                CoinText.text = "金币：$" + coin;
-
             }).UnRegisterWhenGameObjectDestroyed(gameObject);
 
             // 距离
             mGameModel.Distance.RegisterWithInitValue(distance =>
             {
-                DistanceText.text = "距离：" + distance + "m";
-
             }).UnRegisterWhenGameObjectDestroyed(gameObject);
 
             // 主页按钮
@@ -52,6 +48,13 @@ namespace BearRun
             {
                 SendEvent(Consts.E_ResumeGame);
             });
+        }
+
+        private void OnEnable()
+        {
+            ScoreText.text = "分数：" + mGameModel.Score.Value;
+            CoinText.text = "金币：$" + mGameModel.Coin.Value;
+            DistanceText.text = "距离：" + mGameModel.Distance.Value + "m";
         }
 
         public override void HandleEvent(string eventName, object data)

@@ -13,13 +13,15 @@ namespace BearRun
         #region ×Ö¶Î
         public BindableProperty<bool> IsPlaying = new(true);
         public BindableProperty<bool> IsPause = new(false);
-        public BindableProperty<float> SkillTime = new(5f);
 
+        public BindableProperty<int> GoalCount = new(0);
         public BindableProperty<int> Score = new(0);
         public BindableProperty<int> Coin = new(0);
         public BindableProperty<int> Distance = new(0);
+
         public BindableProperty<float> GameTime = new(50f);
         public BindableProperty<float> AddTime = new(10f);
+        public BindableProperty<float> SkillTime = new(5f);
 
         #endregion
 

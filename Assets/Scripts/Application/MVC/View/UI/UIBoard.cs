@@ -44,6 +44,8 @@ namespace BearRun
             mGameModel.Distance.RegisterWithInitValue(distance =>
             {
                 DistanceText.text = distance + "m";
+                // 分数
+                mGameModel.Score.Value = distance + mGameModel.GoalCount.Value * 5;
 
             }).UnRegisterWhenGameObjectDestroyed(gameObject);
 

@@ -2,6 +2,7 @@ using QFramework;
 using System.Collections;
 using System.Runtime.CompilerServices;
 using UnityEngine;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 namespace BearRun
 {
@@ -9,6 +10,7 @@ namespace BearRun
     {
         private float mFlySpeed = 20f;
         private bool mIsLoop = false;
+        private GameObject mPlayer;
 
         public override void OnAllocate()
         {
@@ -42,17 +44,18 @@ namespace BearRun
             }
             if (other.gameObject.CompareTag(Tags.MagnetCollider))
             {
+                mPlayer = other.gameObject;
                 // ·ÉÏòÍæ¼Ò
-                StartCoroutine(FlyToPlayer(other.transform.position));
+                StartCoroutine(FlyToPlayer());
             }
         }
 
-        private IEnumerator FlyToPlayer(Vector3 playerPos)
+        private IEnumerator FlyToPlayer()
         {
             mIsLoop = true;
             while (mIsLoop)
             {
-                transform.position = Vector3.Lerp(transform.position, playerPos, mFlySpeed * Time.deltaTime);
+                transform.position = Vector3.Lerp(transform.position, mPlayer.transform.position, mFlySpeed * Time.deltaTime);
                 yield return null;
             }
         }
