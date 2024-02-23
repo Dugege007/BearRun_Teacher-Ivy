@@ -7,7 +7,7 @@ namespace BearRun
         {
             GameModel gameModel = GetModel<GameModel>();
 
-            gameModel.IsPlaying = false;
+            gameModel.IsPlaying.Value = false;
 
             //TODO 显示游戏结束UI
         }

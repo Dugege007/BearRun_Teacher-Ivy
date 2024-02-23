@@ -71,7 +71,7 @@ namespace BearRun
             mMagnetCollider = GetComponentInChildren<SphereCollider>();
             mMagnetCollider.enabled = false;
 
-            mSkillTime = mGameModel.SkillTime;
+            mSkillTime = mGameModel.SkillTime.Value;
         }
 
         private void Start()
@@ -81,8 +81,15 @@ namespace BearRun
 
         private void Update()
         {
-            if (mGameModel.IsPause == false && mGameModel.IsPlaying)
+            if (mGameModel.IsPause.Value == false && mGameModel.IsPlaying.Value)
             {
+                // 更新数据
+                if (Time.frameCount % 10 == 0)
+                {
+                    mGameModel.Distance.Value = (int)transform.position.z;
+                    //Debug.Log("更新距离：" + mGameModel.Distance.Value);
+                }
+
                 mYDistance -= mGravity * Time.deltaTime;
                 mCC.Move(Speed * Time.deltaTime * (transform.forward + new Vector3(0, mYDistance, 0)));
                 MoveControl();
@@ -93,7 +100,7 @@ namespace BearRun
             // 暂停
             if (Input.GetKeyDown(KeyCode.Escape))
             {
-                mGameModel.IsPause = !mGameModel.IsPause;
+                mGameModel.IsPause.Value = !mGameModel.IsPause.Value;
             }
 
             // 行人测试

@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace BearRun
@@ -25,7 +23,7 @@ namespace BearRun
         {
             if (PlayAnim != null)
             {
-                if (mGameModel.IsPause == false && mGameModel.IsPlaying)
+                if (mGameModel.IsPause.Value == false && mGameModel.IsPlaying.Value)
                     PlayAnim();
                 else
                     anim.Stop();

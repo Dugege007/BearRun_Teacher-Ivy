@@ -1,6 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using QFramework;
 
 namespace BearRun
 {
@@ -13,17 +11,17 @@ namespace BearRun
         #endregion
 
         #region ×Ö¶Î
-        private bool mIsPlaying = true;
-        private bool mIsPause = false;
-        private float mSkillTime = 5;
+        public BindableProperty<bool> IsPlaying = new(true);
+        public BindableProperty<bool> IsPause = new(false);
+        public BindableProperty<float> SkillTime = new(5f);
+
+        public BindableProperty<int> Coin = new(0);
+        public BindableProperty<int> Distance = new(0);
+
         #endregion
 
         #region ÊôÐÔ
         public override string Name => Consts.M_GameModel;
-
-        public bool IsPlaying { get => mIsPlaying; set => mIsPlaying = value; }
-        public bool IsPause { get => mIsPause; set => mIsPause = value; }
-        public float SkillTime { get => mSkillTime; set => mSkillTime = value; }
         #endregion
 
         #region Unity»Øµ÷

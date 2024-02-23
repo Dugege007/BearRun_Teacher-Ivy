@@ -21,6 +21,7 @@ namespace BearRun
                     case 4:
                         RegisterView(GameObject.FindWithTag(Tags.Player).GetComponent<PlayerMove>());
                         RegisterView(GameObject.FindWithTag(Tags.Player).GetComponent<PlayerAnim>());
+                        RegisterView(GameObject.Find("Canvas").transform.Find("UIBoard").GetComponent<UIBoard>());
                         break;
                     default:
                         break;
