@@ -59,6 +59,11 @@ namespace BearRun
                 BoardTimer.TimeText.text = gameTime.ToString("0.00") + "s";
 
             }).UnRegisterWhenGameObjectDestroyed(gameObject);
+
+            // 更新技能 UI
+            UpdateSkillUI(mGameModel.MagnetTime, BtnMagnet);
+            UpdateSkillUI(mGameModel.MultiplyTime, BtnMultiply);
+            UpdateSkillUI(mGameModel.InvincibleTime, BtnInvincible);
             #endregion
 
             #region 按钮
@@ -84,6 +89,26 @@ namespace BearRun
 
         public override void HandleEvent(string eventName, object data)
         {
+        }
+
+        private void UpdateSkillUI(BindableProperty<float> time, Button btn)
+        {
+            Slider cdTimer = btn.transform.Find("CDTimer").GetComponent<Slider>();
+
+            time.RegisterWithInitValue(t =>
+            {
+                if (t > 0)
+                {
+                    btn.interactable = true;
+                    cdTimer.value = 0;
+                }
+                else
+                {
+                    btn.interactable = false;
+                    cdTimer.value = 1;
+                }
+
+            }).UnRegisterWhenGameObjectDestroyed(gameObject);
         }
     }
 }

@@ -19,7 +19,8 @@ namespace BearRun
             RegisterModel(new GameModel());
 
             // ≥ı ºªØ
-
+            GameModel gameModel = GetModel<GameModel>();
+            gameModel.Init();
         }
     }
 }

@@ -22,6 +22,9 @@ namespace BearRun
         public BindableProperty<float> GameTime = new(50f);
         public BindableProperty<float> AddTime = new(10f);
         public BindableProperty<float> SkillTime = new(5f);
+        public BindableProperty<float> MagnetTime = new(0);
+        public BindableProperty<float> MultiplyTime = new(0);
+        public BindableProperty<float> InvincibleTime = new(0);
 
         #endregion
 
@@ -36,6 +39,23 @@ namespace BearRun
         #endregion
 
         #region 方法
+        public void Init()
+        {
+            IsPlaying.Value = true;
+            IsPause.Value = false;
+
+            GoalCount.Value = 0;
+            Score.Value = 0;
+            Coin.Value = 0;
+            Distance.Value = 0;
+
+            GameTime.Value = 50f;
+            AddTime.Value = 20f;
+            SkillTime.Value = 5f;
+            MagnetTime.Value = 0;
+            MultiplyTime.Value = 0;
+            InvincibleTime.Value = 0;
+        }
         #endregion
 
         #region 帮助方法
