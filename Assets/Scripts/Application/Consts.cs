@@ -13,6 +13,13 @@ namespace BearRun
         Down,
     }
 
+    public enum SkillItemType
+    {
+        Magnet,
+        Multiply,
+        Invincible,
+    }
+
     // 这里存储一些静态字段
     public static class Consts
     {

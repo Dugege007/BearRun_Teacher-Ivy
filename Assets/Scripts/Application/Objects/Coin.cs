@@ -1,14 +1,12 @@
 using QFramework;
 using System.Collections;
-using System.Runtime.CompilerServices;
 using UnityEngine;
-using static UnityEditor.Experimental.GraphView.GraphView;
 
 namespace BearRun
 {
     public class Coin : Item
     {
-        private float mFlySpeed = 20f;
+        private float mFlySpeed = 10f;
         private bool mIsLoop = false;
         private GameObject mPlayer;
 

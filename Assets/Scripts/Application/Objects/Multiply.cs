@@ -32,7 +32,8 @@ namespace BearRun
             if (other.gameObject.CompareTag(Tags.Player))
             {
                 HitPlayer(other.transform.position);
-                other.SendMessage("HitMutiply", SendMessageOptions.RequireReceiver);
+                //other.SendMessage("HitMutiply", SendMessageOptions.RequireReceiver);
+                other.SendMessage("HitSkillItem", SkillItemType.Multiply, SendMessageOptions.RequireReceiver);
             }
         }
     }

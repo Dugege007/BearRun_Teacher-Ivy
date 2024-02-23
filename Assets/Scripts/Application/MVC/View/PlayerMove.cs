@@ -375,23 +375,27 @@ namespace BearRun
             mGameModel.Coin.Value += mDoubleCoin;
         }
 
-        // 双倍金币时间
-        public void HitMutiply()
+        public void HitSkillItem(SkillItemType skillItemType)
         {
-            // 确保该协程单一性
-            if (mMultiplyCor != null)
-                StopCoroutine(mMultiplyCor);
+            switch (skillItemType)
+            {
+                // 吸铁石
+                case SkillItemType.Magnet:
+                    HitMagnet();
+                    break;
 
-            mMultiplyCor = MutiplyCoroutine();
-            mDoubleCoin = 2;
-            StartCoroutine(mMultiplyCor);
-        }
+                // 双倍金币
+                case SkillItemType.Multiply:
+                    HitMutiply();
+                    break;
 
-        private IEnumerator MutiplyCoroutine()
-        {
-            yield return new WaitForSeconds(mSkillTime);
-            mDoubleCoin = 1;
-            mMultiplyCor = null;
+                // 无敌
+                case SkillItemType.Invincible:
+                    HitInvincible();
+                    break;
+                default:
+                    break;
+            }
         }
 
         // 吸铁石
@@ -413,10 +417,23 @@ namespace BearRun
             mMagnetCor = null;
         }
 
-        // 加时
-        private void HitAddTime()
+        // 双倍金币时间
+        public void HitMutiply()
         {
-            mGameModel.GameTime.Value += mGameModel.AddTime.Value;
+            // 确保该协程单一性
+            if (mMultiplyCor != null)
+                StopCoroutine(mMultiplyCor);
+
+            mMultiplyCor = MutiplyCoroutine();
+            mDoubleCoin = 2;
+            StartCoroutine(mMultiplyCor);
+        }
+
+        private IEnumerator MutiplyCoroutine()
+        {
+            yield return new WaitForSeconds(mSkillTime);
+            mDoubleCoin = 1;
+            mMultiplyCor = null;
         }
 
         // 无敌
@@ -428,6 +445,12 @@ namespace BearRun
 
             mInvincibleCor = InvincibleCoroutine();
             StartCoroutine(mInvincibleCor);
+        }
+
+        // 加时
+        private void HitAddTime()
+        {
+            mGameModel.GameTime.Value += mGameModel.AddTime.Value;
         }
 
         private IEnumerator InvincibleCoroutine()

@@ -32,7 +32,8 @@ namespace BearRun
             if (other.gameObject.CompareTag(Tags.Player))
             {
                 HitPlayer(other.transform.position);
-                other.SendMessage("HitInvincible", SendMessageOptions.RequireReceiver);
+                //other.SendMessage("HitInvincible", SendMessageOptions.RequireReceiver);
+                other.SendMessage("HitSkillItem", SkillItemType.Invincible, SendMessageOptions.RequireReceiver);
             }
         }
     }

@@ -34,7 +34,8 @@ namespace BearRun
             if (other.gameObject.CompareTag(Tags.Player))
             {
                 HitPlayer(other.transform.position);
-                other.SendMessage("HitMagnet", SendMessageOptions.RequireReceiver);
+                //other.SendMessage("HitMagnet", SendMessageOptions.RequireReceiver);
+                other.SendMessage("HitSkillItem", SkillItemType.Magnet, SendMessageOptions.RequireReceiver);
             }
         }
     }
