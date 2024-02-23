@@ -81,7 +81,7 @@ namespace BearRun
 
         private void Update()
         {
-            if (mGameModel.IsPause.Value == false && mGameModel.IsPlaying.Value)
+            if (GamePlaying())
             {
                 // 更新数据
                 if (Time.frameCount % 10 == 0)
@@ -178,6 +178,11 @@ namespace BearRun
         //        yield return null;
         //    }
         //}
+
+        private bool GamePlaying()
+        {
+            return mGameModel.IsPause.Value == false && mGameModel.IsPlaying.Value;
+        }
 
         #region 移动
         // 移动
@@ -412,7 +417,14 @@ namespace BearRun
 
         private IEnumerator mMagnetCoroutine()
         {
-            yield return new WaitForSeconds(mSkillTime);
+            float timer = mGameModel.SkillTime.Value;
+            while (timer > 0)
+            {
+                if (GamePlaying())
+                    timer -= Time.deltaTime;
+                yield return null;
+            }
+            //yield return new WaitForSeconds(mSkillTime);
             mMagnetCollider.enabled = false;
             mMagnetCor = null;
         }
@@ -431,7 +443,14 @@ namespace BearRun
 
         private IEnumerator MutiplyCoroutine()
         {
-            yield return new WaitForSeconds(mSkillTime);
+            float timer = mGameModel.SkillTime.Value;
+            while (timer > 0)
+            {
+                if (GamePlaying())
+                    timer -= Time.deltaTime;
+                yield return null;
+            }
+            //yield return new WaitForSeconds(mSkillTime);
             mDoubleCoin = 1;
             mMultiplyCor = null;
         }
@@ -456,11 +475,19 @@ namespace BearRun
         private IEnumerator InvincibleCoroutine()
         {
             mIsInvincible = true;
-            yield return new WaitForSeconds(mSkillTime);
+            float timer = mGameModel.SkillTime.Value;
+            while (timer > 0)
+            {
+                if (GamePlaying())
+                    timer -= Time.deltaTime; Debug.Log(timer);
+                yield return null;
+            }
+            //yield return new WaitForSeconds(mSkillTime);
             mIsInvincible = false;
             mInvincibleCor = null;
         }
         #endregion
+
         #endregion
 
         #region 帮助方法
