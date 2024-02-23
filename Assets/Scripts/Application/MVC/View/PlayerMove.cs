@@ -372,7 +372,7 @@ namespace BearRun
         // 金币
         public void HitCoin()
         {
-            Debug.Log("当前金币：");
+            mGameModel.Coin.Value += mDoubleCoin;
         }
 
         // 双倍金币时间
