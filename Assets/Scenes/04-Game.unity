@@ -1230,7 +1230,7 @@ MonoBehaviour:
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
-    m_ColorMultiplier: 2
+    m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
     m_HighlightedSprite: {fileID: 0}
@@ -2855,7 +2855,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0.3
+  m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -3574,6 +3574,8 @@ Transform:
   - {fileID: 1251529058}
   - {fileID: 6897189891428394312}
   - {fileID: 3851463677153394572}
+  - {fileID: 1785336042}
+  - {fileID: 1216193887}
   - {fileID: 8614419639470140932}
   - {fileID: 998616321}
   m_Father: {fileID: 0}
@@ -3702,7 +3704,7 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
-  m_FillAmount: 0.3
+  m_FillAmount: 0
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
@@ -4747,7 +4749,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0.3
+  m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -7095,6 +7097,68 @@ MonoBehaviour:
   CustomComponentName: InvincibleInfo
   CustomComment: 
   mComponentName: UnityEngine.UI.Image
+--- !u!1001 &1216193886
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 579547774}
+    m_Modifications:
+    - target: {fileID: 2255587794588725539, guid: 3f20e20ba4f0a984c8d802391b59ee22, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.0028117
+      objectReference: {fileID: 0}
+    - target: {fileID: 2255587794588725539, guid: 3f20e20ba4f0a984c8d802391b59ee22, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.2737327
+      objectReference: {fileID: 0}
+    - target: {fileID: 2255587794588725539, guid: 3f20e20ba4f0a984c8d802391b59ee22, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 33.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2255587794588725539, guid: 3f20e20ba4f0a984c8d802391b59ee22, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2255587794588725539, guid: 3f20e20ba4f0a984c8d802391b59ee22, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2255587794588725539, guid: 3f20e20ba4f0a984c8d802391b59ee22, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2255587794588725539, guid: 3f20e20ba4f0a984c8d802391b59ee22, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2255587794588725539, guid: 3f20e20ba4f0a984c8d802391b59ee22, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2255587794588725539, guid: 3f20e20ba4f0a984c8d802391b59ee22, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2255587794588725539, guid: 3f20e20ba4f0a984c8d802391b59ee22, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8562027213933542346, guid: 3f20e20ba4f0a984c8d802391b59ee22, type: 3}
+      propertyPath: m_Name
+      value: Item_Magnet (2)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 3f20e20ba4f0a984c8d802391b59ee22, type: 3}
+--- !u!4 &1216193887 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2255587794588725539, guid: 3f20e20ba4f0a984c8d802391b59ee22, type: 3}
+  m_PrefabInstance: {fileID: 1216193886}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1233740292
 GameObject:
   m_ObjectHideFlags: 0
@@ -7384,7 +7448,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0.3
+  m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -8118,7 +8182,7 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
-  m_FillAmount: 0.3
+  m_FillAmount: 0
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
@@ -9876,6 +9940,68 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4315306674027267158, guid: 397019fb4dff7d4469b7389a678cf1bd, type: 3}
   m_PrefabInstance: {fileID: 1783753104}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1785336041
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 579547774}
+    m_Modifications:
+    - target: {fileID: 2255587794588725539, guid: 3f20e20ba4f0a984c8d802391b59ee22, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.0028117
+      objectReference: {fileID: 0}
+    - target: {fileID: 2255587794588725539, guid: 3f20e20ba4f0a984c8d802391b59ee22, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.2737327
+      objectReference: {fileID: 0}
+    - target: {fileID: 2255587794588725539, guid: 3f20e20ba4f0a984c8d802391b59ee22, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 22.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 2255587794588725539, guid: 3f20e20ba4f0a984c8d802391b59ee22, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2255587794588725539, guid: 3f20e20ba4f0a984c8d802391b59ee22, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2255587794588725539, guid: 3f20e20ba4f0a984c8d802391b59ee22, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2255587794588725539, guid: 3f20e20ba4f0a984c8d802391b59ee22, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2255587794588725539, guid: 3f20e20ba4f0a984c8d802391b59ee22, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2255587794588725539, guid: 3f20e20ba4f0a984c8d802391b59ee22, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2255587794588725539, guid: 3f20e20ba4f0a984c8d802391b59ee22, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8562027213933542346, guid: 3f20e20ba4f0a984c8d802391b59ee22, type: 3}
+      propertyPath: m_Name
+      value: Item_Magnet (1)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 3f20e20ba4f0a984c8d802391b59ee22, type: 3}
+--- !u!4 &1785336042 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2255587794588725539, guid: 3f20e20ba4f0a984c8d802391b59ee22, type: 3}
+  m_PrefabInstance: {fileID: 1785336041}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1796297688
 GameObject:
   m_ObjectHideFlags: 0
@@ -10338,7 +10464,7 @@ MonoBehaviour:
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
-    m_ColorMultiplier: 2
+    m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
     m_HighlightedSprite: {fileID: 0}
@@ -10709,7 +10835,7 @@ MonoBehaviour:
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
-    m_ColorMultiplier: 2
+    m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
     m_HighlightedSprite: {fileID: 0}
@@ -11429,7 +11555,7 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
-  m_FillAmount: 0.3
+  m_FillAmount: 0
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0

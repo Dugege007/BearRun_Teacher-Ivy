@@ -369,36 +369,44 @@ namespace BearRun
 
         #region 吃道具
         // 金币
-        public void HitCoin()
+        public void HitCoin() // 由道具通过 SendMessage() 调用
         {
             mGameModel.Coin.Value += mDoubleCoin;
         }
 
-        public void HitSkillItem(SkillType skillType)
+        public void HitSkillItem(SkillType skillType) // 由道具通过 SendMessage() 调用
         {
-            switch (skillType)
+            ItemArgs eItemArgs = new ItemArgs()
             {
-                // 吸铁石
-                case SkillType.Magnet:
-                    HitMagnet();
-                    break;
+                SkillCount = 0,
+                SkillType = skillType,
+            };
 
-                // 双倍金币
-                case SkillType.Multiply:
-                    HitMutiply();
-                    break;
+            SendEvent(Consts.E_HitItem, eItemArgs);
 
-                // 无敌
-                case SkillType.Invincible:
-                    HitInvincible();
-                    break;
-                default:
-                    break;
-            }
+            //switch (skillType)
+            //{
+            //    // 吸铁石
+            //    case SkillType.Magnet:
+            //        HitMagnet();
+            //        break;
+
+            //    // 双倍金币
+            //    case SkillType.Multiply:
+            //        HitMutiply();
+            //        break;
+
+            //    // 无敌
+            //    case SkillType.Invincible:
+            //        HitInvincible();
+            //        break;
+            //    default:
+            //        break;
+            //}
         }
 
         // 吸铁石
-        private void HitMagnet()
+        public void HitMagnet()
         {
             // 确保该协程单一性
             if (mMagnetCor != null)
@@ -424,7 +432,7 @@ namespace BearRun
         }
 
         // 双倍金币时间
-        public void HitMutiply()
+        public void HitMultiply()
         {
             // 确保该协程单一性
             if (mMultiplyCor != null)
@@ -450,7 +458,7 @@ namespace BearRun
         }
 
         // 无敌
-        private void HitInvincible()
+        public void HitInvincible()
         {
             // 确保该协程单一性
             if (mInvincibleCor != null)
@@ -461,7 +469,7 @@ namespace BearRun
         }
 
         // 加时
-        private void HitAddTime()
+        public void HitAddTime()
         {
             mGameModel.GameTime.Value += mGameModel.AddTime.Value;
         }

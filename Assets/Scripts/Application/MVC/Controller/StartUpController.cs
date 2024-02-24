@@ -14,6 +14,7 @@ namespace BearRun
             RegisterController(Consts.E_PauseGame, typeof(PauseGameController));
             RegisterController(Consts.E_ResumeGame, typeof(ResumeGameController));
             RegisterController(Consts.E_ContinueGame, typeof(ContinueGameController));
+            RegisterController(Consts.E_HitItem, typeof(HitItemController));
 
             // зЂВс Model
             RegisterModel(new GameModel());

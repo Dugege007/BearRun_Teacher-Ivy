@@ -22,9 +22,14 @@ namespace BearRun
         public BindableProperty<float> GameTime = new(50f);
         public BindableProperty<float> AddTime = new(10f);
         public BindableProperty<float> SkillTime = new(5f);
-        public BindableProperty<float> MagnetTime = new(0);
-        public BindableProperty<float> MultiplyTime = new(0);
-        public BindableProperty<float> InvincibleTime = new(0);
+
+        public BindableProperty<int> MagnetCount = new(1);
+        public BindableProperty<int> MultiplyCount = new(1);
+        public BindableProperty<int> InvincibleCount = new(1);
+
+        public BindableProperty<float> MagnetCDTime = new(5f);
+        public BindableProperty<float> MultiplyCDTime = new(5f);
+        public BindableProperty<float> InvincibleCDTime = new(5f);
 
         #endregion
 
@@ -52,9 +57,14 @@ namespace BearRun
             GameTime.Value = 50f;
             AddTime.Value = 20f;
             SkillTime.Value = 5f;
-            MagnetTime.Value = 3f;
-            MultiplyTime.Value = 3f;
-            InvincibleTime.Value = 3f;
+
+            MagnetCount.Value = 1;
+            MultiplyCount.Value = 1;
+            InvincibleCount.Value = 1;
+
+            MagnetCDTime.Value = 5f;
+            MultiplyCDTime.Value = 5f;
+            InvincibleCDTime.Value = 5f;
         }
 
         public bool GamePlaying()

@@ -35,6 +35,7 @@ namespace BearRun
 
         // UI Ïà¹Ø
         public const string E_UpdateDistance = "E_UpdateDistance"; // DistanceArgs
+        public const string E_HitItem = "E_HitItem"; // ItemArgs
 
         // Model Ãû³Æ
         public const string M_GameModel = "M_GameModel";

@@ -2,7 +2,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using QFramework;
 using System.Collections;
-using UnityEditor.Experimental.GraphView;
 
 namespace BearRun
 {
@@ -72,9 +71,9 @@ namespace BearRun
             }).UnRegisterWhenGameObjectDestroyed(gameObject);
 
             // 更新技能 UI
-            UpdateSkillUI(mGameModel.MagnetTime, BtnMagnet);
-            UpdateSkillUI(mGameModel.MultiplyTime, BtnMultiply);
-            UpdateSkillUI(mGameModel.InvincibleTime, BtnInvincible);
+            UpdateSkillUI(mGameModel.MagnetCount, BtnMagnet);
+            UpdateSkillUI(mGameModel.MultiplyCount, BtnMultiply);
+            UpdateSkillUI(mGameModel.InvincibleCount, BtnInvincible);
             #endregion
 
             #region 按钮
@@ -87,16 +86,19 @@ namespace BearRun
             BtnMagnet.onClick.AddListener(() =>
             {
                 UseSkill(SkillType.Magnet);
+                StartCoroutine(MagnetCDCoroutine(mGameModel.MagnetCDTime.Value, BtnMagnet));
             });
 
             BtnMultiply.onClick.AddListener(() =>
             {
                 UseSkill(SkillType.Multiply);
+                StartCoroutine(MultiplyCDCoroutine(mGameModel.MagnetCDTime.Value, BtnMultiply));
             });
 
             BtnInvincible.onClick.AddListener(() =>
             {
                 UseSkill(SkillType.Invincible);
+                StartCoroutine(InvincibleCDCoroutine(mGameModel.MagnetCDTime.Value, BtnInvincible));
             });
             #endregion
         }
@@ -117,22 +119,16 @@ namespace BearRun
         {
         }
 
-        private void UpdateSkillUI(BindableProperty<float> time, Button btn)
+        private void UpdateSkillUI(BindableProperty<int> count, Button btn)
         {
             Slider cdTimer = btn.transform.Find("CDTimer").GetComponent<Slider>();
 
-            time.RegisterWithInitValue(t =>
+            count.RegisterWithInitValue(c =>
             {
-                if (t > 0)
-                {
+                if (c > 0 && cdTimer.value == 0)
                     btn.interactable = true;
-                    cdTimer.value = 0;
-                }
                 else
-                {
                     btn.interactable = false;
-                    cdTimer.value = 1;
-                }
 
             }).UnRegisterWhenGameObjectDestroyed(gameObject);
         }
@@ -143,30 +139,48 @@ namespace BearRun
             switch (skillType)
             {
                 case SkillType.Magnet:
-                    if (mMagnetCor != null)
-                        StopCoroutine(mMagnetCor);
-                    mMagnetCor = MagnetInfoCoroutine(BoardTimer.MagnetInfo, mSkillTime);
-                    StartCoroutine(mMagnetCor);
+                    ShowMagnetInfo();
                     break;
 
                 case SkillType.Multiply:
-                    if (mMultiplyCor != null)
-                        StopCoroutine(mMultiplyCor);
-                    mMultiplyCor = MultiplyInfoCoroutine(BoardTimer.MultiplyInfo, mSkillTime);
-                    StartCoroutine(mMultiplyCor);
+                    ShowMultiplyInfo();
                     break;
 
                 case SkillType.Invincible:
-                    if (mInvincibleCor != null)
-                        StopCoroutine(mInvincibleCor);
-                    mInvincibleCor = InvincibleInfoCoroutine(BoardTimer.InvincibleInfo, mSkillTime);
-                    StartCoroutine(mInvincibleCor);
+                    ShowInvincibleInfo();
                     break;
 
                 default:
                     break;
             }
+        }
 
+        #region Info 显示
+        public void ShowMagnetInfo()
+        {
+            if (mMagnetCor != null)
+                StopCoroutine(mMagnetCor);
+
+            mMagnetCor = MagnetInfoCoroutine(BoardTimer.MagnetInfo, mSkillTime);
+            StartCoroutine(mMagnetCor);
+        }
+
+        public void ShowMultiplyInfo()
+        {
+            if (mMultiplyCor != null)
+                StopCoroutine(mMultiplyCor);
+
+            mMultiplyCor = MultiplyInfoCoroutine(BoardTimer.MultiplyInfo, mSkillTime);
+            StartCoroutine(mMultiplyCor);
+        }
+
+        public void ShowInvincibleInfo()
+        {
+            if (mInvincibleCor != null)
+                StopCoroutine(mInvincibleCor);
+
+            mInvincibleCor = InvincibleInfoCoroutine(BoardTimer.InvincibleInfo, mSkillTime);
+            StartCoroutine(mInvincibleCor);
         }
 
         private IEnumerator MagnetInfoCoroutine(Image skill, float timer)
@@ -182,7 +196,7 @@ namespace BearRun
                 }
                 yield return null;
             }
-            
+
             skill.Hide();
         }
 
@@ -199,7 +213,7 @@ namespace BearRun
                 }
                 yield return null;
             }
-            
+
             skill.Hide();
         }
 
@@ -216,8 +230,71 @@ namespace BearRun
                 }
                 yield return null;
             }
-            
+
             skill.Hide();
         }
+
+        private IEnumerator MagnetCDCoroutine(float cdTime, Button skillButton)
+        {
+            skillButton.interactable = false;
+            float timer = cdTime;
+            Slider cdView = skillButton.transform.Find("CDTimer").GetComponent<Slider>();
+            while (timer > 0)
+            {
+                if (mGameModel.GamePlaying())
+                {
+                    timer -= Time.deltaTime;
+                    cdView.value = timer / cdTime;
+                }
+                yield return null;
+            }
+            mGameModel.MagnetCount.Value = Mathf.Max(mGameModel.MagnetCount.Value - 1, 0);
+
+            //if (mGameModel.MagnetTimes.Value == 0)
+            //    BtnMagnet.Hide();
+        }
+        #endregion
+
+        #region CD 显示
+        private IEnumerator MultiplyCDCoroutine(float cdTime, Button skillButton)
+        {
+            skillButton.interactable = false;
+            float timer = cdTime;
+            Slider cdView = skillButton.transform.Find("CDTimer").GetComponent<Slider>();
+            while (timer > 0)
+            {
+                if (mGameModel.GamePlaying())
+                {
+                    timer -= Time.deltaTime;
+                    cdView.value = timer / cdTime;
+                }
+                yield return null;
+            }
+            mGameModel.MultiplyCount.Value = Mathf.Max(mGameModel.MultiplyCount.Value - 1, 0);
+
+            //if (mGameModel.MultiplyTimes.Value == 0)
+            //    BtnMultiply.Hide();
+        }
+
+        private IEnumerator InvincibleCDCoroutine(float cdTime, Button skillButton)
+        {
+            skillButton.interactable = false;
+            float timer = cdTime;
+            Slider cdView = skillButton.transform.Find("CDTimer").GetComponent<Slider>();
+            while (timer > 0)
+            {
+                if (mGameModel.GamePlaying())
+                {
+                    timer -= Time.deltaTime;
+                    cdView.value = timer / cdTime;
+                }
+                yield return null;
+            }
+            mGameModel.InvincibleCount.Value = Mathf.Max(mGameModel.InvincibleCount.Value - 1, 0);
+
+            //if (mGameModel.InvincibleTimes.Value == 0)
+            //    BtnInvincible.Hide();
+        }
+        #endregion
     }
 }
