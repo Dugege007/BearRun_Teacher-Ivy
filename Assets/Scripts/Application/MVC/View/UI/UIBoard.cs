@@ -19,9 +19,9 @@ namespace BearRun
         public Slider BoardFootball;
 
         public Button BtnFootball;
-        public Button BtnInvincible;
-        public Button BtnMultiply;
         public Button BtnMagnet;
+        public Button BtnMultiply;
+        public Button BtnInvincible;
         public Button BtnPause;
 
         private float mMaxGameTime;
@@ -70,10 +70,6 @@ namespace BearRun
 
             }).UnRegisterWhenGameObjectDestroyed(gameObject);
 
-            // 更新技能 UI
-            UpdateSkillUI(mGameModel.MagnetCount, BtnMagnet);
-            UpdateSkillUI(mGameModel.MultiplyCount, BtnMultiply);
-            UpdateSkillUI(mGameModel.InvincibleCount, BtnInvincible);
             #endregion
 
             #region 按钮
@@ -83,23 +79,66 @@ namespace BearRun
                 SendEvent(Consts.E_PauseGame);
             });
 
+            // 技能按钮
             BtnMagnet.onClick.AddListener(() =>
             {
                 UseSkill(SkillType.Magnet);
                 StartCoroutine(MagnetCDCoroutine(mGameModel.MagnetCDTime.Value, BtnMagnet));
+                // 在 HitItemController 中完成技能数量的消耗
             });
 
             BtnMultiply.onClick.AddListener(() =>
             {
                 UseSkill(SkillType.Multiply);
                 StartCoroutine(MultiplyCDCoroutine(mGameModel.MagnetCDTime.Value, BtnMultiply));
+                // 在 HitItemController 中完成技能数量的消耗
             });
 
             BtnInvincible.onClick.AddListener(() =>
             {
                 UseSkill(SkillType.Invincible);
                 StartCoroutine(InvincibleCDCoroutine(mGameModel.MagnetCDTime.Value, BtnInvincible));
+                // 在 HitItemController 中完成技能数量的消耗
             });
+
+
+            Text magnetCountText = BtnMagnet.transform.Find("CountText").GetComponent<Text>();
+            Text multiplyCountText = BtnMultiply.transform.Find("CountText").GetComponent<Text>();
+            Text invincibleCountText = BtnInvincible.transform.Find("CountText").GetComponent<Text>();
+
+            // 按钮显示
+            mGameModel.MagnetCount.RegisterWithInitValue(count =>
+            {
+                if (count > 0)
+                    BtnMagnet.interactable = true;
+                else
+                    BtnMagnet.interactable = false;
+
+                magnetCountText.text = "x" + count.ToString();
+
+            }).UnRegisterWhenGameObjectDestroyed(gameObject);
+
+            mGameModel.MultiplyCount.RegisterWithInitValue(count =>
+            {
+                if (count > 0)
+                    BtnMultiply.interactable = true;
+                else
+                    BtnMultiply.interactable = false;
+
+                multiplyCountText.text = "x" + count.ToString();
+
+            }).UnRegisterWhenGameObjectDestroyed(gameObject);
+
+            mGameModel.InvincibleCount.RegisterWithInitValue(count =>
+            {
+                if (count > 0)
+                    BtnInvincible.interactable = true;
+                else
+                    BtnInvincible.interactable = false;
+
+                invincibleCountText.text = "x" + count.ToString();
+
+            }).UnRegisterWhenGameObjectDestroyed(gameObject);
             #endregion
         }
 
@@ -119,44 +158,20 @@ namespace BearRun
         {
         }
 
-        private void UpdateSkillUI(BindableProperty<int> count, Button btn)
-        {
-            Slider cdTimer = btn.transform.Find("CDTimer").GetComponent<Slider>();
-
-            count.RegisterWithInitValue(c =>
-            {
-                if (c > 0 && cdTimer.value == 0)
-                    btn.interactable = true;
-                else
-                    btn.interactable = false;
-
-            }).UnRegisterWhenGameObjectDestroyed(gameObject);
-        }
-
         // 双倍金币时间
         public void UseSkill(SkillType skillType)
         {
-            switch (skillType)
+            ItemArgs eItemArgs = new ItemArgs()
             {
-                case SkillType.Magnet:
-                    ShowMagnetInfo();
-                    break;
+                SkillCount = 1,
+                SkillType = skillType,
+            };
 
-                case SkillType.Multiply:
-                    ShowMultiplyInfo();
-                    break;
-
-                case SkillType.Invincible:
-                    ShowInvincibleInfo();
-                    break;
-
-                default:
-                    break;
-            }
+            SendEvent(Consts.E_HitItem, eItemArgs);
         }
 
         #region Info 显示
-        public void ShowMagnetInfo()
+        public void ShowMagnetInfo() // 由 HitItemController 调用
         {
             if (mMagnetCor != null)
                 StopCoroutine(mMagnetCor);
@@ -165,7 +180,7 @@ namespace BearRun
             StartCoroutine(mMagnetCor);
         }
 
-        public void ShowMultiplyInfo()
+        public void ShowMultiplyInfo() // 由 HitItemController 调用
         {
             if (mMultiplyCor != null)
                 StopCoroutine(mMultiplyCor);
@@ -174,7 +189,7 @@ namespace BearRun
             StartCoroutine(mMultiplyCor);
         }
 
-        public void ShowInvincibleInfo()
+        public void ShowInvincibleInfo() // 由 HitItemController 调用
         {
             if (mInvincibleCor != null)
                 StopCoroutine(mInvincibleCor);
@@ -248,10 +263,11 @@ namespace BearRun
                 }
                 yield return null;
             }
-            mGameModel.MagnetCount.Value = Mathf.Max(mGameModel.MagnetCount.Value - 1, 0);
 
-            //if (mGameModel.MagnetTimes.Value == 0)
-            //    BtnMagnet.Hide();
+            if (mGameModel.MagnetCount.Value > 0)
+                skillButton.interactable = true;
+            else
+                skillButton.interactable = false;
         }
         #endregion
 
@@ -270,10 +286,11 @@ namespace BearRun
                 }
                 yield return null;
             }
-            mGameModel.MultiplyCount.Value = Mathf.Max(mGameModel.MultiplyCount.Value - 1, 0);
 
-            //if (mGameModel.MultiplyTimes.Value == 0)
-            //    BtnMultiply.Hide();
+            if (mGameModel.MultiplyCount.Value > 0)
+                skillButton.interactable = true;
+            else
+                skillButton.interactable = false;
         }
 
         private IEnumerator InvincibleCDCoroutine(float cdTime, Button skillButton)
@@ -290,10 +307,11 @@ namespace BearRun
                 }
                 yield return null;
             }
-            mGameModel.InvincibleCount.Value = Mathf.Max(mGameModel.InvincibleCount.Value - 1, 0);
 
-            //if (mGameModel.InvincibleTimes.Value == 0)
-            //    BtnInvincible.Hide();
+            if (mGameModel.InvincibleCount.Value > 0)
+                skillButton.interactable = true;
+            else
+                skillButton.interactable = false;
         }
         #endregion
     }

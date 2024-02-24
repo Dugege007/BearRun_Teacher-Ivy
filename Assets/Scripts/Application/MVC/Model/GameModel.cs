@@ -24,8 +24,8 @@ namespace BearRun
         public BindableProperty<float> SkillTime = new(5f);
 
         public BindableProperty<int> MagnetCount = new(1);
-        public BindableProperty<int> MultiplyCount = new(1);
-        public BindableProperty<int> InvincibleCount = new(1);
+        public BindableProperty<int> MultiplyCount = new(2);
+        public BindableProperty<int> InvincibleCount = new(3);
 
         public BindableProperty<float> MagnetCDTime = new(5f);
         public BindableProperty<float> MultiplyCDTime = new(5f);
@@ -59,8 +59,8 @@ namespace BearRun
             SkillTime.Value = 5f;
 
             MagnetCount.Value = 1;
-            MultiplyCount.Value = 1;
-            InvincibleCount.Value = 1;
+            MultiplyCount.Value = 2;
+            InvincibleCount.Value = 3;
 
             MagnetCDTime.Value = 5f;
             MultiplyCDTime.Value = 5f;

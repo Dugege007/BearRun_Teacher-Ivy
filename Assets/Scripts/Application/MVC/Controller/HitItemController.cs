@@ -18,19 +18,19 @@ namespace BearRun
                     case SkillType.Magnet:
                         player.HitMagnet();
                         uiBoard.ShowMagnetInfo();
-                        gameModel.MagnetCount.Value -= eItemArgs.SkillCount;
+                        gameModel.MagnetCount.Value = Mathf.Max(gameModel.MagnetCount.Value - eItemArgs.SkillCount, 0);
                         break;
 
                     case SkillType.Multiply:
                         player.HitMultiply();
                         uiBoard.ShowMultiplyInfo();
-                        gameModel.MultiplyCount.Value -= eItemArgs.SkillCount;
+                        gameModel.MultiplyCount.Value = Mathf.Max(gameModel.MultiplyCount.Value - eItemArgs.SkillCount, 0);
                         break;
 
                     case SkillType.Invincible:
                         player.HitInvincible();
                         uiBoard.ShowInvincibleInfo();
-                        gameModel.InvincibleCount.Value -= eItemArgs.SkillCount;
+                        gameModel.InvincibleCount.Value = Mathf.Max(gameModel.InvincibleCount.Value - eItemArgs.SkillCount, 0);
                         break;
 
                     default:
