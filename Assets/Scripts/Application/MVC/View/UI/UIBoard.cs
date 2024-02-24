@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEngine.UI;
 using QFramework;
+using System.Collections;
+using UnityEditor.Experimental.GraphView;
 
 namespace BearRun
 {
@@ -14,14 +16,22 @@ namespace BearRun
 
         public Text CoinText;
         public Text DistanceText;
+
         public Slider BoardFootball;
+
         public Button BtnFootball;
         public Button BtnInvincible;
         public Button BtnMultiply;
         public Button BtnMagnet;
         public Button BtnPause;
 
-        private float mMaxTime;
+        private float mMaxGameTime;
+
+        private IEnumerator mMagnetCor;
+        private IEnumerator mMultiplyCor;
+        private IEnumerator mInvincibleCor;
+
+        private float mSkillTime;
 
         public override string Name => Consts.V_UIBoard;
 
@@ -30,7 +40,8 @@ namespace BearRun
             mGameModel = GetModel<GameModel>();
             Slider timeSlider = BoardTimer.GetComponent<Slider>();
             mGameModel.GameTime.Value = mStartTime;
-            mMaxTime = mStartTime;
+            mMaxGameTime = mStartTime;
+            mSkillTime = mGameModel.SkillTime.Value;
 
             #region 信息
             // 金币
@@ -52,10 +63,10 @@ namespace BearRun
             // 时间
             mGameModel.GameTime.RegisterWithInitValue(gameTime =>
             {
-                if (gameTime > mMaxTime)
-                    mMaxTime = gameTime;
+                if (gameTime > mMaxGameTime)
+                    mMaxGameTime = gameTime;
 
-                timeSlider.value = gameTime / mMaxTime;
+                timeSlider.value = gameTime / mMaxGameTime;
                 BoardTimer.TimeText.text = gameTime.ToString("0.00") + "s";
 
             }).UnRegisterWhenGameObjectDestroyed(gameObject);
@@ -72,12 +83,27 @@ namespace BearRun
             {
                 SendEvent(Consts.E_PauseGame);
             });
+
+            BtnMagnet.onClick.AddListener(() =>
+            {
+                UseSkill(SkillType.Magnet);
+            });
+
+            BtnMultiply.onClick.AddListener(() =>
+            {
+                UseSkill(SkillType.Multiply);
+            });
+
+            BtnInvincible.onClick.AddListener(() =>
+            {
+                UseSkill(SkillType.Invincible);
+            });
             #endregion
         }
 
         private void Update()
         {
-            if (mGameModel.IsPause.Value == false && mGameModel.IsPlaying.Value)
+            if (mGameModel.GamePlaying())
                 mGameModel.GameTime.Value -= Time.deltaTime;
 
             if (mGameModel.GameTime.Value < 0)
@@ -109,6 +135,89 @@ namespace BearRun
                 }
 
             }).UnRegisterWhenGameObjectDestroyed(gameObject);
+        }
+
+        // 双倍金币时间
+        public void UseSkill(SkillType skillType)
+        {
+            switch (skillType)
+            {
+                case SkillType.Magnet:
+                    if (mMagnetCor != null)
+                        StopCoroutine(mMagnetCor);
+                    mMagnetCor = MagnetInfoCoroutine(BoardTimer.MagnetInfo, mSkillTime);
+                    StartCoroutine(mMagnetCor);
+                    break;
+
+                case SkillType.Multiply:
+                    if (mMultiplyCor != null)
+                        StopCoroutine(mMultiplyCor);
+                    mMultiplyCor = MultiplyInfoCoroutine(BoardTimer.MultiplyInfo, mSkillTime);
+                    StartCoroutine(mMultiplyCor);
+                    break;
+
+                case SkillType.Invincible:
+                    if (mInvincibleCor != null)
+                        StopCoroutine(mInvincibleCor);
+                    mInvincibleCor = InvincibleInfoCoroutine(BoardTimer.InvincibleInfo, mSkillTime);
+                    StartCoroutine(mInvincibleCor);
+                    break;
+
+                default:
+                    break;
+            }
+
+        }
+
+        private IEnumerator MagnetInfoCoroutine(Image skill, float timer)
+        {
+            Text remainTime = skill.transform.Find("TimeText").GetComponent<Text>();
+            skill.Show();
+            while (timer > 0)
+            {
+                if (mGameModel.GamePlaying())
+                {
+                    timer -= Time.deltaTime;
+                    remainTime.text = timer.ToString("0.0");
+                }
+                yield return null;
+            }
+            
+            skill.Hide();
+        }
+
+        private IEnumerator MultiplyInfoCoroutine(Image skill, float timer)
+        {
+            Text remainTime = skill.transform.Find("TimeText").GetComponent<Text>();
+            skill.Show();
+            while (timer > 0)
+            {
+                if (mGameModel.GamePlaying())
+                {
+                    timer -= Time.deltaTime;
+                    remainTime.text = timer.ToString("0.0");
+                }
+                yield return null;
+            }
+            
+            skill.Hide();
+        }
+
+        private IEnumerator InvincibleInfoCoroutine(Image skill, float timer)
+        {
+            Text remainTime = skill.transform.Find("TimeText").GetComponent<Text>();
+            skill.Show();
+            while (timer > 0)
+            {
+                if (mGameModel.GamePlaying())
+                {
+                    timer -= Time.deltaTime;
+                    remainTime.text = timer.ToString("0.0");
+                }
+                yield return null;
+            }
+            
+            skill.Hide();
         }
     }
 }

@@ -13,7 +13,7 @@ namespace BearRun
         Down,
     }
 
-    public enum SkillItemType
+    public enum SkillType
     {
         Magnet,
         Multiply,

@@ -1,4 +1,5 @@
 using QFramework;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -80,7 +81,7 @@ namespace BearRun
         {
             // 根据池子名称，如果没找到对应的池子，则创建新池子
             if (mMyPoolsDir.ContainsKey(name) == false)
-                CreateNewPool(name);
+                CreateNewObjPool(name);
 
             MyPool<GameObject> pool = mMyPoolsDir[name];
             GameObject obj = pool.Allocate();
@@ -95,7 +96,7 @@ namespace BearRun
         {
             // 根据池子名称，如果没找到对应的池子，则创建新池子
             if (mMyPoolsDir.ContainsKey(name) == false)
-                CreateNewPool(name);
+                CreateNewObjPool(name);
 
             MyPool<GameObject> pool = mMyPoolsDir[name];
             GameObject obj = pool.Allocate();
@@ -156,7 +157,7 @@ namespace BearRun
                 p.Clear();
         }
 
-        private void CreateNewPool(string prefabName)
+        private void CreateNewObjPool(string prefabName)
         {
             // 资源目录
             string path = ResourceDir + "/" + prefabName;

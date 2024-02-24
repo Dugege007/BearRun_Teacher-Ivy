@@ -33,7 +33,7 @@ namespace BearRun
             {
                 HitPlayer(other.transform.position);
                 //other.SendMessage("HitMutiply", SendMessageOptions.RequireReceiver);
-                other.SendMessage("HitSkillItem", SkillItemType.Multiply, SendMessageOptions.RequireReceiver);
+                other.SendMessage("HitSkillItem", SkillType.Multiply, SendMessageOptions.RequireReceiver);
             }
         }
     }

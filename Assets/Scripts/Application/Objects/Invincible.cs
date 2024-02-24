@@ -33,7 +33,7 @@ namespace BearRun
             {
                 HitPlayer(other.transform.position);
                 //other.SendMessage("HitInvincible", SendMessageOptions.RequireReceiver);
-                other.SendMessage("HitSkillItem", SkillItemType.Invincible, SendMessageOptions.RequireReceiver);
+                other.SendMessage("HitSkillItem", SkillType.Invincible, SendMessageOptions.RequireReceiver);
             }
         }
     }

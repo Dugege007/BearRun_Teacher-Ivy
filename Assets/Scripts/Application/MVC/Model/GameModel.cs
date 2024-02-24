@@ -52,9 +52,14 @@ namespace BearRun
             GameTime.Value = 50f;
             AddTime.Value = 20f;
             SkillTime.Value = 5f;
-            MagnetTime.Value = 0;
-            MultiplyTime.Value = 0;
-            InvincibleTime.Value = 0;
+            MagnetTime.Value = 3f;
+            MultiplyTime.Value = 3f;
+            InvincibleTime.Value = 3f;
+        }
+
+        public bool GamePlaying()
+        {
+            return IsPause.Value == false && IsPlaying.Value;
         }
         #endregion
 

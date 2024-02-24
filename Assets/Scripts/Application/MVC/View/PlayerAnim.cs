@@ -23,7 +23,7 @@ namespace BearRun
         {
             if (PlayAnim != null)
             {
-                if (mGameModel.IsPause.Value == false && mGameModel.IsPlaying.Value)
+                if (mGameModel.GamePlaying())
                     PlayAnim();
                 else
                     anim.Stop();

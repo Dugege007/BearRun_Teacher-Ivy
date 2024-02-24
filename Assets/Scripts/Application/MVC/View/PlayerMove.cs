@@ -51,11 +51,11 @@ namespace BearRun
 
         // 吃道具
         private int mDoubleCoin = 1;
-        private float mSkillTime;
         private IEnumerator mMultiplyCor;
         private IEnumerator mMagnetCor;
         private bool mIsInvincible = false;
         private IEnumerator mInvincibleCor;
+        private float mSkillTime;
         #endregion
 
         #region 属性
@@ -70,7 +70,6 @@ namespace BearRun
             mGameModel = GetModel<GameModel>();
             mMagnetCollider = GetComponentInChildren<SphereCollider>();
             mMagnetCollider.enabled = false;
-
             mSkillTime = mGameModel.SkillTime.Value;
         }
 
@@ -81,7 +80,7 @@ namespace BearRun
 
         private void Update()
         {
-            if (GamePlaying())
+            if (mGameModel.GamePlaying())
             {
                 // 更新数据
                 if (Time.frameCount % 10 == 0)
@@ -178,11 +177,6 @@ namespace BearRun
         //        yield return null;
         //    }
         //}
-
-        private bool GamePlaying()
-        {
-            return mGameModel.IsPause.Value == false && mGameModel.IsPlaying.Value;
-        }
 
         #region 移动
         // 移动
@@ -380,22 +374,22 @@ namespace BearRun
             mGameModel.Coin.Value += mDoubleCoin;
         }
 
-        public void HitSkillItem(SkillItemType skillItemType)
+        public void HitSkillItem(SkillType skillType)
         {
-            switch (skillItemType)
+            switch (skillType)
             {
                 // 吸铁石
-                case SkillItemType.Magnet:
+                case SkillType.Magnet:
                     HitMagnet();
                     break;
 
                 // 双倍金币
-                case SkillItemType.Multiply:
+                case SkillType.Multiply:
                     HitMutiply();
                     break;
 
                 // 无敌
-                case SkillItemType.Invincible:
+                case SkillType.Invincible:
                     HitInvincible();
                     break;
                 default:
@@ -417,10 +411,10 @@ namespace BearRun
 
         private IEnumerator mMagnetCoroutine()
         {
-            float timer = mGameModel.SkillTime.Value;
+            float timer = mSkillTime;
             while (timer > 0)
             {
-                if (GamePlaying())
+                if (mGameModel.GamePlaying())
                     timer -= Time.deltaTime;
                 yield return null;
             }
@@ -443,10 +437,10 @@ namespace BearRun
 
         private IEnumerator MutiplyCoroutine()
         {
-            float timer = mGameModel.SkillTime.Value;
+            float timer = mSkillTime;
             while (timer > 0)
             {
-                if (GamePlaying())
+                if (mGameModel.GamePlaying())
                     timer -= Time.deltaTime;
                 yield return null;
             }
@@ -475,11 +469,11 @@ namespace BearRun
         private IEnumerator InvincibleCoroutine()
         {
             mIsInvincible = true;
-            float timer = mGameModel.SkillTime.Value;
+            float timer = mSkillTime;
             while (timer > 0)
             {
-                if (GamePlaying())
-                    timer -= Time.deltaTime; Debug.Log(timer);
+                if (mGameModel.GamePlaying())
+                    timer -= Time.deltaTime;
                 yield return null;
             }
             //yield return new WaitForSeconds(mSkillTime);

@@ -35,7 +35,7 @@ namespace BearRun
             {
                 HitPlayer(other.transform.position);
                 //other.SendMessage("HitMagnet", SendMessageOptions.RequireReceiver);
-                other.SendMessage("HitSkillItem", SkillItemType.Magnet, SendMessageOptions.RequireReceiver);
+                other.SendMessage("HitSkillItem", SkillType.Magnet, SendMessageOptions.RequireReceiver);
             }
         }
     }
