@@ -153,9 +153,17 @@ namespace BearRun
             if (other.gameObject.CompareTag(Tags.BeforeTrigger)) // 汽车触发器
             {
                 other.transform.parent.gameObject.SendMessage("HitTrigger", SendMessageOptions.RequireReceiver);
-
-                // 汽车行走
             }
+
+            if (other.gameObject.CompareTag(Tags.BeforeGoalTrigger)) // 准备射门
+            {
+                mGameModel.CanGoal.Value = true;
+
+                //other.transform.parent.gameObject.SendMessage("HitTrigger", SendMessageOptions.RequireReceiver);
+
+                // 发消息给 UIBoard
+            }
+
         }
         #endregion
 
@@ -383,26 +391,6 @@ namespace BearRun
             };
 
             SendEvent(Consts.E_HitItem, eItemArgs);
-
-            //switch (skillType)
-            //{
-            //    // 吸铁石
-            //    case SkillType.Magnet:
-            //        HitMagnet();
-            //        break;
-
-            //    // 双倍金币
-            //    case SkillType.Multiply:
-            //        HitMutiply();
-            //        break;
-
-            //    // 无敌
-            //    case SkillType.Invincible:
-            //        HitInvincible();
-            //        break;
-            //    default:
-            //        break;
-            //}
         }
 
         // 吸铁石

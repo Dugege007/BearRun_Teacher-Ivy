@@ -16,21 +16,22 @@ namespace BearRun
         public Text CoinText;
         public Text DistanceText;
 
-        public Slider BoardFootball;
-
-        public Button BtnFootball;
+        public Button BtnPause;
         public Button BtnMagnet;
         public Button BtnMultiply;
         public Button BtnInvincible;
-        public Button BtnPause;
+        public Button BtnFootball;
+        public Slider BoardFootball;
 
         private float mMaxGameTime;
 
         private IEnumerator mMagnetCor;
         private IEnumerator mMultiplyCor;
         private IEnumerator mInvincibleCor;
-
         private float mSkillTime;
+
+        private float mGoalTimer;
+        private IEnumerator mGoalCor;
 
         public override string Name => Consts.V_UIBoard;
 
@@ -41,6 +42,7 @@ namespace BearRun
             mGameModel.GameTime.Value = mStartTime;
             mMaxGameTime = mStartTime;
             mSkillTime = mGameModel.SkillTime.Value;
+            mGoalTimer = mGameModel.GoalTime.Value;
 
             #region 信息
             // 金币
@@ -101,7 +103,6 @@ namespace BearRun
                 // 在 HitItemController 中完成技能数量的消耗
             });
 
-
             Text magnetCountText = BtnMagnet.transform.Find("CountText").GetComponent<Text>();
             Text multiplyCountText = BtnMultiply.transform.Find("CountText").GetComponent<Text>();
             Text invincibleCountText = BtnInvincible.transform.Find("CountText").GetComponent<Text>();
@@ -137,6 +138,26 @@ namespace BearRun
                     BtnInvincible.interactable = false;
 
                 invincibleCountText.text = "x" + count.ToString();
+
+            }).UnRegisterWhenGameObjectDestroyed(gameObject);
+
+            // 射门按钮
+            BtnFootball.onClick.AddListener(() =>
+            {
+                mGameModel.CanGoal.Value = false;
+            });
+
+            mGameModel.CanGoal.RegisterWithInitValue(canGoal =>
+            {
+                if (canGoal)
+                {
+                    BoardFootball.Show();
+                    StartCountGoalTime();
+                }
+                else
+                {
+                    BoardFootball.Hide();
+                }
 
             }).UnRegisterWhenGameObjectDestroyed(gameObject);
             #endregion
@@ -312,6 +333,33 @@ namespace BearRun
                 skillButton.interactable = true;
             else
                 skillButton.interactable = false;
+        }
+        #endregion
+
+        #region 射门
+        private void StartCountGoalTime()
+        {
+            if (mGoalCor != null)
+                StopCoroutine(mGoalCor);
+
+            mGoalCor = GoalTimeCount();
+            StartCoroutine(mGoalCor);
+        }
+
+        private IEnumerator GoalTimeCount()
+        {
+            float timer = mGameModel.GoalTime.Value;
+            while (timer > 0)
+            {
+                if (mGameModel.GamePlaying())
+                {
+                    timer -= Time.deltaTime;
+                    BoardFootball.value = timer / mGameModel.GoalTime.Value;
+                }
+                yield return null;
+            }
+
+            mGameModel.CanGoal.Value = false;
         }
         #endregion
     }

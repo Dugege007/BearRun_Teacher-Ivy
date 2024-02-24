@@ -16,6 +16,7 @@ TagManager:
   - BlockChild
   - BeforeTrigger
   - MagnetCollider
+  - BeforeGoalTrigger
   layers:
   - Default
   - TransparentFX

@@ -31,6 +31,8 @@ namespace BearRun
         public BindableProperty<float> MultiplyCDTime = new(5f);
         public BindableProperty<float> InvincibleCDTime = new(5f);
 
+        public BindableProperty<bool> CanGoal = new(false);
+        public BindableProperty<float> GoalTime = new(1.5f);
         #endregion
 
         #region  Ù–‘
@@ -65,6 +67,9 @@ namespace BearRun
             MagnetCDTime.Value = 5f;
             MultiplyCDTime.Value = 5f;
             InvincibleCDTime.Value = 5f;
+
+            CanGoal.Value = false;
+            GoalTime.Value = 1.5f;
         }
 
         public bool GamePlaying()

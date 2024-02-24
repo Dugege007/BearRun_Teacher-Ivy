@@ -37,6 +37,8 @@ namespace BearRun
         public const string E_UpdateDistance = "E_UpdateDistance"; // DistanceArgs
         public const string E_HitItem = "E_HitItem"; // ItemArgs
 
+        public const string E_HitGoalTrigger = "E_HitGoalTrigger"; // 可以开始射门
+
         // Model 名称
         public const string M_GameModel = "M_GameModel";
 
