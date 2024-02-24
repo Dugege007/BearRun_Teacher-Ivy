@@ -145,6 +145,7 @@ namespace BearRun
             BtnFootball.onClick.AddListener(() =>
             {
                 mGameModel.CanGoal.Value = false;
+                SendEvent(Consts.E_ClickBtnGoal);
             });
 
             mGameModel.CanGoal.RegisterWithInitValue(canGoal =>
@@ -173,6 +174,10 @@ namespace BearRun
                 mGameModel.GameTime.Value = 0;
                 SendEvent(Consts.E_EndGame);
             }
+        }
+
+        public override void RegisterAttentionEvent()
+        {
         }
 
         public override void HandleEvent(string eventName, object data)

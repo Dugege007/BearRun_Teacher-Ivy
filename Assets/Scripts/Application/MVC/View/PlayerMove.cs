@@ -56,6 +56,12 @@ namespace BearRun
         private bool mIsInvincible = false;
         private IEnumerator mInvincibleCor;
         private float mSkillTime;
+
+        // 射门相关
+        private GameObject mBall;
+        private GameObject mTrail;
+        private IEnumerator mGoalCor;
+
         #endregion
 
         #region 属性
@@ -71,6 +77,10 @@ namespace BearRun
             mMagnetCollider = GetComponentInChildren<SphereCollider>();
             mMagnetCollider.enabled = false;
             mSkillTime = mGameModel.SkillTime.Value;
+
+            mBall = transform.Find("Ball").gameObject;
+            mTrail = transform.Find("Trail").gameObject;
+            mTrail.Hide();
         }
 
         private void Start()
@@ -168,23 +178,25 @@ namespace BearRun
         #endregion
 
         #region 事件回调
+        public override void RegisterAttentionEvent()
+        {
+            AttentionList.Add(Consts.E_ClickBtnGoal);
+        }
+
         public override void HandleEvent(string eventName, object data)
         {
+            switch (eventName)
+            {
+                case Consts.E_ClickBtnGoal:
+                    OnGoalClick();
+                    break;
+                default:
+                    break;
+            }
         }
         #endregion
 
         #region 方法
-        // 用 Update() 代替
-        //private IEnumerator UpdateAction()
-        //{
-        //    while (true)
-        //    {
-        //        mCC.Move(Speed * Time.deltaTime * transform.forward);
-        //        MoveControl();
-        //        UpdatePosition();
-        //        yield return null;
-        //    }
-        //}
 
         #region 移动
         // 移动
@@ -478,6 +490,27 @@ namespace BearRun
         }
         #endregion
 
+        // 射门相关
+        public void OnGoalClick()
+        {
+            mTrail.Show();
+            mBall.Hide();
+
+            if (mGoalCor != null)
+                StopCoroutine(mGoalCor);
+
+            mGoalCor = MoveBall();
+            StartCoroutine(mGoalCor);
+        }
+
+        private IEnumerator MoveBall()
+        {
+            while (true)
+            {
+                mTrail.transform.Translate(transform.forward * 36f * Time.deltaTime);
+                yield return null;
+            }
+        }
         #endregion
 
         #region 帮助方法

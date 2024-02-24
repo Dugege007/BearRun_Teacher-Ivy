@@ -12299,12 +12299,12 @@ MonoBehaviour:
   BoardTimer: {fileID: 2087874465}
   CoinText: {fileID: 1867646280}
   DistanceText: {fileID: 1717706306}
-  BoardFootball: {fileID: 861829024}
-  BtnFootball: {fileID: 921874826}
+  BtnPause: {fileID: 1193440002}
   BtnMagnet: {fileID: 1903345564}
   BtnMultiply: {fileID: 175502917}
   BtnInvincible: {fileID: 1957654353}
-  BtnPause: {fileID: 1193440002}
+  BtnFootball: {fileID: 921874826}
+  BoardFootball: {fileID: 861829024}
 --- !u!1001 &1224133865449740303
 PrefabInstance:
   m_ObjectHideFlags: 0
