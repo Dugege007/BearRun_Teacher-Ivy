@@ -19,6 +19,7 @@ TagManager:
   - BeforeGoalTrigger
   - Ball
   - GoalKeeper
+  - BallDoor
   layers:
   - Default
   - TransparentFX

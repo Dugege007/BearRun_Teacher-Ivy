@@ -1,6 +1,7 @@
 using QFramework;
 using System.Collections;
 using UnityEngine;
+using static UnityEditor.PlayerSettings;
 
 namespace BearRun
 {
@@ -180,6 +181,28 @@ namespace BearRun
                 HitObstacle();
                 // 守门员被撞飞
                 other.transform.parent.parent.parent.SendMessage("HitGoalKeeper", transform.position, SendMessageOptions.RequireReceiver);
+            }
+
+            if (other.gameObject.CompareTag(Tags.BallDoor))
+            {
+                if (mIsGoal)
+                {
+                    mIsGoal = false;
+                    return;
+                }
+
+                HitObstacle();
+                // 球门动画
+
+                // 球网粘身上
+                Game.Instance.PoolManager.Allocate<Effect>("Effect_QiuWang")
+                    .Parent(mTrail.transform.parent)
+                    .LocalPosition(new Vector3(0, -1f, -1f))
+                    .LocalScale(5f / 3f * Vector3.one);
+
+                other.transform.parent.parent.SendMessage("HitDoor", mNowIndex, SendMessageOptions.RequireReceiver);
+                // 回收球门
+
             }
         }
         #endregion

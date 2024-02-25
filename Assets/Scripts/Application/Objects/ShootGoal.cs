@@ -10,6 +10,7 @@ namespace BearRun
 
         public Animation GoalKeeper;
         public Animation Door;
+        public GameObject Net;
 
         private Transform mEffectParentTrans;
 
@@ -27,12 +28,14 @@ namespace BearRun
         public override void OnAllocate()
         {
             GoalKeeper.Play("standard");
+            Door.Play("QiuMen_St");
+            Net.Show();
+            GoalKeeper.transform.parent.parent.parent.Show();
+            GoalKeeper.transform.parent.parent.parent.transform.localPosition = new Vector3(0, 0, -1.5f);
         }
 
         public override void OnRecycle()
         {
-            GoalKeeper.transform.parent.parent.parent.Show();
-            GoalKeeper.transform.parent.parent.parent.transform.localPosition = new Vector3(0, 0, -1.5f);
             IsFly = false;
         }
 
@@ -54,6 +57,28 @@ namespace BearRun
             GoalKeeper.Play("fly");
 
             IsFly = true;
+        }
+
+        public void HitDoor(int index)
+        {
+            // 动画
+            switch (index)
+            {
+                case 0:
+                    Door.Play("QiuMen_RR");
+                    break;
+                case 1:
+                    Door.Play("QiuMen_St");
+                    break;
+                case 2:
+                    Door.Play("QiuMen_LR");
+                    break;
+                default:
+                    break;
+            }
+
+            // 球网消失
+            Net.Hide();
         }
     }
 }

@@ -603,7 +603,7 @@ GameObject:
   - component: {fileID: 3650592433937905539}
   m_Layer: 0
   m_Name: QiuMen
-  m_TagString: Untagged
+  m_TagString: BallDoor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1267,7 +1267,7 @@ GameObject:
   - component: {fileID: 9090758172886479396}
   m_Layer: 0
   m_Name: goalkeeper
-  m_TagString: Goalkeeper
+  m_TagString: GoalKeeper
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1974,6 +1974,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2978063996482054248}
   - component: {fileID: 768969312488003196}
+  - component: {fileID: 9068378005349473588}
   m_Layer: 0
   m_Name: Item_ShootGoal
   m_TagString: Untagged
@@ -2005,6 +2006,23 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8762586268072005389}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &9068378005349473588
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8762586268072005389}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb16a0ff9ad78974c88ca61148a2920e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Speed: 10
+  IsFly: 0
+  GoalKeeper: {fileID: 8709626877241777514}
+  Door: {fileID: 4764861790135004598}
+  Net: {fileID: 4958639789800521356}
 --- !u!1 &8833910992398782690
 GameObject:
   m_ObjectHideFlags: 0

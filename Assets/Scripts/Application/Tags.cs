@@ -18,6 +18,7 @@ namespace BearRun
         public const string BeforeGoalTrigger = "BeforeGoalTrigger";
         public const string Ball = "Ball";
         public const string GoalKeeper = "GoalKeeper";
+        public const string BallDoor = "BallDoor";
 
     }
 }
