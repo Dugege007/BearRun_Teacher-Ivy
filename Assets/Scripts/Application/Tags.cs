@@ -14,9 +14,10 @@ namespace BearRun
         public const string BeforeTrigger = "BeforeTrigger";
         public const string MagnetCollider = "MagnetCollider";
 
-        // 射门的 Trigger
+        // 射门相关
         public const string BeforeGoalTrigger = "BeforeGoalTrigger";
-        // 球
         public const string Ball = "Ball";
+        public const string GoalKeeper = "GoalKeeper";
+
     }
 }

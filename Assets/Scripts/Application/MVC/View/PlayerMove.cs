@@ -170,12 +170,17 @@ namespace BearRun
             if (other.gameObject.CompareTag(Tags.BeforeGoalTrigger)) // 准备射门
             {
                 mGameModel.CanGoal.Value = true;
-
-                //other.transform.parent.gameObject.SendMessage("HitTrigger", SendMessageOptions.RequireReceiver);
-
                 // 发消息给 UIBoard
+                //SendEvent(Consts.E_HitGoalTrigger);
+                //other.transform.parent.gameObject.SendMessage("HitTrigger", SendMessageOptions.RequireReceiver);
             }
 
+            if (other.gameObject.CompareTag(Tags.GoalKeeper)) // 撞到守门员
+            {
+                HitObstacle();
+                // 守门员被撞飞
+                other.transform.parent.parent.parent.SendMessage("HitGoalKeeper", transform.position, SendMessageOptions.RequireReceiver);
+            }
         }
         #endregion
 
@@ -504,7 +509,7 @@ namespace BearRun
             mGoalCor = MoveBall();
             StartCoroutine(mGoalCor);
 
-            SendMessage("MessagePlayShot");
+            SendMessage("MessagePlayShoot");
         }
 
         private IEnumerator MoveBall()

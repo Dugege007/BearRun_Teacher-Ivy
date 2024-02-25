@@ -11,6 +11,7 @@ namespace BearRun
             if (other.gameObject.CompareTag(Tags.Ball))
             {
                 other.transform.parent.parent.SendMessage("HitBallDoor", SendMessageOptions.RequireReceiver);
+                gameObject.transform.parent.parent.SendMessage("ShootAGoal", SendMessageOptions.RequireReceiver);
             }
         }
     }

@@ -30,9 +30,9 @@ namespace BearRun
             }
         }
 
-        public void MessagePlayShot() // 由 PlayerMove 的 OnGoalClick 调用
+        public void MessagePlayShoot() // 由 PlayerMove 的 OnGoalClick 调用
         {
-            PlayAnim = PlayShot;
+            PlayAnim = PlayShoot;
         }
 
         public void AnimManager(InputDirection inputDir)
@@ -91,7 +91,7 @@ namespace BearRun
                 PlayAnim = PlayRun;
         }
 
-        private void PlayShot()
+        private void PlayShoot()
         {
             anim.Play("Shoot01");
             if (anim["Shoot01"].normalizedTime > 0.95f)

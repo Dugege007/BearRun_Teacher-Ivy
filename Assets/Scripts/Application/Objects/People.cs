@@ -5,7 +5,7 @@ namespace BearRun
 {
     public class People : Obstacles
     {
-        public float Speed = 5f;
+        public float Speed = 10f;
         public bool IsFly = false;
         //private float mFlyForce = 100f;
         private bool mIsBlock = false;
@@ -26,7 +26,7 @@ namespace BearRun
                 transform.position -= new Vector3(Speed, 0, 0) * Time.deltaTime;
 
             if (IsFly)
-                transform.position += 2f * Time.deltaTime * new Vector3(0, Speed, Speed);
+                transform.position += Time.deltaTime * new Vector3(0, Speed, Speed);
         }
 
         public override void OnAllocate()
