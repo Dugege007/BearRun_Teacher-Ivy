@@ -30,7 +30,7 @@ namespace BearRun
             }
         }
 
-        public void MessagePlayShot()
+        public void MessagePlayShot() // 由 PlayerMove 的 OnGoalClick 调用
         {
             PlayAnim = PlayShot;
         }

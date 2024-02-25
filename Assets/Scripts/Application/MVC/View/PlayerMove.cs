@@ -61,7 +61,8 @@ namespace BearRun
         private GameObject mBall;
         private GameObject mTrail;
         private IEnumerator mGoalCor;
-
+        private bool mIsGoal = false;
+        private ParticleSystem mFXGoal;
         #endregion
 
         #region 属性
@@ -79,7 +80,8 @@ namespace BearRun
             mSkillTime = mGameModel.SkillTime.Value;
 
             mBall = transform.Find("Ball").gameObject;
-            mTrail = transform.Find("Trail").gameObject;
+            mTrail = transform.Find("Effect").transform.Find("Trail").gameObject;
+            mFXGoal = transform.Find("Effect").transform.Find("FX_GOAL").GetComponent<ParticleSystem>();
             mTrail.Hide();
         }
 
@@ -490,7 +492,7 @@ namespace BearRun
         }
         #endregion
 
-        // 射门相关
+        #region 射门相关
         public void OnGoalClick()
         {
             mTrail.Show();
@@ -513,6 +515,25 @@ namespace BearRun
                 yield return null;
             }
         }
+
+        // 球进了
+        public void HitBallDoor() // 由 BallDoor 的 Trigger 调用
+        {
+            // 停止协程
+            StopCoroutine(mGoalCor);
+            // 归位
+            mTrail.LocalPosition(mTrail.transform.parent.localPosition);
+            // IsGoal 变为 true
+            mIsGoal = true;
+            mTrail.Hide();
+            mBall.Show();
+
+            // 播放特效
+            mFXGoal.Play();
+            // 播放音效
+            Game.Instance.Sound.PlaySFX("Se_UI_Goal");
+        }
+        #endregion
         #endregion
 
         #region 帮助方法

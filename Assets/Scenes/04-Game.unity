@@ -12353,30 +12353,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3873391606480617506, guid: 8d8493e3151f143488b0951f47551241, type: 3}
-      propertyPath: m_TagString
-      value: BeforeGoalTrigger
-      objectReference: {fileID: 0}
-    - target: {fileID: 7150576024129470359, guid: 8d8493e3151f143488b0951f47551241, type: 3}
-      propertyPath: m_Size.y
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 7150576024129470359, guid: 8d8493e3151f143488b0951f47551241, type: 3}
-      propertyPath: m_Size.z
-      value: 12
-      objectReference: {fileID: 0}
-    - target: {fileID: 7150576024129470359, guid: 8d8493e3151f143488b0951f47551241, type: 3}
-      propertyPath: m_Center.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7150576024129470359, guid: 8d8493e3151f143488b0951f47551241, type: 3}
-      propertyPath: m_Center.y
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 7150576024129470359, guid: 8d8493e3151f143488b0951f47551241, type: 3}
-      propertyPath: m_Center.z
-      value: -25
-      objectReference: {fileID: 0}
     - target: {fileID: 8762586268072005389, guid: 8d8493e3151f143488b0951f47551241, type: 3}
       propertyPath: m_Name
       value: Item_ShootGoal

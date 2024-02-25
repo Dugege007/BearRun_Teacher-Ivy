@@ -600,6 +600,7 @@ GameObject:
   - component: {fileID: 4764861790135004598}
   - component: {fileID: 360113987554293956}
   - component: {fileID: 4698754471166568518}
+  - component: {fileID: 3650592433937905539}
   m_Layer: 0
   m_Name: QiuMen
   m_TagString: Untagged
@@ -688,8 +689,20 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 12.31, y: 5.9, z: 0.53}
-  m_Center: {x: 0, y: 2.58, z: 1.36}
+  m_Size: {x: 18, y: 6, z: 8}
+  m_Center: {x: 0, y: 3, z: -3}
+--- !u!114 &3650592433937905539
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3235061208797734744}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7abe6d19f45555949aeae1adc12c3f30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3476427524973367335
 GameObject:
   m_ObjectHideFlags: 0
@@ -797,7 +810,7 @@ GameObject:
   - component: {fileID: 7150576024129470359}
   m_Layer: 0
   m_Name: ShootArea
-  m_TagString: Goal
+  m_TagString: BeforeGoalTrigger
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -836,8 +849,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 12, y: 7.8436127, z: 11.797897}
-  m_Center: {x: 0.00000057665324, y: 3.9218063, z: -24.101051}
+  m_Size: {x: 12, y: 8, z: 12}
+  m_Center: {x: 0, y: 4, z: -25}
 --- !u!1 &4438137812520096396
 GameObject:
   m_ObjectHideFlags: 0

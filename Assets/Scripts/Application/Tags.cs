@@ -16,5 +16,7 @@ namespace BearRun
 
         // …‰√≈µƒ Trigger
         public const string BeforeGoalTrigger = "BeforeGoalTrigger";
+        // «Ú
+        public const string Ball = "Ball";
     }
 }
