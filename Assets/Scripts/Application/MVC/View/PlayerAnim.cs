@@ -30,6 +30,11 @@ namespace BearRun
             }
         }
 
+        public void MessagePlayShot()
+        {
+            PlayAnim = PlayShot;
+        }
+
         public void AnimManager(InputDirection inputDir)
         {
             switch (inputDir)
@@ -86,9 +91,18 @@ namespace BearRun
                 PlayAnim = PlayRun;
         }
 
+        private void PlayShot()
+        {
+            anim.Play("Shoot01");
+            if (anim["Shoot01"].normalizedTime > 0.95f)
+                PlayAnim = PlayRun;
+        }
+
+
+
         public override void HandleEvent(string eventName, object data)
         {
-            throw new NotImplementedException();
+            
         }
     }
 }

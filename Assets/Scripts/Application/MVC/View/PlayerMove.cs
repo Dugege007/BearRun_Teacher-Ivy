@@ -501,6 +501,8 @@ namespace BearRun
 
             mGoalCor = MoveBall();
             StartCoroutine(mGoalCor);
+
+            SendMessage("MessagePlayShot");
         }
 
         private IEnumerator MoveBall()
