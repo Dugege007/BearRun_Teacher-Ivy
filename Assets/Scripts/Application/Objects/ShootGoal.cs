@@ -36,13 +36,24 @@ namespace BearRun
 
         public override void OnRecycle()
         {
+            StopAllCoroutines();
             IsFly = false;
         }
 
         // 进球了
-        public void ShootAGoal()
+        public void ShootAGoal(float posX)
         {
-            GoalKeeper.transform.parent.parent.parent.Hide();
+            if (posX < 0)
+                GoalKeeper.Play("left_flutter");
+            else if (posX > 0)
+                GoalKeeper.Play("right_flutter");
+            else
+                GoalKeeper.Play("flutter");
+
+            ActionKit.Delay(0.6f, () =>
+            {
+                GoalKeeper.transform.parent.parent.parent.Hide();
+            }).Start(this);
         }
 
         // 撞飞

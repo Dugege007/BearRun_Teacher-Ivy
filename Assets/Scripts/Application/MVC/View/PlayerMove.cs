@@ -8,6 +8,7 @@ namespace BearRun
     public class PlayerMove : View
     {
         #region 常量
+        private const float mMoveHorizontalOffset = 1.8f;
         private const float mMoveHorizontalSpeed = 12f;
         private const float mGravity = 9.8f;
         private const float mJumpHeight = 3f;
@@ -254,7 +255,7 @@ namespace BearRun
                     switch (mNowIndex)
                     {
                         case 0:
-                            transform.position = new Vector3(-2, transform.position.y, transform.position.z);
+                            transform.position = new Vector3(-mMoveHorizontalOffset, transform.position.y, transform.position.z);
                             Debug.Log("移动到 左");
                             break;
                         case 1:
@@ -262,7 +263,7 @@ namespace BearRun
                             Debug.Log("移动到 中");
                             break;
                         case 2:
-                            transform.position = new Vector3(2, transform.position.y, transform.position.z);
+                            transform.position = new Vector3(mMoveHorizontalOffset, transform.position.y, transform.position.z);
                             Debug.Log("移动到 右");
                             break;
                         default:
@@ -293,7 +294,7 @@ namespace BearRun
                     if (mTargetIndex > 0)
                     {
                         mTargetIndex--;
-                        mXDistance = -2f;
+                        mXDistance = -mMoveHorizontalOffset;
                         SendMessage("AnimManager", mInputDir);
                         Game.Instance.Sound.PlaySFX("Se_UI_HuaDong");
                     }
@@ -302,7 +303,7 @@ namespace BearRun
                     if (mTargetIndex < 2)
                     {
                         mTargetIndex++;
-                        mXDistance = 2f;
+                        mXDistance = mMoveHorizontalOffset;
                         SendMessage("AnimManager", mInputDir);
                         Game.Instance.Sound.PlaySFX("Se_UI_HuaDong");
                     }
@@ -560,6 +561,8 @@ namespace BearRun
             mFXGoal.Play();
             // 播放音效
             Game.Instance.Sound.PlaySFX("Se_UI_Goal");
+            // 进球得分
+            mGameModel.GoalCount.Value++;
         }
         #endregion
         #endregion

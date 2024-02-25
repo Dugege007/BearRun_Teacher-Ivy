@@ -30,7 +30,6 @@ namespace BearRun
         private IEnumerator mInvincibleCor;
         private float mSkillTime;
 
-        private float mGoalTimer;
         private IEnumerator mGoalCor;
 
         public override string Name => Consts.V_UIBoard;
@@ -42,7 +41,6 @@ namespace BearRun
             mGameModel.GameTime.Value = mStartTime;
             mMaxGameTime = mStartTime;
             mSkillTime = mGameModel.SkillTime.Value;
-            mGoalTimer = mGameModel.GoalTime.Value;
 
             #region 信息
             // 金币
@@ -56,8 +54,6 @@ namespace BearRun
             mGameModel.Distance.RegisterWithInitValue(distance =>
             {
                 DistanceText.text = distance + "m";
-                // 分数
-                mGameModel.Score.Value = distance + mGameModel.GoalCount.Value * 5;
 
             }).UnRegisterWhenGameObjectDestroyed(gameObject);
 

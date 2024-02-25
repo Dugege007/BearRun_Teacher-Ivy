@@ -1,8 +1,5 @@
-using UnityEngine;
 using UnityEngine.UI;
 using QFramework;
-using UnityEngine.SocialPlatforms.Impl;
-using Unity.VisualScripting;
 
 namespace BearRun
 {
@@ -52,6 +49,7 @@ namespace BearRun
 
         private void OnEnable()
         {
+            mGameModel.Score.Value = mGameModel.Distance.Value + mGameModel.GoalCount.Value * 5;
             ScoreText.text = "·ÖÊý£º" + mGameModel.Score.Value;
             CoinText.text = "½ð±Ò£º$" + mGameModel.Coin.Value;
             DistanceText.text = "¾àÀë£º" + mGameModel.Distance.Value + "m";

@@ -59,9 +59,9 @@ Animation:
   - {fileID: 7400000, guid: e715061e9f290674aac6534e2b8de340, type: 3}
   - {fileID: 7400000, guid: 6702c76cf59963849adff71f06a6a3a0, type: 3}
   m_WrapMode: 0
-  m_PlayAutomatically: 0
+  m_PlayAutomatically: 1
   m_AnimatePhysics: 0
-  m_CullingType: 1
+  m_CullingType: 0
 --- !u!1 &738973105005138674
 GameObject:
   m_ObjectHideFlags: 0
