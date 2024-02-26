@@ -35,6 +35,7 @@ namespace BearRun
         public BindableProperty<float> GoalTime = new(1.5f);
 
         public BindableProperty<int> BriberyPrice = new(100);
+        public BindableProperty<int> BriberyTimes = new(0);
 
         public BindableProperty<int> Level = new(1);
         public BindableProperty<int> Exp = new(0);
@@ -59,7 +60,7 @@ namespace BearRun
 
             GoalCount.Value = 0;
             Score.Value = 0;
-            Coin.Value = 0;
+            Coin.Value = 500;
             Distance.Value = 0;
 
             GameTime.Value = 50f;
@@ -78,6 +79,7 @@ namespace BearRun
             GoalTime.Value = 1.5f;
 
             BriberyPrice.Value = 100;
+            BriberyTimes.Value = 0;
 
             Level.Value = 1;
             Exp.Value = 0;

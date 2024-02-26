@@ -7,7 +7,7 @@ namespace BearRun
 {
     public partial class UIBoard : View
     {
-        private const float mStartTime = 50f;
+        private const float mStartTime = 5f;
 
         private GameModel mGameModel;
 

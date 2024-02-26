@@ -23,9 +23,20 @@ namespace BearRun
 
             }).UnRegisterWhenGameObjectDestroyed(gameObject);
 
+            mGameModel.BriberyTimes.RegisterWithInitValue(time =>
+            {
+                mGameModel.BriberyPrice.Value *= 2;
+
+            }).UnRegisterWhenGameObjectDestroyed(gameObject);
+
             BtnBribery.onClick.AddListener(() =>
             {
-                // 继续游戏
+                // 如果钱够，花钱，继续游戏
+                mGameModel.Coin.Value -= mGameModel.BriberyPrice.Value;
+                mGameModel.BriberyTimes.Value++;
+                // 加时
+                mGameModel.GameTime.Value += 20f;
+                SendEvent(Consts.E_ResumeGame);
             });
 
             BtnClose.onClick.AddListener(() =>
@@ -35,9 +46,17 @@ namespace BearRun
             });
         }
 
+        private void OnEnable()
+        {
+            if (mGameModel.Coin.Value >= mGameModel.BriberyPrice.Value)
+                BtnBribery.interactable = true;
+            else
+                BtnBribery.interactable = false;
+        }
+
         public override void HandleEvent(string eventName, object data)
         {
-            
+
         }
     }
 }

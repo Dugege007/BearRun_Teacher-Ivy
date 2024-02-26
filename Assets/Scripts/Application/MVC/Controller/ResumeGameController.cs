@@ -8,9 +8,11 @@ namespace BearRun
         {
             UIPause uiPause = GetView<UIPause>();
             UIResume uiResume = GetView<UIResume>();
+            UIGameOver uiGameOver = GetView<UIGameOver>();
 
             uiPause.Hide();
             uiResume.Show();
+            uiGameOver.Hide();
         }
     }
 }
