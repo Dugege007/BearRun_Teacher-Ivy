@@ -133,7 +133,6 @@ namespace BearRun
 
                 other.gameObject.SendMessage("HitPlayer", transform.position, SendMessageOptions.RequireReceiver);
                 HitObstacle(); // 撞击减速
-                Game.Instance.Sound.PlaySFX("Se_UI_Hit"); // 声音
             }
 
             if (other.gameObject.CompareTag(Tags.BigFence))
@@ -143,7 +142,6 @@ namespace BearRun
                 if (mIsSlide) return;
                 other.gameObject.SendMessage("HitPlayer", transform.position, SendMessageOptions.RequireReceiver);
                 HitObstacle();
-                Game.Instance.Sound.PlaySFX("Se_UI_Hit");
             }
 
             if (other.gameObject.CompareTag(Tags.Block))
@@ -175,6 +173,12 @@ namespace BearRun
                 // 发消息给 UIBoard
                 //SendEvent(Consts.E_HitGoalTrigger);
                 //other.transform.parent.gameObject.SendMessage("HitTrigger", SendMessageOptions.RequireReceiver);
+
+                // 显示加速特效
+                Game.Instance.PoolManager.Allocate<Effect>("FX_JiaSu")
+                    .Parent(mTrail.transform.parent)
+                    .LocalPosition(new Vector3(0, -1f, 0))
+                    .LocalScale(10f / 3f * Vector3.one);
             }
 
             if (other.gameObject.CompareTag(Tags.GoalKeeper)) // 撞到守门员
@@ -402,6 +406,9 @@ namespace BearRun
             mMaskSpeed = Speed;
             mIsHit = true;
             Speed = 0;
+
+            Game.Instance.Sound.PlaySFX("Se_UI_Hit"); // 声音
+
             StartCoroutine(SlowAccelerate());
         }
 
