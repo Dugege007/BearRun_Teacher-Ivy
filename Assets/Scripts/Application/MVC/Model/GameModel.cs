@@ -37,8 +37,8 @@ namespace BearRun
         public BindableProperty<int> BriberyPrice = new(100);
 
         public BindableProperty<int> Level = new(1);
-        public BindableProperty<float> Exp = new(0);
-        public BindableProperty<float> LevelExp = new(100);
+        public BindableProperty<int> Exp = new(0);
+        public BindableProperty<int> LevelExp = new(100);
         #endregion
 
         #region  Ù–‘

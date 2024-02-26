@@ -32,26 +32,41 @@ namespace BearRun
             // 基本数据
             mGameModel.Distance.RegisterWithInitValue(distance =>
             {
-                DistanceCountText.text = distance + "m";
+                DistanceCountText.text = "距离：" + distance + "m";
 
             }).UnRegisterWhenGameObjectDestroyed(gameObject);
 
             mGameModel.Coin.RegisterWithInitValue(coin =>
             {
-                CoinCountText.text = "$" + coin;
+                CoinCountText.text = "金币：$" + coin;
 
             }).UnRegisterWhenGameObjectDestroyed(gameObject);
 
             mGameModel.GoalCount.RegisterWithInitValue(goal =>
             {
-                BallCountText.text = goal + "个";
+                BallCountText.text = "进球：" + goal + "个";
+
+            }).UnRegisterWhenGameObjectDestroyed(gameObject);
+
+            mGameModel.Score.RegisterWithInitValue(score =>
+            {
+                mGameModel.Exp.Value = score;
 
             }).UnRegisterWhenGameObjectDestroyed(gameObject);
 
             // 经验
             mGameModel.Exp.RegisterWithInitValue(exp =>
             {
-                ExpSlider.value = exp / mGameModel.LevelExp.Value;
+                if (exp > mGameModel.Level.Value * 100)
+                {
+                    // 消耗经验值
+                    exp -= mGameModel.Level.Value * 100;
+                    // 升级
+                    mGameModel.Level.Value++;
+                    mGameModel.LevelExp.Value = mGameModel.Level.Value * 100;
+                }
+
+                ExpSlider.value = (float)exp / mGameModel.LevelExp.Value;
                 ExpText.text = exp + "/" + mGameModel.LevelExp.Value;
 
             }).UnRegisterWhenGameObjectDestroyed(gameObject);
