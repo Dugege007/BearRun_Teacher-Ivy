@@ -21384,6 +21384,53 @@ MonoBehaviour:
   MultiplyInfo: {fileID: 555223089}
   MagnetInfo: {fileID: 520685698}
   SlowDownInfo: {fileID: 1941146593}
+--- !u!1 &2096869697
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2096869698}
+  - component: {fileID: 2096869699}
+  m_Layer: 0
+  m_Name: PatternManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2096869698
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2096869697}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2096869699
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2096869697}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3104706422eeceb4d9e32500f2498496, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PatternPrograms:
+  - PatternItems: []
+  - PatternItems: []
 --- !u!1 &2106098704
 GameObject:
   m_ObjectHideFlags: 0
@@ -21810,3 +21857,4 @@ SceneRoots:
   - {fileID: 1023521973}
   - {fileID: 631954486}
   - {fileID: 2075929195}
+  - {fileID: 2096869698}
