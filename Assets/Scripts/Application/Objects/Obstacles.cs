@@ -33,8 +33,7 @@ namespace BearRun
                 .Position(pos + Vector3.up * 0.5f);
 
             // ªÿ ’
-            //Game.Instance.PoolManager.Recycle(gameObject);
-            Destroy(gameObject);
+            Game.Instance.PoolManager.Recycle(gameObject);
         }
     }
 }
