@@ -56317,6 +56317,7 @@ GameObject:
   - component: {fileID: 6747505860246130255}
   - component: {fileID: 703207260275603641}
   - component: {fileID: 5868102293252685904}
+  - component: {fileID: 2492025821939115580}
   m_Layer: 0
   m_Name: Pattern_4
   m_TagString: Road
@@ -56388,6 +56389,18 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 20, y: 20, z: 5}
   m_Center: {x: 0, y: 5, z: 165}
+--- !u!114 &2492025821939115580
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7431564021630792212}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ffbe3c61243abb34b83c7614b33bf0e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7434029879611216107
 GameObject:
   m_ObjectHideFlags: 0

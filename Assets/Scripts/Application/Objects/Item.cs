@@ -39,8 +39,7 @@ namespace BearRun
             mIsBlock = true;
 
             //TODO ªÿ ’
-            //Game.Instance.ObjectPool.Recycle(gameObject);
-            Destroy(gameObject);
+            Game.Instance.PoolManager.Recycle(gameObject);
         }
     }
 }
