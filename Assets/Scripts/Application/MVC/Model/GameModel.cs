@@ -33,6 +33,12 @@ namespace BearRun
 
         public BindableProperty<bool> CanGoal = new(false);
         public BindableProperty<float> GoalTime = new(1.5f);
+
+        public BindableProperty<int> BriberyPrice = new(100);
+
+        public BindableProperty<int> Level = new(1);
+        public BindableProperty<float> Exp = new(0);
+        public BindableProperty<float> LevelExp = new(100);
         #endregion
 
         #region  Ù–‘
@@ -70,6 +76,12 @@ namespace BearRun
 
             CanGoal.Value = false;
             GoalTime.Value = 1.5f;
+
+            BriberyPrice.Value = 100;
+
+            Level.Value = 1;
+            Exp.Value = 0;
+            LevelExp.Value = 100;
         }
 
         public bool GamePlaying()

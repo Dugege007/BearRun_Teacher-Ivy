@@ -1,4 +1,5 @@
-﻿
+﻿using QFramework;
+
 namespace BearRun
 {
     public class EndGameController : Controller
@@ -9,6 +10,8 @@ namespace BearRun
             gameModel.IsPlaying.Value = false;
 
             //TODO 显示游戏结束UI
+            UIGameOver uiGameOver = GetView<UIGameOver>();
+            uiGameOver.Show();
         }
     }
 }
