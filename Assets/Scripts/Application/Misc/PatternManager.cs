@@ -19,7 +19,7 @@ namespace BearRun
         public List<PatternItem> PatternItems = new List<PatternItem>();
     }
 
-    public class PatternManager : MonoBehaviour
+    public class PatternManager : MonoSingleton<PatternManager>
     {
         public List<PatternProgram> PatternPrograms = new List<PatternProgram>();
     }

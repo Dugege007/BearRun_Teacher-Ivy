@@ -24,6 +24,9 @@ namespace BearRun
                 .Parent(mParent.transform);
 
             mRoadNext.transform.position += new Vector3(0, 0, 160f);
+
+            AddItem(mRoadNow);
+            AddItem(mRoadNext);
         }
 
         private void OnTriggerEnter(Collider other)
@@ -49,7 +52,35 @@ namespace BearRun
                 .Position(mRoadNow.transform.position + new Vector3(0, 0, 160f));
 
             // 生成新的游戏对象
+            AddItem(mRoadNext);
+        }
 
+        // 生成障碍物
+        public void AddItem(GameObject obj)
+        {
+            Transform itemChild = obj.transform.Find("ItemHolder");
+            if (itemChild != null)
+            {
+                var patternManager = PatternManager.Instance;
+                if (patternManager != null
+                    && patternManager.PatternPrograms != null
+                    && patternManager.PatternPrograms.Count > 0)
+                {
+                    var pattern = patternManager.PatternPrograms[Random.Range(0, patternManager.PatternPrograms.Count)];
+                    if (pattern != null 
+                        && pattern.PatternItems != null 
+                        && pattern.PatternItems.Count > 0)
+                    {
+                        foreach ( var item in pattern.PatternItems )
+                        {
+                            Game.Instance.PoolManager.Allocate<ReusableObject>(item.PrefabName)
+                                .Parent(itemChild)
+                                .LocalPosition(item.Position)
+                                .Show();
+                        }
+                    }
+                }
+            }
         }
     }
 }
