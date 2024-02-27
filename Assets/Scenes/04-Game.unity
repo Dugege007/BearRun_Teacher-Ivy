@@ -21148,27 +21148,216 @@ MonoBehaviour:
     - PrefabName: Block_Ai
       Position: {x: 0, y: 0, z: 0}
     - PrefabName: Block_Ai_Yellow
-      Position: {x: -2, y: 0, z: 5}
+      Position: {x: 2, y: 0, z: 8}
     - PrefabName: Block_Big
-      Position: {x: 2, y: 0, z: 10}
+      Position: {x: 0, y: 0, z: 12}
     - PrefabName: Block_Car_Move
-      Position: {x: 0, y: 0, z: 40}
-    - PrefabName: Block_Car_Static
-      Position: {x: -2, y: 0, z: 80}
-    - PrefabName: Block_Gao_Yellow
-      Position: {x: 0, y: 0, z: 20}
-    - PrefabName: Block_JiZhuangXiangFloorBlue
       Position: {x: -2, y: 0, z: 25}
+    - PrefabName: Block_Car_Static
+      Position: {x: 0, y: 0, z: 45}
+    - PrefabName: Block_Gao_Yellow
+      Position: {x: 2, y: 0, z: 36}
+    - PrefabName: Block_JiZhuangXiangFloorBlue
+      Position: {x: 2, y: 0, z: 56}
     - PrefabName: Block_JiZhuangXiangFloorBrown
-      Position: {x: 2, y: 0, z: 60}
-    - PrefabName: Block_JiZhuangXiangFloorGreen
-      Position: {x: -1, y: 0, z: 120}
-    - PrefabName: Block_JiZhuangXiangFloorOrange
-      Position: {x: 2, y: 0, z: 150}
+      Position: {x: -2, y: 0, z: 38}
+    - PrefabName: Block_RandomModelLateralRun
+      Position: {x: 2, y: 0, z: 64}
     - PrefabName: Block_Zhong
-      Position: {x: -2, y: 0, z: 75}
+      Position: {x: 0, y: 0, z: 66}
     - PrefabName: Block_Zhong_Yellow
-      Position: {x: 2, y: 0, z: 110}
+      Position: {x: 0, y: 0, z: 75}
+    - PrefabName: Block_Ai
+      Position: {x: -2, y: 0, z: 84}
+    - PrefabName: Block_Ai_Yellow
+      Position: {x: 2, y: 0, z: 88}
+    - PrefabName: Block_Gao_Yellow
+      Position: {x: -2, y: 0, z: 109.2}
+    - PrefabName: Block_Car_Move
+      Position: {x: 2, y: 0, z: 145}
+    - PrefabName: Block_JiZhuangXiangFloorGreen
+      Position: {x: -2, y: 0, z: 135}
+    - PrefabName: Block_Gao_Yellow
+      Position: {x: 2, y: 0, z: 130}
+    - PrefabName: Block_Zhong
+      Position: {x: 0, y: 0, z: 125}
+    - PrefabName: Block_Zhong_Yellow
+      Position: {x: -2, y: 0, z: 150}
+    - PrefabName: Coin
+      Position: {x: 0, y: 0, z: 3}
+    - PrefabName: Coin
+      Position: {x: 2, y: 0, z: 18.08}
+    - PrefabName: Coin
+      Position: {x: -2, y: 0, z: 44.39}
+    - PrefabName: Coin
+      Position: {x: 0, y: 0, z: 6}
+    - PrefabName: Coin
+      Position: {x: 2, y: 0, z: 21.08}
+    - PrefabName: Coin
+      Position: {x: -2, y: 0, z: 47.39}
+    - PrefabName: Coin
+      Position: {x: 0, y: 0, z: 9}
+    - PrefabName: Coin
+      Position: {x: 2, y: 0, z: 24.08}
+    - PrefabName: Coin
+      Position: {x: -2, y: 0, z: 50.39}
+    - PrefabName: Coin
+      Position: {x: 2, y: 0, z: 72.06}
+    - PrefabName: Coin
+      Position: {x: -2, y: 0, z: 91.05}
+    - PrefabName: Coin
+      Position: {x: 0, y: 0, z: 112.32}
+    - PrefabName: Coin
+      Position: {x: 0, y: 0, z: 137.11}
+    - PrefabName: Coin
+      Position: {x: 2, y: 0, z: 75.06}
+    - PrefabName: Coin
+      Position: {x: -2, y: 0, z: 94.05}
+    - PrefabName: Coin
+      Position: {x: 0, y: 0, z: 115.32}
+    - PrefabName: Coin
+      Position: {x: 0, y: 0, z: 140.11}
+    - PrefabName: Coin
+      Position: {x: 2, y: 0, z: 78.06}
+    - PrefabName: Coin
+      Position: {x: -2, y: 0, z: 97.05}
+    - PrefabName: Coin
+      Position: {x: 0, y: 0, z: 118.32}
+    - PrefabName: Coin
+      Position: {x: 0, y: 0, z: 143.11}
+    - PrefabName: Coin
+      Position: {x: 2, y: 0, z: 81.06}
+    - PrefabName: Coin
+      Position: {x: -2, y: 0, z: 100.05}
+    - PrefabName: Coin
+      Position: {x: 0, y: 0, z: 146.11}
+    - PrefabName: Item_AddTime
+      Position: {x: 0, y: 0, z: 155}
+    - PrefabName: Item_Magnet
+      Position: {x: 0, y: 0, z: 86.02}
+    - PrefabName: Item_Multiply
+      Position: {x: -2, y: 0, z: -3}
+    - PrefabName: Item_ShootGoal
+      Position: {x: 0, y: 0, z: 121.93}
+  - PatternItems:
+    - PrefabName: Block_Ai
+      Position: {x: 0, y: 0, z: 0}
+    - PrefabName: Block_Ai_Yellow
+      Position: {x: 0, y: 0, z: 36}
+    - PrefabName: Block_Car_Move
+      Position: {x: -2, y: 0, z: 34}
+    - PrefabName: Block_Car_Static
+      Position: {x: 2, y: 0, z: 85}
+    - PrefabName: Block_JiZhuangXiangFloorBlue
+      Position: {x: 0, y: 0, z: 75}
+    - PrefabName: Block_Gao_Yellow
+      Position: {x: 2, y: 0, z: 55}
+    - PrefabName: Block_RandomModelLateralRun
+      Position: {x: 0, y: 0, z: 98}
+    - PrefabName: Block_JiZhuangXiangFloorOrange
+      Position: {x: 2, y: 0, z: 120}
+    - PrefabName: Block_Zhong
+      Position: {x: -2, y: 0, z: 102}
+    - PrefabName: Block_Zhong_Yellow
+      Position: {x: -2, y: 0, z: 150}
+    - PrefabName: Block_JiZhuangXiangFloorBlue
+      Position: {x: 2, y: 0, z: 18}
+    - PrefabName: Block_JiZhuangXiangFloorGreen
+      Position: {x: -2, y: 0, z: 55}
+    - PrefabName: Coin
+      Position: {x: 0, y: 0, z: 0}
+    - PrefabName: Coin
+      Position: {x: 0, y: 0, z: 23.79}
+    - PrefabName: Coin
+      Position: {x: 2, y: 0, z: 43.53}
+    - PrefabName: Coin
+      Position: {x: 0, y: 0, z: 56.78}
+    - PrefabName: Coin
+      Position: {x: -2, y: 0, z: 80.56}
+    - PrefabName: Coin
+      Position: {x: 0, y: 0, z: 104.5}
+    - PrefabName: Coin
+      Position: {x: -2, y: 0, z: 116.51}
+    - PrefabName: Coin
+      Position: {x: 2, y: 0, z: 130.07}
+    - PrefabName: Coin
+      Position: {x: 0, y: 0, z: 3}
+    - PrefabName: Coin
+      Position: {x: 0, y: 0, z: 26.79}
+    - PrefabName: Coin
+      Position: {x: 2, y: 0, z: 46.53}
+    - PrefabName: Coin
+      Position: {x: 0, y: 0, z: 59.78}
+    - PrefabName: Coin
+      Position: {x: -2, y: 0, z: 83.56}
+    - PrefabName: Coin
+      Position: {x: 0, y: 0, z: 107.5}
+    - PrefabName: Coin
+      Position: {x: -2, y: 0, z: 119.51}
+    - PrefabName: Coin
+      Position: {x: 2, y: 0, z: 133.07}
+    - PrefabName: Coin
+      Position: {x: 0, y: 0, z: 6}
+    - PrefabName: Coin
+      Position: {x: 0, y: 0, z: 29.79}
+    - PrefabName: Coin
+      Position: {x: 2, y: 0, z: 49.53}
+    - PrefabName: Coin
+      Position: {x: 0, y: 0, z: 62.78}
+    - PrefabName: Coin
+      Position: {x: -2, y: 0, z: 86.56}
+    - PrefabName: Coin
+      Position: {x: 0, y: 0, z: 110.5}
+    - PrefabName: Coin
+      Position: {x: -2, y: 0, z: 122.51}
+    - PrefabName: Coin
+      Position: {x: 2, y: 0, z: 136.07}
+    - PrefabName: Coin
+      Position: {x: 0, y: 0, z: 9}
+    - PrefabName: Coin
+      Position: {x: 0, y: 0, z: 32.79}
+    - PrefabName: Coin
+      Position: {x: 2, y: 0, z: 52.53}
+    - PrefabName: Coin
+      Position: {x: 0, y: 0, z: 65.78}
+    - PrefabName: Coin
+      Position: {x: -2, y: 0, z: 89.56}
+    - PrefabName: Coin
+      Position: {x: 0, y: 0, z: 113.5}
+    - PrefabName: Coin
+      Position: {x: -2, y: 0, z: 125.51}
+    - PrefabName: Coin
+      Position: {x: 2, y: 0, z: 139.07}
+    - PrefabName: Coin
+      Position: {x: 2, y: 2.32, z: 15}
+    - PrefabName: Coin
+      Position: {x: -2, y: 2.32, z: 52}
+    - PrefabName: Coin
+      Position: {x: 0, y: 2.32, z: 71.98}
+    - PrefabName: Coin
+      Position: {x: 2, y: 2.32, z: 117.18}
+    - PrefabName: Coin
+      Position: {x: 2, y: 2.32, z: 18}
+    - PrefabName: Coin
+      Position: {x: -2, y: 2.32, z: 55}
+    - PrefabName: Coin
+      Position: {x: 0, y: 2.32, z: 74.98}
+    - PrefabName: Coin
+      Position: {x: 2, y: 2.32, z: 120.18}
+    - PrefabName: Coin
+      Position: {x: 2, y: 2.32, z: 21}
+    - PrefabName: Coin
+      Position: {x: -2, y: 2.32, z: 58}
+    - PrefabName: Coin
+      Position: {x: 0, y: 2.32, z: 77.98}
+    - PrefabName: Coin
+      Position: {x: 2, y: 2.32, z: 123.18}
+    - PrefabName: Item_Magnet
+      Position: {x: 0, y: 0, z: 16.780756}
+    - PrefabName: Item_Multiply
+      Position: {x: 0, y: 0, z: 38.94}
+    - PrefabName: Item_ShootGoal
+      Position: {x: 0, y: 0, z: 145}
 --- !u!1 &2106098704
 GameObject:
   m_ObjectHideFlags: 0
